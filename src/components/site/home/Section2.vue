@@ -34,7 +34,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-layout justify-end>
-                      <v-btn class="mx-2" fab dark small color="primary">
+                      <v-btn class="mx-2" fab dark small color="primary" @click="setEnDev(true)">
                         <v-icon dark>mdi-plus</v-icon>
                       </v-btn>
                     </v-layout>
@@ -59,7 +59,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-layout justify-end>
-                      <v-btn class="mx-2" fab dark small color="primary">
+                      <v-btn class="mx-2" fab dark small color="primary" @click="setEnDev(true)">
                         <v-icon dark>mdi-plus</v-icon>
                       </v-btn>
                     </v-layout>
@@ -84,7 +84,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-layout justify-end>
-                      <v-btn class="mx-2" fab dark small color="primary">
+                      <v-btn class="mx-2" fab dark small color="primary" @click="setEnDev(true)">
                         <v-icon dark>mdi-plus</v-icon>
                       </v-btn>
                     </v-layout>
@@ -100,8 +100,14 @@
 </template>
 
 <script>
-export default {
+import { mapActions } from 'vuex';
 
+export default {
+  methods: {
+    ...mapActions([
+      'setEnDev',
+    ]),
+  },
 };
 </script>
 

@@ -1,9 +1,9 @@
 <template>
-  <v-app-bar color="white" fixed>
+  <v-app-bar color="primary" fixed>
     <v-container mx-auto py-0>
       <v-layout align-center>
         <v-img
-          :src="require('@/assets/logo.png')"
+          :src="require('@/assets/logo-white.png')"
           class="mr-5"
           contain
           height="48"
@@ -20,7 +20,7 @@
       small
       color="primary"
       class="ml-0 hidden-sm-and-down">
-      <span class="black--text">{{ link.text }}</span>
+      <span class="white--text">{{ link.text }}</span>
     </v-btn>
   </v-app-bar>
 </template>

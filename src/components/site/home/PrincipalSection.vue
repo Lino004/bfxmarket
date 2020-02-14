@@ -4,17 +4,18 @@
       <v-layout
         align-end
         justify-center
+        align-center
         class="white--text"
       >
         <v-card color="transparent"
                 class="white--text"
                 width="300"
                 flat>
-          <v-img
+          <!-- <v-img
             :src="require('@/assets/logo.png')"
             class="mr-5"
             contain
-            height="200"/>
+            height="200"/> -->
           <h1 class="white--text mb-2 display-1">
             Blue FxMarket <br> Incorporation
           </h1>

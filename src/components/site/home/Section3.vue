@@ -21,6 +21,7 @@
             <div class="text-center">
               <v-btn
                 color="primary"
+                @click="setEnDev(true)"
               >
                 En savoir plus
               </v-btn>
@@ -33,8 +34,14 @@
 </template>
 
 <script>
-export default {
+import { mapActions } from 'vuex';
 
+export default {
+  methods: {
+    ...mapActions([
+      'setEnDev',
+    ]),
+  },
 };
 </script>
 

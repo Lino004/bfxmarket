@@ -3,7 +3,7 @@
     <v-container mx-auto py-0>
       <v-layout align-center>
         <v-img
-          :src="require('@/assets/logo-white.png')"
+          :src="require('@/assets/img/logo-white.png')"
           class="mr-5"
           contain
           height="48"

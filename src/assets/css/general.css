@@ -1,0 +1,10 @@
+
+.blueTranp {
+  background-color: #268dfb80;
+}
+.border-blue{
+  border: 4px solid #268dfb;
+}
+html{
+  overflow: auto !important;
+}

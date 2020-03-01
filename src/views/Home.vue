@@ -1,27 +1,29 @@
 <template>
   <v-app light>
-    <TopBar/>
-    <v-content>
-      <PrincipalSection/>
+    <video-bg :sources="[require('@/assets/video/video001.mp4')]" img="demo/assets/bg.jpg">
+      <TopBar/>
+      <v-content>
+        <PrincipalSection/>
 
-      <Section2/>
+        <Section2/>
 
-      <Section3/>
+        <Section3/>
 
-      <Section4/>
-    </v-content>
-    <v-footer color="blue darken-2">
-      <v-layout row wrap align-center>
-        <v-flex xs12>
-          <div class="white--text ml-4">
-            Made with
-            <v-icon class="red--text">heart</v-icon>
-            by <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a>
-            and <a class="white--text" href="https://github.com/vwxyzjn">Costa Huang</a>
-          </div>
-        </v-flex>
-      </v-layout>
-    </v-footer>
+        <Section4/>
+      </v-content>
+      <v-footer color="blue darken-2">
+        <v-layout row wrap align-center>
+          <v-flex xs12>
+            <div class="white--text ml-4">
+              Made with
+              <v-icon class="red--text">heart</v-icon>
+              by <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a>
+              and <a class="white--text" href="https://github.com/vwxyzjn">Costa Huag</a>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-footer>
+    </video-bg>
   </v-app>
 </template>
 

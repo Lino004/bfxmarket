@@ -10,7 +10,6 @@
           >
             <v-slide-group
               v-model="model"
-              center-active
               show-arrows
             >
               <v-slide-item
@@ -25,21 +24,23 @@
                     @click="toggle"
                   >
 
-                    <v-img width="200" :src="require('@/assets/contact01.jpg')">
-                      <v-expand-transition>
-                        <div
-                          v-if="hover"
-                          class="`d-flex transition-fast-in-fast-out
-                                  blueTranp v-card--reveal`"
-                          style="height: 100%;"
-                        >
-                          <v-container>
-                            <v-row align="center" justify="center" class="white--text">
-                              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dict</p>
-                            </v-row>
-                          </v-container>
-                        </div>
-                      </v-expand-transition>
+                    <v-img width="200" :src="require('@/assets/img/contact01.jpg')">
+                      <div
+                        class="d-flex v-card--reveal"
+                        :class="{'border-blue': hover}"
+                        style="height: 100%;"
+                        v-if="hover"
+                      >
+                          <v-row
+                            class="fill-height"
+                            align="start"
+                            justify="end"
+                          >
+                            <v-btn tile depressed small color="primary">
+                              <v-icon class="mr-2">mdi-plus</v-icon>
+                            </v-btn>
+                          </v-row>
+                      </div>
                     </v-img>
                   </v-card>
                 </v-hover>

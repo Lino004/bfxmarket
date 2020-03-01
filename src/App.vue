@@ -42,5 +42,7 @@ export default {
 </script>
 
 <style>
-@import url('./assets/general.css');
+@import url('./assets/css/general.css');
+@import url('./assets/css/elementor.css');
+@import url('./assets/css/video.css');
 </style>

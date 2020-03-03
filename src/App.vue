@@ -43,6 +43,7 @@ export default {
 
 <style>
 @import url('./assets/css/general.css');
+@import url('./assets/css/form.css');
 @import url('./assets/css/elementor.css');
 @import url('./assets/css/video.css');
 </style>

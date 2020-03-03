@@ -10,8 +10,10 @@
         <Section3/>
 
         <Section4/>
+
+        <Section5/>
       </v-content>
-      <v-footer color="blue darken-2">
+      <v-footer color="primary">
         <v-layout row wrap align-center>
           <v-flex xs12>
             <div class="white--text ml-4">
@@ -33,6 +35,7 @@ import PrincipalSection from '@/components/site/home/PrincipalSection.vue';
 import Section2 from '@/components/site/home/Section2.vue';
 import Section3 from '@/components/site/home/Section3.vue';
 import Section4 from '@/components/site/home/Section4.vue';
+import Section5 from '@/components/site/home/Section5.vue';
 
 export default {
   name: 'home',
@@ -42,6 +45,7 @@ export default {
     Section2,
     Section3,
     Section4,
+    Section5,
   },
   data() {
     return {};

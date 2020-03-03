@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="primary" fixed>
+  <v-app-bar fixed class="bg-blue-grad">
     <v-container mx-auto py-0>
       <v-layout align-center>
         <v-img

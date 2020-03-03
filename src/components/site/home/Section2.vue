@@ -3,13 +3,15 @@
     <v-layout
       column
       wrap
-      class="my-12 pb-4 white"
+      class="py-10 bg-blue-grad-5"
       align-center
     >
       <v-flex xs12 sm4 class="my-4">
-        <div class="text-center" v-animate-css="'fadeInDownBig'">
-          <h2 class="headline">Profitez en 3 étapes toutes simples!</h2>
-          <span class="subheading">
+        <div class="text-center" v-animate-css="'fadeInDown'">
+          <h2 class="headline font-weight-bold white--text">
+            Profitez en 3 étapes toutes simples!
+          </h2>
+          <span class="subheading white--text">
             Rien de plus facile
           </span>
         </div>
@@ -20,7 +22,7 @@
             <v-flex xs12 sm4>
               <v-layout justify-center>
                 <v-hover v-slot:default="{ hover }">
-                  <v-card class="transparent pb-2"
+                  <v-card class="pb-5 pr-2"
                           :elevation="hover ? 12 : 2"
                           max-width="300"
                           v-animate-css="{
@@ -53,7 +55,7 @@
             <v-flex xs12 sm4>
               <v-layout justify-center>
                 <v-hover v-slot:default="{ hover }">
-                  <v-card class="transparent pb-2 mx-2"
+                  <v-card class="pb-5 pr-2 mx-2"
                           :elevation="hover ? 12 : 2"
                           max-width="300"
                           v-animate-css="{
@@ -86,7 +88,7 @@
             <v-flex xs12 sm4>
               <v-layout justify-center>
                 <v-hover v-slot:default="{ hover }">
-                  <v-card class="transparent pb-2"
+                  <v-card class="pb-5 pr-2"
                           :elevation="hover ? 12 : 2"
                           max-width="300"
                           v-animate-css="{

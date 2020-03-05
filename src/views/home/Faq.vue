@@ -6,11 +6,16 @@
       min-height="10vh">
       <v-container fill-height>
         <v-row>
-          <v-col cols="12" class="d-bloc justify-center">
+          <v-col cols="12" md="4" class="hidden-sm-and-down">
             <h2 class="title primary--text">
               FAQ
             </h2>
             <v-breadcrumbs class="pl-0 pt-2" :items="items"/>
+          </v-col>
+          <v-col cols="12" md="4" class="d-flex align-center justify-center">
+            <h2 class="headline text-center font-weight-bold">
+              Questions frequemment posées
+            </h2>
           </v-col>
         </v-row>
       </v-container>
@@ -20,9 +25,6 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <h2 class="title font-weight-black text-center pb-8">
-              Questions frequemment posées
-            </h2>
             <v-row justify="center">
               <v-expansion-panels flat>
                 <v-expansion-panel

@@ -1,0 +1,11 @@
+.elementor-shape-bottom {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.fill-blue{
+    fill: #268dfb;
+}
+.fill-white{
+    fill: white;
+}

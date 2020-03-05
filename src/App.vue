@@ -3,8 +3,7 @@
     <router-view></router-view>
     <v-snackbar
       v-model="isEnDev"
-      top
-      :color="'primary'"
+      bottom
     >
       <p>Developpement en cours...</p>
     </v-snackbar>
@@ -40,3 +39,10 @@ export default {
   mounted() {},
 };
 </script>
+
+<style>
+@import url('./assets/css/general.css');
+@import url('./assets/css/form.css');
+@import url('./assets/css/elementor.css');
+@import url('./assets/css/video.css');
+</style>

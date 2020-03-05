@@ -1,102 +1,122 @@
 <template>
-  <section>
+  <section class="bg-blue-grad-5" :style="`height: ${s4Height};`">
     <v-container grid-list-xl>
-      <v-layout row wrap justify-center class="my-12">
-        <v-flex xs12 sm4>
-          <v-card flat class="transparent">
-            <v-card-title primary-title class="layout justify-center">
-              <div class="headline">Company info</div>
-            </v-card-title>
-            <v-card-text>
-              Cras facilisis mi vitae nunc lobortis pharetra.
-              Nulla volutpat tincidunt ornare.
-              Pellentesque habitant morbi tristique senectus
-              et netus et malesuada fames ac turpis egestas.
-              Nullam in aliquet odio. Aliquam eu est vitae
-              tellus bibendum tincidunt. Suspendisse potenti.
-            </v-card-text>
-          </v-card>
-        </v-flex>
-        <v-flex xs12 sm4 offset-sm1>
-          <v-card flat class="transparent">
-            <v-card-title primary-title class="layout justify-center">
-              <div class="headline">Contact us</div>
-            </v-card-title>
-            <v-card-text>
-              Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-            </v-card-text>
-            <v-list class="transparent">
-              <v-list-item>
-                <v-list-item-action>
-                  <v-icon class="blue--text text--lighten-2">phone</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title>777-867-5309</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-action>
-                  <v-icon class="blue--text text--lighten-2">mdi-bus-marker</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title>Chicago, US</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-action>
-                  <v-icon class="blue--text text--lighten-2">email</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title>john@vuetifyjs.com</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <!-- <v-layout row wrap justify-center class="my-12">
-        <v-sheet
-          class="mx-auto"
-          elevation="8"
-          max-width="800"
-        >
-          <v-slide-group
-            v-model="model"
-            class="pa-4"
-            center-active
-            show-arrows
-          >
-            <v-slide-item
-              v-for="n in 15"
-              :key="n"
-              v-slot:default="{ active, toggle }"
+      <div class="text-center" v-animate-css="'fadeInDown'">
+        <h2 class="headline font-weight-bold white--text">Avis des clients</h2>
+      </div>
+      <v-layout row wrap justify-center>
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated fadeIn"
+          leave-active-class="animated fadeOut"
+          mode="out-in"
+          :duration="500"
+          appear>
+          <v-flex xs12 sm-4 v-if="!isClick" key="visible">
+            <v-sheet
+              color="transparent"
+              class="mx-auto"
+              max-width="800"
             >
-              <v-card
-                :color="active ? 'primary' : 'grey lighten-1'"
-                class="ma-4"
-                height="400"
-                width="200"
-                @click="toggle"
+              <v-slide-group
+                v-model="model"
+                show-arrows
               >
-                <v-row
-                  class="fill-height"
-                  align="center"
-                  justify="center"
+                <v-slide-item
+                  v-for="(client, i) in clients"
+                  :key="i"
+                  v-slot:default="{ active, toggle }"
                 >
-                  <v-scale-transition>
-                    <v-icon
-                      v-if="active"
-                      color="white"
-                      size="48"
-                      v-text="'mdi-close-circle-outline'"
-                    ></v-icon>
-                  </v-scale-transition>
-                </v-row>
-              </v-card>
-            </v-slide-item>
-          </v-slide-group>
-        </v-sheet>
-      </v-layout> -->
+                  <v-hover v-slot:default="{ hover }">
+                    <v-card
+                      class="ma-4"
+                      width="200"
+                      @click="toggle"
+                    >
+
+                      <v-img width="200" :src="require('@/assets/img/contact01.jpg')">
+                        <div
+                          class="d-flex v-card--reveal"
+                          :class="{'border-blue': hover}"
+                          style="height: 100%;"
+                          v-if="hover"
+                        >
+                            <v-row
+                              class="fill-height"
+                              align="start"
+                              justify="end"
+                            >
+                              <v-btn
+                                tile
+                                depressed
+                                small
+                                color="primary"
+                                @click="isClick = !isClick">
+                                <v-icon class="mr-2">mdi-plus</v-icon>
+                              </v-btn>
+                            </v-row>
+                        </div>
+                      </v-img>
+                    </v-card>
+                  </v-hover>
+                </v-slide-item>
+              </v-slide-group>
+            </v-sheet>
+          </v-flex>
+          <v-flex xs12 sm-4 v-else key="invisible">
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="3"
+                  class="text-center d-none d-md-flex"
+                >
+                  <img :src="require('@/assets/img/contact01.jpg')"
+                    height="300">
+                </v-col>
+                <v-col>
+                  <v-row
+                    align="center"
+                    justify="start"
+                    style="height: 100%; position: relative;"
+                  >
+                    <v-card
+                      outlined
+                      tile
+                      color="transparent"
+                      class="white--text"
+                    >
+                      <v-card-title>title</v-card-title>
+                      <v-card-subtitle class="white--text">v-card-subtitle</v-card-subtitle>
+                      <v-card-text class="white--text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                        similique dignissimos odit sunt labore commodi repellendus
+                        ipsum iure pariatur. <br>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                        similique dignissimos odit sunt labore commodi repellendus
+                        ipsum iure pariatur.
+                      </v-card-text>
+                    </v-card>
+                    <v-btn
+                      color="red"
+                      dark
+                      small
+                      absolute
+                      top
+                      right
+                      @click="isClick = !isClick"
+                    >
+                      <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-flex>
+        </transition>
+      </v-layout>
     </v-container>
   </section>
 </template>
@@ -105,7 +125,82 @@
 export default {
   data: () => ({
     model: null,
+    clients: [
+      {
+        srcImg: '@/assets/img/contact01.jpg',
+        name: 'Polette DUPONT',
+        status: 'Trader Maser',
+        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur. <br>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur.`,
+      },
+      {
+        srcImg: '@/assets/img/contact01.jpg',
+        name: 'Polette DUPONT',
+        status: 'Trader Maser',
+        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur. <br>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur.`,
+      },
+      {
+        srcImg: '@/assets/img/contact01.jpg',
+        name: 'Polette DUPONT',
+        status: 'Trader Maser',
+        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur. <br>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur.`,
+      },
+      {
+        srcImg: '@/assets/img/contact01.jpg',
+        name: 'Polette DUPONT',
+        status: 'Trader Maser',
+        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur. <br>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
+                  similique dignissimos odit sunt labore commodi repellendus
+                  ipsum iure pariatur.`,
+      },
+    ],
+    isClick: false,
   }),
+  computed: {
+    currentClient() {
+      if (this.model) return this.clients[this.model];
+      return {
+        srcImg: '',
+        name: '',
+        status: '',
+        comment: '',
+      };
+    },
+    s4Height() {
+      if (this.isClick) {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return '500px';
+          default: return '400px';
+        }
+      }
+      return '400px';
+    },
+  },
 };
 </script>
 

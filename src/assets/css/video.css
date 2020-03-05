@@ -1,4 +1,4 @@
 .VideoBg__content{
-    overflow: auto;
+    overflow: hidden auto;
     background-color: rgba(0, 0, 0, 0.6);
 }

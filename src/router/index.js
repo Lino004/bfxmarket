@@ -1,23 +1,37 @@
 import Vue from 'vue';
 import goTo from 'vuetify/es5/services/goto';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Bfx from '@/views/home/index.vue';
+import Home from '@/views/home/Home.vue';
+import Faq from '@/views/home/Faq.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: Home,
+    path: '*',
+    redirect: '/',
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/',
+    redirect: '/bluefxmarker',
+  },
+  {
+    path: '/bluefxmarker',
+    name: '',
+    component: Bfx,
+    children: [
+      {
+        path: '',
+        name: 'bfx-home',
+        component: Home,
+      },
+      {
+        path: 'faq',
+        name: 'bfx-faq',
+        component: Faq,
+      },
+    ],
   },
 ];
 

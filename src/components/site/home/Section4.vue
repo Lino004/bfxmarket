@@ -2,7 +2,7 @@
   <section class="bg-blue-grad-5" :style="`height: ${s4Height};`">
     <v-container grid-list-xl>
       <div class="text-center" v-animate-css="'fadeInDown'">
-        <h2 class="headline font-weight-bold white--text">Avis des clients {{breakpoint}}</h2>
+        <h2 class="headline font-weight-bold white--text">Avis des clients</h2>
       </div>
       <v-layout row wrap justify-center>
         <transition
@@ -199,9 +199,6 @@ export default {
         }
       }
       return '400px';
-    },
-    breakpoint() {
-      return this.$vuetify.breakpoint.name;
     },
   },
 };

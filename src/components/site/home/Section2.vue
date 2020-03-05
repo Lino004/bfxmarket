@@ -55,7 +55,7 @@
             <v-flex xs12 sm4>
               <v-layout justify-center>
                 <v-hover v-slot:default="{ hover }">
-                  <v-card class="pb-5 pr-2 mx-2"
+                  <v-card :class="`pb-5 pr-2 ${margeAuto}`"
                           :elevation="hover ? 12 : 2"
                           max-width="300"
                           v-animate-css="{
@@ -138,11 +138,20 @@ export default {
       },
     };
   },
+  computed: {
+    margeAuto() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 'my-2';
+        default: return 'mx-2';
+      }
+    },
+  },
   methods: {
     ...mapActions([
       'setEnDev',
     ]),
   },
+  mounted() {},
 };
 </script>
 

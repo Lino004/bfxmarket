@@ -4,7 +4,6 @@
     <v-snackbar
       v-model="isEnDev"
       bottom
-      color="#0ae915"
     >
       <p>Developpement en cours...</p>
     </v-snackbar>

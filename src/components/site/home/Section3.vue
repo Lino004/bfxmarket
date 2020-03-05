@@ -3,7 +3,7 @@
     <v-layout column align-center justify-center
     class="py-12">
       <v-row justify="center" align="center">
-        <v-col cols="8">
+        <v-col cols="10">
           <div class="headline mb-4 text-center font-weight-bold">
             Qui Sommes-Nous?
           </div>

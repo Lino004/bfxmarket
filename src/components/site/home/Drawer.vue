@@ -67,7 +67,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import menu from '@/services/menu';
-import ModalAuth from '@/components/site/home/ModalAuth.vue';
+import ModalAuth from '@/components/site/auth/ModalAuth.vue';
 
 export default {
   components: {

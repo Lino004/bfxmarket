@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Bfx from '@/views/home/index.vue';
 import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
+import Guide from '@/views/home/Guide.vue';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
         path: 'faq',
         name: 'bfx-faq',
         component: Faq,
+      },
+      {
+        path: 'guide-trading',
+        name: 'bfx-guide',
+        component: Guide,
       },
     ],
   },

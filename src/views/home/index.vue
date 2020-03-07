@@ -5,10 +5,10 @@
       <div>
         <Drawer/>
         <TopBar/>
-          <v-content v-resize="onResize" :style="`min-height: ${minHeight}px`">
-            <router-view/>
-          </v-content>
-          <Footer/>
+        <v-content v-resize="onResize" :style="`min-height: ${minHeight}px`">
+          <router-view/>
+        </v-content>
+        <Footer/>
       </div>
     </video-bg>
   </v-app>

@@ -42,9 +42,8 @@
 
         <v-list-item-content>
           <ModalAuth
-            custum-class="black--text"
-            :type="'connexion'"
-            justify="start"/>
+            custum-class="black--text px-0"
+            :type="'connexion'"/>
         </v-list-item-content>
       </v-list-item>
 
@@ -55,9 +54,8 @@
 
         <v-list-item-content>
           <ModalAuth
-            custum-class="black--text"
-            :type="'inscription'"
-            justify="start"/>
+            custum-class="black--text px-0"
+            :type="'inscription'"/>
         </v-list-item-content>
       </v-list-item>
     </v-list>

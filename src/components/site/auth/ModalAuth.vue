@@ -1,5 +1,5 @@
 <template>
-  <v-row :justify="justify">
+  <div>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
         <v-btn
@@ -24,7 +24,7 @@
       <Connexion @annuler="dialog = false"  v-if="type === 'connexion'"/>
       <Inscription @annuler="dialog = false" v-if="type === 'inscription'"/>
     </v-dialog>
-  </v-row>
+  </div>
 </template>
 
 <script>
@@ -37,10 +37,6 @@ export default {
     custumClass: {
       type: String,
       default: '',
-    },
-    justify: {
-      type: String,
-      default: 'center',
     },
   },
   components: {

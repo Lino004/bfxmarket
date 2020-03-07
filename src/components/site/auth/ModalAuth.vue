@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import Connexion from '@/components/site/home/auth/Connexion.vue';
-import Inscription from '@/components/site/home/auth/Inscription.vue';
+import Connexion from '@/components/site/auth/Connexion.vue';
+import Inscription from '@/components/site/auth/Inscription.vue';
 
 export default {
   props: {

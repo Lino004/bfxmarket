@@ -9,4 +9,9 @@ export default [
     to: { name: 'bfx-faq' },
     icon: 'mdi-frequently-asked-questions',
   },
+  {
+    text: 'Guide trading',
+    to: { name: 'bfx-guide' },
+    icon: 'mdi-book',
+  },
 ];

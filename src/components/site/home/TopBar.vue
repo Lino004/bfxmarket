@@ -29,8 +29,8 @@
       class="mx-4 hidden-sm-and-down"
       vertical
     ></v-divider>
-    <ModalAuth justify="" custum-class="mx-2 hidden-sm-and-down" :type="'connexion'"/>
-    <ModalAuth justify="" custum-class="mx-2 hidden-sm-and-down" :type="'inscription'"/>
+    <ModalAuth custum-class="hidden-sm-and-down" :type="'connexion'"/>
+    <ModalAuth custum-class="hidden-sm-and-down" :type="'inscription'"/>
     <v-btn
       color="white"
       text

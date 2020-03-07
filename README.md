@@ -1,4 +1,4 @@
-# site
+# BfxMarket
 
 ## Project setup
 ```

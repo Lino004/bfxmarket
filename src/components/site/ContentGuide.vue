@@ -11,15 +11,29 @@
         <v-card flat>
           <v-card-text>
             <v-row class="mb-4" align="center">
-              <v-avatar color="grey" class="mr-4"></v-avatar>
-              <strong class="title">Title {{ n }}</strong>
+              <strong class="title ml-3">Title {{ n }}</strong>
               <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-account</v-icon>
+              <v-btn icon @click="drawer = !drawer">
+                <v-icon>mdi-menu</v-icon>
               </v-btn>
+              <v-navigation-drawer v-if="drawer"
+                v-model="drawer"
+                absolute
+                mobile-break-point="2710"
+              >
+                <v-list>
+                  <v-list-item
+                    v-for="(n, i) in length"
+                    :key="i"
+                    @click="onboarding = n - 1"
+                  >
+                    <v-list-item-title>Title {{ n }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-navigation-drawer>
             </v-row>
 
-            <v-sheet>
+            <v-sheet class="textguideScroll">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua.
@@ -66,25 +80,6 @@
             >
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
-            <v-item-group
-              v-model="onboarding"
-              class="text-center"
-              mandatory
-            >
-              <v-item
-                v-for="n in length"
-                :key="`btn-${n}`"
-                v-slot:default="{ active, toggle }"
-              >
-                <v-btn
-                  :input-value="active"
-                  icon
-                  @click="toggle"
-                >
-                  <v-icon>mdi-record</v-icon>
-                </v-btn>
-              </v-item>
-            </v-item-group>
             <v-btn
               text
               @click="next"
@@ -104,6 +99,7 @@ export default {
     length: 3,
     onboarding: 0,
     isClick: false,
+    drawer: false,
   }),
   methods: {
     next() {
@@ -115,15 +111,6 @@ export default {
       this.onboarding = this.onboarding - 1 < 0
         ? this.length - 1
         : this.onboarding - 1;
-    },
-    s4Height() {
-      if (this.isClick) {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return '500px';
-          default: return '400px';
-        }
-      }
-      return '400px';
     },
   },
 };

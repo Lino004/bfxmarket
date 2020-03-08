@@ -1,6 +1,6 @@
 <template>
-  <v-row :justify="justify">
-    <v-dialog v-model="dialog" persistent max-width="600px">
+  <v-row>
+    <v-dialog v-model="dialog" persistent max-width="800px">
       <template v-slot:activator="{ on }">
         <v-btn
           dark

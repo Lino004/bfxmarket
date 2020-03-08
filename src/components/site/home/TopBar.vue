@@ -29,8 +29,24 @@
       class="mx-4 hidden-sm-and-down"
       vertical
     ></v-divider>
-    <ModalAuth custum-class="hidden-sm-and-down" :type="'connexion'"/>
-    <ModalAuth custum-class="hidden-sm-and-down" :type="'inscription'"/>
+    <ModalAuth v-if="!user"
+      justify=""
+      custum-class="mx-2 hidden-sm-and-down" :type="'connexion'"/>
+    <ModalAuth v-if="!user"
+      justify=""
+      custum-class="mx-2 hidden-sm-and-down" :type="'inscription'"/>
+    <div class="hidden-sm-and-down">
+      <div class="d-flex justify-center align-center">
+        <v-btn text color="white">
+          {{ userName }}
+        </v-btn>
+        <v-avatar color="grey">
+          <span class="white--text headline">
+            {{ userAbb }}
+          </span>
+        </v-avatar>
+      </div>
+    </div>
     <v-btn
       color="white"
       text
@@ -59,7 +75,20 @@ export default {
     ...mapGetters([
       'valueScrollVideo',
       'drawer',
+      'user',
     ]),
+    userName() {
+      if (this.user) {
+        return `${this.user.nom.split(' ')[0]} ${this.user.prenom.split(' ')[0]}`;
+      }
+      return '';
+    },
+    userAbb() {
+      if (this.user) {
+        return `${this.user.nom[0]} ${this.user.prenom[0]}`;
+      }
+      return '';
+    },
   },
   methods: {
     ...mapActions([

@@ -26,12 +26,12 @@
         <v-row>
           <v-col cols="12">
             <v-row justify="center">
-              <v-expansion-panels flat>
+              <v-expansion-panels >
                 <v-expansion-panel
                   v-for="(item,i) in 10"
                   :key="i"
                 >
-                  <v-expansion-panel-header class="border-blue-btm">Item</v-expansion-panel-header>
+                  <v-expansion-panel-header>Item</v-expansion-panel-header>
                   <v-expansion-panel-content>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -62,6 +62,7 @@ export default {
         disabled: true,
       },
     ],
+    snackbar: false,
   }),
 };
 </script>

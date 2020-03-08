@@ -10,6 +10,7 @@ export default new Vuex.Store({
     sizeFooter: null,
     valueScrollVideo: null,
     drawer: false,
+    user: null,
   },
   mutations: {
     SET_EN_DEV(state, val) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     SET_DRAWER(state, val) {
       state.drawer = val;
+    },
+    SET_USER(state, val) {
+      state.user = val;
     },
   },
   actions: {
@@ -44,6 +48,10 @@ export default new Vuex.Store({
     setDrawer(context, val) {
       context.commit('SET_DRAWER', val);
     },
+    setUser(context, val) {
+      localStorage.setItem('user', JSON.stringify(val));
+      context.commit('SET_USER', val);
+    },
   },
   getters: {
     enDev: state => state.enDev,
@@ -51,6 +59,7 @@ export default new Vuex.Store({
     sizeFooter: state => state.sizeFooter,
     valueScrollVideo: state => state.valueScrollVideo,
     drawer: state => state.drawer,
+    user: state => state.user,
   },
   modules: {
   },

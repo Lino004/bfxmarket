@@ -4,8 +4,9 @@
     <v-snackbar
       v-model="isEnDev"
       bottom
+      :color="'info'"
     >
-      <p>Developpement en cours...</p>
+      Developpement en cours...
     </v-snackbar>
   </div>
 </template>
@@ -34,15 +35,21 @@ export default {
   methods: {
     ...mapActions([
       'setEnDev',
+      'setUser',
     ]),
+    verifUser() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) this.setUser(user);
+    },
   },
-  mounted() {},
+  mounted() {
+    this.verifUser();
+  },
 };
 </script>
 
 <style>
 @import url('./assets/css/general.css');
-@import url('./assets/css/form.css');
 @import url('./assets/css/elementor.css');
 @import url('./assets/css/video.css');
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog v-model="dialog" persistent max-width="800px">
       <template v-slot:activator="{ on }">
         <v-btn
           dark

@@ -34,7 +34,7 @@
 
     <v-divider></v-divider>
 
-    <v-list dense>
+    <v-list dense v-if="!user">
       <v-list-item link>
         <v-list-item-icon>
           <v-icon>mdi-login</v-icon>
@@ -59,6 +59,18 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+
+    <v-list dense v-else>
+      <v-list-item link>
+        <v-list-item-avatar color="grey">
+          <span> {{userAbb}} </span>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <span> {{userName.toUpperCase()}} </span>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
   </v-navigation-drawer>
 </template>
 
@@ -79,7 +91,20 @@ export default {
   computed: {
     ...mapGetters([
       'drawer',
+      'user',
     ]),
+    userName() {
+      if (this.user) {
+        return `${this.user.nom.split(' ')[0]} ${this.user.prenom.split(' ')[0]}`;
+      }
+      return '';
+    },
+    userAbb() {
+      if (this.user) {
+        return `${this.user.nom[0]} ${this.user.prenom[0]}`;
+      }
+      return '';
+    },
     useDrawer: {
       get() {
         return this.drawer;

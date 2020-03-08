@@ -21,3 +21,7 @@ html{
 .border-blue-btm{
   border-bottom: 1px solid #268dfb;
 }
+.textguideScroll{
+  height: 50vh;
+  overflow-y:auto;
+}

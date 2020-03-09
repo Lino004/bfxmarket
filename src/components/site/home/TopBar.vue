@@ -35,7 +35,7 @@
     <ModalAuth v-if="!user"
       justify=""
       custum-class="mx-2 hidden-sm-and-down" :type="'inscription'"/>
-    <div class="hidden-sm-and-down">
+    <div class="hidden-sm-and-down" v-else>
       <div class="d-flex justify-center align-center">
         <v-btn text color="white">
           {{ userName }}

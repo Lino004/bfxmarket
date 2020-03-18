@@ -93,6 +93,7 @@ export default {
   methods: {
     ...mapActions([
       'setSizeTopBar',
+
       'setDrawer',
     ]),
     onResize() {

@@ -3,7 +3,7 @@
     tile
     :elevation="0"
     min-height="10vh"
-    color="grey darken-2">
+    color="grey lighten-2">
     <v-container fill-height>
       <v-row>
         <v-col cols="12" md="4" class="hidden-sm-and-down">
@@ -13,7 +13,7 @@
           <v-breadcrumbs light class="pl-0 pt-2" :items="breadcrumbs"/>
         </v-col>
         <v-col cols="12" md="5" class="d-flex align-center justify-center">
-          <h2 class="display-1 text-center white--text font-weight-bold text-uppercase">
+          <h2 class="display-1 text-center font-weight-bold text-uppercase">
             {{title}}
           </h2>
         </v-col>

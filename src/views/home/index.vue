@@ -1,16 +1,13 @@
 <template>
   <v-app light>
-    <video-bg :sources="[videoSrc]"
-      :img="require('@/assets/img/stock.jpg')">
-      <div>
-        <Drawer/>
-        <TopBar/>
-        <v-content v-resize="onResize" :style="`min-height: ${minHeight}px`">
-          <router-view/>
-        </v-content>
-        <Footer/>
-      </div>
-    </video-bg>
+    <div>
+      <Drawer/>
+      <TopBar/>
+      <v-content v-resize="onResize" :style="`min-height: ${minHeight}px`">
+        <router-view/>
+      </v-content>
+      <Footer/>
+    </div>
   </v-app>
 </template>
 
@@ -68,19 +65,8 @@ export default {
     onScroll(e) {
       this.setValueScrollVideo(e.target.scrollTop);
     },
-    addEvent() {
-      const element = document.querySelector('.VideoBg__content');
-      element.addEventListener('scroll', this.onScroll);
-    },
-    removeEvent() {
-      const element = document.querySelector('.VideoBg__content');
-      element.removeEventListener('scroll', this.onScroll);
-    },
   },
-  mounted() {
-    this.onResize();
-    this.addEvent();
-  },
+  mounted() {},
   destroyed() {
 
   },

@@ -1,26 +1,6 @@
 <template>
   <div style="min-height: 100%" class="bg-white-5">
-    <v-sheet
-      tile
-      :elevation="0"
-      min-height="10vh">
-      <v-container fill-height>
-        <v-row>
-          <v-col cols="12" md="4" class="hidden-sm-and-down">
-            <h2 class="title primary--text">
-              FAQ
-            </h2>
-            <v-breadcrumbs class="pl-0 pt-2" :items="items"/>
-          </v-col>
-          <v-col cols="12" md="4" class="d-flex align-center justify-center">
-            <h2 class="headline text-center font-weight-bold">
-              Questions frequemment posées
-            </h2>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-sheet>
-      <!-- <v-img :src="require('@/assets/img/stock.jpg')" max-height="20vh"></v-img> -->
+    <PageTitle :breadcrumbs="breadcrumbs" title="Questions frequemment posées"/>
     <section>
       <v-container>
         <v-row>
@@ -28,15 +8,28 @@
             <v-row justify="center">
               <v-expansion-panels >
                 <v-expansion-panel
-                  v-for="(item,i) in 10"
+                  v-for="(faq,i) in dataFaq"
                   :key="i"
                 >
-                  <v-expansion-panel-header>Item</v-expansion-panel-header>
+                  <v-expansion-panel-header>
+                    <v-row align="center" justify="center">
+                      <div class="pr-3">
+                        <v-avatar
+                          left
+                          class="primary white--text"
+                          size="30">
+                          {{i+1}}
+                        </v-avatar>
+                      </div>
+                      <v-col class="pa-0">
+                        <h2 class="title pr-3">
+                          {{faq.title}}
+                        </h2>
+                      </v-col>
+                    </v-row>
+                  </v-expansion-panel-header>
                   <v-expansion-panel-content>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat.
+                    {{faq.content}}
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -49,9 +42,14 @@
 </template>
 
 <script>
+import PageTitle from '@/components/site/general/PageTitle.vue';
+
 export default {
+  components: {
+    PageTitle,
+  },
   data: () => ({
-    items: [
+    breadcrumbs: [
       {
         text: 'Accueil',
         disabled: false,
@@ -62,8 +60,51 @@ export default {
         disabled: true,
       },
     ],
+    dataFaq: [
+      {
+        title: 'Titre du contenu faq kkhug ftr tdfytc',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      {
+        title: 'Titre du contenu faq',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+    ],
     snackbar: false,
   }),
+  computed: {
+    currentPage() {
+      return this.breadcrumbs.filter(el => el.disabled).text;
+    },
+  },
 };
 </script>
 

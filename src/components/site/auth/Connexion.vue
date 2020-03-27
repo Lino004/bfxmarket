@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { create } from '@/api/auth/index';
 
 export default {
 

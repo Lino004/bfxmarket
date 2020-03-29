@@ -16,15 +16,45 @@
       </v-layout>
     </v-container>
     <v-spacer></v-spacer>
-    <v-btn
+    <div
       v-for="(link, i) in links"
-      :key="i"
-      :to="link.to"
-      text
-      small
-      class="ml-0 hidden-sm-and-down">
-      <span class="white--text">{{ link.text }}</span>
-    </v-btn>
+      :key="i">
+      <v-btn
+        :to="link.to"
+        text
+        small
+        class="ml-0 hidden-sm-and-down"
+        v-if="link.child === undefined">
+        <span class="white--text">{{ link.text }}</span>
+      </v-btn>
+     <v-menu
+        open-on-hover
+        offset-y
+        transition="scale-transition"
+        v-else
+      >
+        <template v-slot:activator="{ on }">
+          <v-btn
+            text
+            small
+            class="ml-0 hidden-sm-and-down white--text"
+            v-on="on">
+           <span class="white--text">{{ link.text }}</span>
+           <v-icon right>mdi-menu-down</v-icon>
+
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(linkChild, index) in link.child"
+            :key="index"
+            :to="linkChild.to"
+          >
+            <v-list-item-title>{{ linkChild.text }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
     <v-divider
       class="mx-4 hidden-sm-and-down"
       vertical
@@ -66,6 +96,12 @@ export default {
   data() {
     return {
       links: menu,
+      items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+      ],
     };
   },
   components: {

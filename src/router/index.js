@@ -7,6 +7,7 @@ import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
+import formation from '@/components/site/formation/formation.vue';
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,11 @@ const routes = [
         path: 'que-faisons-nous',
         name: 'bfx-faisons',
         component: QueFaisonsNous,
+      },
+      {
+        path: 'formation/:id',
+        name: 'bfx-formation',
+        component: formation,
       },
     ],
   },

@@ -6,6 +6,7 @@ import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
+import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,11 @@ const routes = [
         path: 'guide-trading',
         name: 'bfx-guide',
         component: Guide,
+      },
+      {
+        path: 'que-faisons-nous',
+        name: 'bfx-faisons',
+        component: QueFaisonsNous,
       },
     ],
   },

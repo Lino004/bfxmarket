@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { create } from '@/api/auth/index';
+// import { create } from '@/api/auth/index';
 
 export default {
 

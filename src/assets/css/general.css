@@ -1,9 +1,9 @@
 
+html{
+  overflow: hidden !important;
+}
 .border-blue{
   border: 4px solid #268dfb;
-}
-html{
-  overflow: auto !important;
 }
 .bg-white-5{
   background-color: rgba(255, 255, 255, 0.5) !important;
@@ -24,4 +24,17 @@ html{
 .textguideScroll{
   height: 50vh;
   overflow-y:auto;
+}
+.card-bg-img-black > .v-responsive__sizer {
+  background-color: rgba(0, 0, 0, 0.5) !important
+}
+.card-bg-img-grey > .v-responsive__sizer {
+  background-color: rgba(158, 158, 158, 0.5) !important
+}
+#scroll-target{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }

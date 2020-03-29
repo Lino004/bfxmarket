@@ -1,0 +1,14 @@
+.flip-card__top[data-v-72281230],
+.flip-card__bottom[data-v-72281230],
+.flip-card__back-bottom[data-v-72281230],
+.flip-card__back[data-v-72281230]::before,
+.flip-card__back[data-v-72281230]::after {
+    color: rgb(19, 199, 104) !important;
+}
+
+.flip-card__bottom[data-v-72281230],
+.flip-card__back-bottom[data-v-72281230],
+.flip-card__bottom-4digits[data-v-72281230],
+.flip-card__back-bottom-4digits[data-v-72281230] {
+    color: rgb(38, 141, 251) !important;
+}

@@ -2,27 +2,29 @@
   <section>
     <v-carousel
       show-arrows-on-hover
-      hide-delimiters>
+      :show-arrows="false"
+      hide-delimiter-background
+      cycle>
       <v-carousel-item
         v-for="(img,i) in dataCarousel"
         :key="i"
         :src="img.src"
       >
-      <v-sheet
-        color="#00000082"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="container text-center">
-            <p class="display-4 font-weight-black"> {{img.title}} </p>
-            <p class="display-2"> {{img.title}} </p>
-          </div>
-        </v-row>
-      </v-sheet>
+        <v-sheet
+          color="#00000082"
+          height="100%">
+
+          <v-row
+            class="fill-height"
+            align="center"
+            justify="center">
+            <div class="container text-center">
+              <p class="display-4 font-weight-black"> {{img.title}} </p>
+              <p class="display-2"> {{img.subtitle}} </p>
+            </div>
+          </v-row>
+
+        </v-sheet>
       </v-carousel-item>
     </v-carousel>
   </section>

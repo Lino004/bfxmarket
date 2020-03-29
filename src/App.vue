@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="scroll-target">
     <router-view></router-view>
     <v-snackbar
       v-model="isEnDev"
@@ -36,14 +36,30 @@ export default {
     ...mapActions([
       'setEnDev',
       'setUser',
+      'setValueScroll',
     ]),
     verifUser() {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user) this.setUser(user);
     },
+    onScroll(e) {
+      this.setValueScroll(e.target.scrollTop);
+    },
+    addEvent() {
+      const element = document.querySelector('#scroll-target');
+      element.addEventListener('scroll', this.onScroll);
+    },
+    removeEvent() {
+      const element = document.querySelector('#scroll-target');
+      element.removeEventListener('scroll', this.onScroll);
+    },
   },
   mounted() {
     this.verifUser();
+    this.addEvent();
+  },
+  destroyed() {
+    this.removeEvent();
   },
 };
 </script>
@@ -51,5 +67,5 @@ export default {
 <style>
 @import url('./assets/css/general.css');
 @import url('./assets/css/elementor.css');
-@import url('./assets/css/video.css');
+@import url('./assets/css/countdown.css');
 </style>

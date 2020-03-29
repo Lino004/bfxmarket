@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
-    :fixed="valueScroll > 10"
-    :flat="valueScroll < 10"
+    :fixed="valueScroll > 20"
+    :flat="valueScroll < 20"
     v-resize="onResize"
     class="bg-blue-grad topbar">
     <v-container mx-auto py-0>

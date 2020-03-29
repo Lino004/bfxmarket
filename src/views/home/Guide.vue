@@ -1,5 +1,6 @@
 <template>
   <div style="height: 100%" class="bg-white-5">
+    <PageTitle :breadcrumbs="breadcrumbs" title="Guide Trading"/>
     <v-container fill-height class="d-flex justify-center">
       <content-guide></content-guide>
     </v-container>
@@ -8,10 +9,22 @@
 
 <script>
 import ContentGuide from '@/components/site/ContentGuide.vue';
+import PageTitle from '@/components/site/general/PageTitle.vue';
 
 export default {
-  components: { ContentGuide },
+  components: { ContentGuide, PageTitle },
   data: () => ({
+    breadcrumbs: [
+      {
+        text: 'Accueil',
+        disabled: false,
+        to: '/',
+      },
+      {
+        text: 'Guide Trading',
+        disabled: true,
+      },
+    ],
   }),
   methods: {
   },

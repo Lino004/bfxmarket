@@ -3,15 +3,15 @@
     <v-layout
       column
       wrap
-      class="py-10 bg-blue-grad-5"
+      class="py-10"
       align-center
     >
       <v-flex xs12 sm4 class="my-4">
         <div class="text-center" v-animate-css="'fadeInDown'">
-          <h2 class="headline font-weight-bold white--text">
+          <h2 class="headline font-weight-bold">
             Profitez en 3 étapes toutes simples!
           </h2>
-          <span class="subheading white--text">
+          <span class="subheading">
             Rien de plus facile
           </span>
         </div>

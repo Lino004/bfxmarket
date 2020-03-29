@@ -14,4 +14,9 @@ export default [
     to: { name: 'bfx-guide' },
     icon: 'mdi-book',
   },
+  {
+    text: 'Que Faisons-nous ?',
+    to: { name: 'bfx-faisons' },
+    icon: 'mdi-book',
+  },
 ];

@@ -1,5 +1,8 @@
 <template>
-  <section class="bg-blue-grad-5" :style="`height: ${s4Height};`">
+  <section class="" :style="`height: ${s4Height};`">
+    <v-sheet color="" height="80">
+      ok
+    </v-sheet>
     <v-container grid-list-xl>
       <div class="text-center" v-animate-css="'fadeInDown'">
         <h2 class="headline font-weight-bold white--text">Avis des clients</h2>

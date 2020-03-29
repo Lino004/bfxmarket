@@ -5,6 +5,7 @@ import Bfx from '@/views/home/index.vue';
 import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
+import ComingSoon from '@/views/ComingSoon.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 
 Vue.use(VueRouter);
@@ -16,10 +17,10 @@ const routes = [
   },
   {
     path: '/',
-    redirect: '/bluefxmarker',
+    redirect: '/coming-soon',
   },
   {
-    path: '/bluefxmarker',
+    path: '/home',
     name: '',
     component: Bfx,
     children: [
@@ -44,6 +45,11 @@ const routes = [
         component: QueFaisonsNous,
       },
     ],
+  },
+  {
+    path: '/coming-soon',
+    name: 'coming-soon',
+    component: ComingSoon,
   },
 ];
 

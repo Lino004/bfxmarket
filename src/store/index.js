@@ -8,7 +8,7 @@ export default new Vuex.Store({
     enDev: false,
     sizeTopBar: null,
     sizeFooter: null,
-    valueScrollVideo: null,
+    valueScroll: null,
     drawer: false,
     user: null,
   },
@@ -22,8 +22,8 @@ export default new Vuex.Store({
     SET_SIZE_FOOTER(state, val) {
       state.sizeFooter = val;
     },
-    SET_VALUE_SCROLL_VIDEO(state, val) {
-      state.valueScrollVideo = val;
+    SET_VALUE_SCROLL(state, val) {
+      state.valueScroll = val;
     },
     SET_DRAWER(state, val) {
       state.drawer = val;
@@ -42,8 +42,8 @@ export default new Vuex.Store({
     setSizeFooter(context, val) {
       context.commit('SET_SIZE_FOOTER', val);
     },
-    setValueScrollVideo(context, val) {
-      context.commit('SET_VALUE_SCROLL_VIDEO', val);
+    setValueScroll(context, val) {
+      context.commit('SET_VALUE_SCROLL', val);
     },
     setDrawer(context, val) {
       context.commit('SET_DRAWER', val);
@@ -57,7 +57,7 @@ export default new Vuex.Store({
     enDev: state => state.enDev,
     sizeTopBar: state => state.sizeTopBar,
     sizeFooter: state => state.sizeFooter,
-    valueScrollVideo: state => state.valueScrollVideo,
+    valueScroll: state => state.valueScroll,
     drawer: state => state.drawer,
     user: state => state.user,
   },

@@ -37,12 +37,6 @@ export default {
       'sizeTopBar',
       'sizeFooter',
     ]),
-    videoSrc() {
-      /* if (this.currentRoute === 'bfx-home') {
-        return require('@/assets/video/video001.mp4'); // eslint-disable-line global-require
-      } */
-      return require('@/assets/video/video001.mp4'); // eslint-disable-line global-require
-    },
     minHeight() {
       if (!this.sizeFooter) return 0;
       if (!this.sizeTopBar) return 0;
@@ -54,7 +48,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setValueScrollVideo',
+      'setValueScroll',
     ]),
     onResize() {
       this.windowsSize = {
@@ -62,14 +56,11 @@ export default {
         y: window.innerHeight,
       };
     },
-    onScroll(e) {
-      this.setValueScrollVideo(e.target.scrollTop);
-    },
   },
-  mounted() {},
-  destroyed() {
-
+  mounted() {
+    this.onResize();
   },
+  destroyed() {},
 };
 </script>
 

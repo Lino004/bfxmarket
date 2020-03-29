@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
-    :fixed="valueScrollVideo > 10"
-    :flat="valueScrollVideo < 10"
+    :fixed="valueScroll > 10"
+    :flat="valueScroll < 10"
     v-resize="onResize"
     class="bg-blue-grad topbar">
     <v-container mx-auto py-0>
@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'valueScrollVideo',
+      'valueScroll',
       'drawer',
       'user',
     ]),
@@ -93,7 +93,6 @@ export default {
   methods: {
     ...mapActions([
       'setSizeTopBar',
-
       'setDrawer',
     ]),
     onResize() {

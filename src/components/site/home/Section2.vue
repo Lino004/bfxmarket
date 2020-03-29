@@ -9,116 +9,62 @@
       <v-flex xs12 sm4 class="my-4">
         <div class="text-center" v-animate-css="'fadeInDown'">
           <h2 class="headline font-weight-bold">
-            Profitez en 3 étapes toutes simples!
+            Profiter des meilleurs formations du moment
           </h2>
-          <span class="subheading">
-            Rien de plus facile
-          </span>
         </div>
       </v-flex>
       <v-flex xs12>
         <v-container grid-list-xl>
-          <v-layout row wrap align-start>
-            <v-flex xs12 sm4>
+          <v-row justify="space-between">
+            <v-col md="3" class="mb-3" v-for="(formation, i) in listeFormation" :key="i">
               <v-layout justify-center>
                 <v-hover v-slot:default="{ hover }">
-                  <v-card class="pb-5 pr-2"
-                          :elevation="hover ? 12 : 2"
-                          max-width="300"
-                          v-animate-css="{
-                            classes: 'zoomIn',
-                            duration: 4000,
-                          }">
-                    <v-card-text class="text-center">
-                      <v-icon x-large color="primary">
-                        mdi-numeric-1-circle
-                      </v-icon>
-                    </v-card-text>
-                    <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-center">Rejoignez-nous!</div>
-                    </v-card-title>
-                    <v-card-text>
-                      Rejoignez notre canal telegram gratuit
-                      pour bénéficier de nos signaux à plus de 90% de précision!
+                  <v-card
+                    :elevation="hover ? 12 : 2"
+                    max-width="300"
+                    v-animate-css="{
+                      classes: 'zoomIn',
+                      duration: 4000 + i * 2000,
+                    }">
+                    <v-img
+                      class="align-end"
+                      :class="formation.active ? 'white--text card-bg-img-black'
+                                               : 'grey--text card-bg-img-grey'"
+                      :src="formation.img"
+                      max-height="200"
+                    >
+                      <v-card-title class="title white--text">
+                        <v-row
+                          class="fill-height flex-column"
+                          justify="space-between"
+                        >
+                          <v-icon size="90" v-if="!formation.active">mdi-lock</v-icon>
+                          <p class="mb-0 subheading text-center"
+                             :class="{'grey--text': !formation.active}">
+                            {{ formation.title }}
+                          </p>
+                        </v-row>
+                      </v-card-title>
+                    </v-img>
+                    <v-card-text
+                      :class="formation.active ? 'black--text' : 'grey--text'">
+                      {{formation.content}}
                     </v-card-text>
                     <v-card-actions>
-                      <v-layout justify-end>
-                        <v-btn class="mx-2" fab dark small color="primary" @click="setEnDev(true)">
-                          <v-icon dark>mdi-plus</v-icon>
+                      <v-layout justify-center class="ma-2">
+                        <v-btn
+                          small
+                          :color="formation.active ? 'primary' : 'grey'"
+                          @click="setEnDev(true)">
+                          Débuter la formation
                         </v-btn>
                       </v-layout>
                     </v-card-actions>
                   </v-card>
                 </v-hover>
               </v-layout>
-            </v-flex>
-            <v-flex xs12 sm4>
-              <v-layout justify-center>
-                <v-hover v-slot:default="{ hover }">
-                  <v-card :class="`pb-5 pr-2 ${margeAuto}`"
-                          :elevation="hover ? 12 : 2"
-                          max-width="300"
-                          v-animate-css="{
-                            classes: 'zoomIn',
-                            duration: 5000,
-                          }">
-                    <v-card-text class="text-center">
-                      <v-icon x-large color="primary">
-                        mdi-numeric-2-circle
-                      </v-icon>
-                    </v-card-text>
-                    <v-card-title primary-title class="layout justify-center">
-                      <div class="headline">Copiez nos signaux!</div>
-                    </v-card-title>
-                    <v-card-text>
-                      Nous faisons tout le travail pour vous!
-                      Procédez par de simples "copier-coller" des signaux fournis!
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-layout justify-end>
-                        <v-btn class="mx-2" fab dark small color="primary" @click="setEnDev(true)">
-                          <v-icon dark>mdi-plus</v-icon>
-                        </v-btn>
-                      </v-layout>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-layout>
-            </v-flex>
-            <v-flex xs12 sm4>
-              <v-layout justify-center>
-                <v-hover v-slot:default="{ hover }">
-                  <v-card class="pb-5 pr-2"
-                          :elevation="hover ? 12 : 2"
-                          max-width="300"
-                          v-animate-css="{
-                            classes: 'zoomIn',
-                            duration: 6000,
-                          }">
-                    <v-card-text class="text-center">
-                      <v-icon x-large color="primary">
-                        mdi-numeric-3-circle
-                      </v-icon>
-                    </v-card-text>
-                    <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-center">Faites du profit!</div>
-                    </v-card-title>
-                    <v-card-text>
-                      Faites des profits énormes en prenant de
-                      faibles risques grâce à la performance de notre équipe!
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-layout justify-end>
-                        <v-btn class="mx-2" fab dark small color="primary" @click="setEnDev(true)">
-                          <v-icon dark>mdi-plus</v-icon>
-                        </v-btn>
-                      </v-layout>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-layout>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </v-flex>
     </v-layout>
@@ -136,6 +82,26 @@ export default {
         duration: 5000,
         iteration: 'infinite',
       },
+      listeFormation: [
+        {
+          title: 'Formation Débutant',
+          img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+          content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
+          active: true,
+        },
+        {
+          title: 'Formation Avancé',
+          img: 'https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+          content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
+          active: false,
+        },
+        {
+          title: 'Formation Professionnel',
+          img: 'https://images.pexels.com/photos/186464/pexels-photo-186464.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
+          content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
+          active: false,
+        },
+      ],
     };
   },
   computed: {

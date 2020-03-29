@@ -58,9 +58,7 @@ export default {
     icons: [
       'mdi-telegram',
       'mdi-facebook',
-      'mdi-twitter',
-      'mdi-linkedin',
-      'mdi-instagram',
+      'mdi-youtube',
     ],
     showFooter: true,
   }),

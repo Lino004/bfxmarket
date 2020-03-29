@@ -54,7 +54,7 @@
                       <v-layout justify-center class="ma-2">
                         <v-btn
                           small
-                          :color="formation.active ? 'primary' : 'grey'"
+                          :color="formation.active ? 'bg-blue-grad' : 'grey'"
                           @click="setEnDev(true)">
                           Débuter la formation
                         </v-btn>

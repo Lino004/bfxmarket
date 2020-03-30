@@ -70,7 +70,7 @@
         <v-btn text color="white">
           {{ userName }}
         </v-btn>
-        <v-avatar color="grey">
+        <v-avatar color="black">
           <span class="white--text headline">
             {{ userAbb }}
           </span>

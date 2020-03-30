@@ -1,7 +1,7 @@
 export default [
   {
     text: 'Accueil',
-    to: '/',
+    to: { name: 'bfx-home' },
     icon: 'mdi-home',
   },
   {

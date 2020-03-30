@@ -20,8 +20,7 @@
             <v-spacer></v-spacer>
           </v-row>
 
-          <p class="black--text mb-0">
-            {{etu.comment}}
+          <p class="black--text mb-0"  v-html="etu.comment">
           </p>
 
         </v-card-text>

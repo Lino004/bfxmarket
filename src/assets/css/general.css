@@ -38,3 +38,26 @@ html{
   width: 100%;
   position: absolute;
 }
+.bande-bg{
+  position: absolute;
+  height: 80px;
+  width: 100%;
+  border: 2px solid rgb(19, 199, 104);
+}
+.bande-bg.right{
+  clip-path: polygon(55% 0, 100% 0, 100% 100%, 50% 100%);
+}
+.bande-bg.left{
+  clip-path: polygon(0 0, 55% 0, 50% 100%, 0 100%);
+}
+.border-bande{
+  position: absolute;
+  height: 80px;
+  width: 100%;
+}
+.is-scroll{
+  overflow-y:auto;
+}
+.is-invisible-scroll::-webkit-scrollbar{
+  display: none;
+}

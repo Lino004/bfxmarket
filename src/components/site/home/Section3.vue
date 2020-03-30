@@ -1,40 +1,43 @@
 <template>
   <section class="white">
-    <v-layout column align-center justify-center
-    class="py-12">
-      <v-row justify="center" align="center">
-        <v-col cols="10">
-          <div class="headline mb-4 text-center font-weight-bold">
-            Qui Sommes-Nous?
-          </div>
-          <p class="text-center d-none d-sm-flex">
-            Nous sommes une équipe d'experts en analyse technique des marchés du Forex
-            et des Indices et aussi experts en gestion de portefeuille. Nous travaillons
-            tous les jours à dénicher les meilleures opportunités rentables sur les marchés
-            financiers tout en vous permettant de risquer le moins possible.
-          </p>
-          <p class="text-center d-sm-none">
-            Nous sommes une équipe d'experts en analyse technique des marchés du Forex
-            et des Indices et aussi experts en gestion de portefeuille.
-          </p>
-          <div class="text-center">
-            <v-btn
-              class="bg-blue-grad"
-              @click="setEnDev(true)"
-            >
-              En savoir plus
-            </v-btn>
-          </div>
+    <Bande title="Qui Sommes-Nous?"/>
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-row align="center" class="fill-height">
+            <v-col class="text-center">
+              <p class="mb-0">
+                Incididunt aliqua aute aute sunt velit commodo sunt eu in quis.
+                In reprehenderit esse veniam consequat cupidatat ad esse veniam
+                cupidatat consectetur. Tempor proident magna occaecat commodo fugiat
+                laborum sit ex esse tempor adipisicing. Ad veniam voluptate pariatur
+                culpa consectetur.
+              </p>
+              <v-btn
+                small
+                color="bg-blue-grad my-2"
+                @click="setEnDev(true)">
+                En savoir plus
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="12" sm="6" class="d-none d-sm-flex">
+          <v-row justify="center" class="fill-height">
+            <v-img src="https://image.flaticon.com/icons/png/512/32/32441.png" max-width="250"></v-img>
+          </v-row>
         </v-col>
       </v-row>
-    </v-layout>
+    </v-container>
   </section>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import Bande from '@/components/site/general/Bande.vue';
 
 export default {
+  components: { Bande },
   methods: {
     ...mapActions([
       'setEnDev',

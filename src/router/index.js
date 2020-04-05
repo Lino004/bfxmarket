@@ -5,9 +5,10 @@ import Bfx from '@/views/home/index.vue';
 import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
-import ComingSoon from '@/views/ComingSoon.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import formation from '@/components/site/formation/formation.vue';
+import modules from '@/components/site/formation/module.vue';
+import chapitre from '@/components/site/formation/chapitre.vue';
 
 Vue.use(VueRouter);
 
@@ -18,7 +19,7 @@ const routes = [
   },
   {
     path: '/',
-    redirect: '/coming-soon',
+    redirect: '/home',
   },
   {
     path: '/home',
@@ -46,16 +47,21 @@ const routes = [
         component: QueFaisonsNous,
       },
       {
-        path: 'formation/:id',
+        path: 'formation/:idFormation',
         name: 'bfx-formation',
         component: formation,
       },
+      {
+        path: 'formation/:idFormation/module/:idModule',
+        name: 'bfx-module',
+        component: modules,
+      },
+      {
+        path: 'formation/:idFormation/module/:idModule/chapitre/:idChapitre',
+        name: 'bfx-chapitre',
+        component: chapitre,
+      },
     ],
-  },
-  {
-    path: '/coming-soon',
-    name: 'coming-soon',
-    component: ComingSoon,
   },
 ];
 

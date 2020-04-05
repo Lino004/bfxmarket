@@ -1,9 +1,9 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" title="Que fait WFX School ?"/>
+     <PageTitle :breadcrumbs="breadcrumbs" title="Chapitre 1"/>
      <section>
         <v-container fill-height>
-            <h1>Titre de ce que nous faisons1</h1>
+            <h1>Titre du chapitre</h1>
             <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
             Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
@@ -69,7 +69,17 @@ export default {
         to: '/',
       },
       {
-        text: 'Que Faisons nous',
+        text: 'Formation',
+        disabled: false,
+        to: 'formation/1',
+      },
+      {
+        text: 'Module',
+        disabled: false,
+        to: 'formation/1/module/1',
+      },
+      {
+        text: 'Chapitre',
         disabled: true,
       },
     ],

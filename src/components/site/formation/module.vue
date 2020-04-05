@@ -1,15 +1,30 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.nameFormation"/>
+     <PageTitle :breadcrumbs="breadcrumbs" :title="modules.nameModule"/>
      <section>
-        <v-container fill-height v-html="formation.content">
+        <v-container fill-height v-html="modules.content">
+        </v-container>
+        <v-container>
+            <v-row class="justify-space-between">
+                <v-col md="1">
+                    <v-btn icon color="black">
+                        <v-icon>mdi-chevron-left</v-icon>
+                    </v-btn>
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col md="1" class="align-end">
+                    <v-btn icon color="black">
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-btn>
+                </v-col>
+            </v-row>
         </v-container>
         <v-container>
           <v-row justify="space-between">
-            <v-col md="3" class="mb-3" v-for="(module, i) in modules" :key="i">
+            <v-col md="3" class="mb-3" v-for="(chapitre, i) in chapitres" :key="i">
               <CardImg
-                :data="module"
-                dataBtn="Démarrer le module"
+                :data="chapitre"
+                dataBtn="Lire le chapitre"
                 :index="i"
                 @action="startFormation"/>
             </v-col>
@@ -34,12 +49,17 @@ export default {
       },
       {
         text: 'Formation',
+        disabled: false,
+        to: { name: 'bfx-formation', params: { idFormation: 1 } },
+      },
+      {
+        text: 'Modules',
         disabled: true,
       },
     ],
-    formation: {
-      nameFormation: 'Formation Débutante',
-      content: `<h1>Titre de ce que nous faisons1</h1>
+    modules: {
+      nameModule: 'Module 1',
+      content: `<h1>Titre du module</h1>
             <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
             Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
@@ -56,21 +76,27 @@ export default {
             Maecenas adipiscing ante non diam sodales hendrerit.
             </p>`,
     },
-    modules: [
+    chapitres: [
       {
-        title: 'Module 1',
+        title: 'Chapitre 1',
         img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
         content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
         active: true,
       },
       {
-        title: 'Module 2',
+        title: 'Chapitre 2',
         img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
         content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
         active: true,
       },
       {
-        title: 'Module 3',
+        title: 'Chapitre 3',
+        img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+        content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
+        active: true,
+      },
+      {
+        title: 'Chapitre 4',
         img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
         content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
         active: true,
@@ -79,7 +105,7 @@ export default {
   }),
   methods: {
     startFormation() {
-      return this.$router.push({ name: 'bfx-module', params: { idModule: 1 } });
+      return this.$router.push({ name: 'bfx-chapitre' });
     },
   },
 };

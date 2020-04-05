@@ -25,17 +25,17 @@ export default [
     child: [
       {
         text: 'Formation Débutant',
-        to: { name: 'bfx-formation', params: { id: 1 } },
+        to: { name: 'bfx-formation', params: { idFormation: 1 } },
         icon: 'mdi-book',
       },
       {
         text: 'Formation Avancée',
-        to: { name: 'bfx-formation', params: { id: 2 } },
+        to: { name: 'bfx-formation', params: { idFormation: 2 } },
         icon: 'mdi-book',
       },
       {
         text: 'Formation Professionnelle',
-        to: { name: 'bfx-formation', params: { id: 3 } },
+        to: { name: 'bfx-formation', params: { idFormation: 3 } },
         icon: 'mdi-book',
       },
     ],

@@ -1,136 +1,44 @@
 <template>
-  <section class="" :style="`height: ${s4Height};`">
-    <v-sheet color="" height="80">
-      ok
-    </v-sheet>
-    <v-container grid-list-xl>
-      <div class="text-center" v-animate-css="'fadeInDown'">
-        <h2 class="headline font-weight-bold white--text">Avis des clients</h2>
-      </div>
-      <v-layout row wrap justify-center>
-        <transition
-          name="custom-classes-transition"
-          enter-active-class="animated fadeIn"
-          leave-active-class="animated fadeOut"
-          mode="out-in"
-          :duration="500"
-          appear>
-          <v-flex xs12 sm-4 v-if="!isClick" key="visible">
-            <v-sheet
-              color="transparent"
-              class="mx-auto"
-              max-width="800"
-            >
-              <v-slide-group
-                v-model="model"
-                show-arrows
-              >
-                <v-slide-item
-                  v-for="(client, i) in clients"
-                  :key="i"
-                  v-slot:default="{ active, toggle }"
+  <section class="" >
+    <Bande position="right" title="Avis des étudiants"/>
+    <v-container class="is-scroll is-invisible-scroll my-5" :style="`max-height: ${s4Height};`">
+      <v-card flat v-for="(etu, index) in etudiants" :key="index">
+        <v-card-text>
+          <v-row class="mb-4" align="center">
+            <v-avatar color="black" class="mr-4">
+               <img
+                  v-if="etu.img"
+                  :src="etu.img"
                 >
-                  <v-hover v-slot:default="{ hover }">
-                    <v-card
-                      class="ma-4"
-                      width="200"
-                      @click="toggle"
-                    >
+              <span
+                v-else
+                class="white--text headline">
+                {{ userAbb(etu.name) }}
+              </span>
+            </v-avatar>
+            <strong class="title">{{ etu.name }}</strong>
+            <v-spacer></v-spacer>
+          </v-row>
 
-                      <v-img width="200" :src="require('@/assets/img/contact01.jpg')">
-                        <div
-                          class="d-flex v-card--reveal"
-                          :class="{'border-blue': hover}"
-                          style="height: 100%;"
-                          v-if="hover"
-                        >
-                            <v-row
-                              class="fill-height"
-                              align="start"
-                              justify="end"
-                            >
-                              <v-btn
-                                tile
-                                depressed
-                                small
-                                color="primary"
-                                @click="isClick = !isClick">
-                                <v-icon class="mr-2">mdi-plus</v-icon>
-                              </v-btn>
-                            </v-row>
-                        </div>
-                      </v-img>
-                    </v-card>
-                  </v-hover>
-                </v-slide-item>
-              </v-slide-group>
-            </v-sheet>
-          </v-flex>
-          <v-flex xs12 sm-4 v-else key="invisible">
-            <v-container>
-              <v-row>
-                <v-col
-                  cols="12"
-                  sm="3"
-                  class="text-center d-none d-md-flex"
-                >
-                  <img :src="require('@/assets/img/contact01.jpg')"
-                    height="300">
-                </v-col>
-                <v-col>
-                  <v-row
-                    align="center"
-                    justify="start"
-                    style="height: 100%; position: relative;"
-                  >
-                    <v-card
-                      outlined
-                      tile
-                      color="transparent"
-                      class="white--text"
-                    >
-                      <v-card-title>title</v-card-title>
-                      <v-card-subtitle class="white--text">v-card-subtitle</v-card-subtitle>
-                      <v-card-text class="white--text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                        similique dignissimos odit sunt labore commodi repellendus
-                        ipsum iure pariatur. <br>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                        similique dignissimos odit sunt labore commodi repellendus
-                        ipsum iure pariatur.
-                      </v-card-text>
-                    </v-card>
-                    <v-btn
-                      color="red"
-                      dark
-                      small
-                      absolute
-                      top
-                      right
-                      @click="isClick = !isClick"
-                    >
-                      <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-flex>
-        </transition>
-      </v-layout>
+          <p class="black--text mb-0"  v-html="etu.comment">
+          </p>
+
+        </v-card-text>
+      </v-card>
     </v-container>
   </section>
 </template>
 
 <script>
+import Bande from '@/components/site/general/Bande.vue';
+
 export default {
+  components: { Bande },
   data: () => ({
     model: null,
-    clients: [
+    etudiants: [
       {
-        srcImg: '@/assets/img/contact01.jpg',
+        img: 'https://blog-fr.orson.io/wp-content/uploads/2017/06/jpeg-ou-png.jpg',
         name: 'Polette DUPONT',
         status: 'Trader Maser',
         comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -143,7 +51,7 @@ export default {
                   ipsum iure pariatur.`,
       },
       {
-        srcImg: '@/assets/img/contact01.jpg',
+        img: '',
         name: 'Polette DUPONT',
         status: 'Trader Maser',
         comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -156,7 +64,7 @@ export default {
                   ipsum iure pariatur.`,
       },
       {
-        srcImg: '@/assets/img/contact01.jpg',
+        img: '',
         name: 'Polette DUPONT',
         status: 'Trader Maser',
         comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -169,7 +77,7 @@ export default {
                   ipsum iure pariatur.`,
       },
       {
-        srcImg: '@/assets/img/contact01.jpg',
+        img: '',
         name: 'Polette DUPONT',
         status: 'Trader Maser',
         comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -186,9 +94,9 @@ export default {
   }),
   computed: {
     currentClient() {
-      if (this.model) return this.clients[this.model];
+      if (this.model) return this.etudiants[this.model];
       return {
-        srcImg: '',
+        img: '',
         name: '',
         status: '',
         comment: '',
@@ -202,6 +110,15 @@ export default {
         }
       }
       return '400px';
+    },
+  },
+  methods: {
+    userAbb(name) {
+      if (name) {
+        const split = name.split(' ');
+        return split[0][0] + split[1][0];
+      }
+      return '';
     },
   },
 };

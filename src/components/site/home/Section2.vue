@@ -17,52 +17,11 @@
         <v-container grid-list-xl>
           <v-row justify="space-between">
             <v-col md="3" class="mb-3" v-for="(formation, i) in listeFormation" :key="i">
-              <v-layout justify-center>
-                <v-hover v-slot:default="{ hover }">
-                  <v-card
-                    :elevation="hover ? 12 : 2"
-                    max-width="300"
-                    v-animate-css="{
-                      classes: 'zoomIn',
-                      duration: 4000 + i * 2000,
-                    }">
-                    <v-img
-                      class="align-end"
-                      :class="formation.active ? 'white--text card-bg-img-black'
-                                               : 'grey--text card-bg-img-grey'"
-                      :src="formation.img"
-                      max-height="200"
-                    >
-                      <v-card-title class="title white--text">
-                        <v-row
-                          class="fill-height flex-column"
-                          justify="space-between"
-                        >
-                          <v-icon size="90" v-if="!formation.active">mdi-lock</v-icon>
-                          <p class="mb-0 subheading text-center"
-                             :class="{'grey--text': !formation.active}">
-                            {{ formation.title }}
-                          </p>
-                        </v-row>
-                      </v-card-title>
-                    </v-img>
-                    <v-card-text
-                      :class="formation.active ? 'black--text' : 'grey--text'">
-                      {{formation.content}}
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-layout justify-center class="ma-2">
-                        <v-btn
-                          small
-                          :color="formation.active ? 'primary' : 'grey'"
-                          @click="setEnDev(true)">
-                          Débuter la formation
-                        </v-btn>
-                      </v-layout>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-layout>
+              <CardImg
+                :data="formation"
+                :index="i"
+                dataBtn="Débuter la formation"
+                @action="setEnDev(true)"/>
             </v-col>
           </v-row>
         </v-container>
@@ -73,15 +32,12 @@
 
 <script>
 import { mapActions } from 'vuex';
+import CardImg from '@/components/site/general/CardImg.vue';
 
 export default {
+  components: { CardImg },
   data() {
     return {
-      animationInfinite: {
-        classes: 'fadeIn',
-        duration: 5000,
-        iteration: 'infinite',
-      },
       listeFormation: [
         {
           title: 'Formation Débutant',
@@ -104,14 +60,7 @@ export default {
       ],
     };
   },
-  computed: {
-    margeAuto() {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs': return 'my-2';
-        default: return 'mx-2';
-      }
-    },
-  },
+  computed: {},
   methods: {
     ...mapActions([
       'setEnDev',

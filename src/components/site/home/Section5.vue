@@ -1,6 +1,7 @@
 <template>
   <section class="white">
     <v-container grid-list-xl>
+      <v-divider></v-divider>
       <v-layout row wrap justify-center>
         <v-flex xs12 sm-4>
           <v-row>

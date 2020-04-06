@@ -238,7 +238,6 @@ export default {
     createLoading: false,
     valueSnack: false,
     colorSnack: '',
-    colorBtnSnack: '',
     message: '',
   }),
   computed: {},

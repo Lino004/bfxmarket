@@ -40,11 +40,20 @@
         <v-btn text color="white">
           {{ userName }}
         </v-btn>
-        <v-avatar color="black">
-          <span class="white--text headline">
-            {{ userAbb }}
-          </span>
-        </v-avatar>
+        <v-menu offset-y open-on-hover>
+          <template v-slot:activator="{ on }">
+            <v-avatar color="grey" v-on="on">
+              <span class="white--text headline">
+                {{ userAbb }}
+              </span>
+            </v-avatar>
+          </template>
+          <v-list>
+            <v-list-item @click="setUser(false)">
+              <v-list-item-title>Déconnexion</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
     </div>
     <v-btn
@@ -94,6 +103,7 @@ export default {
     ...mapActions([
       'setSizeTopBar',
       'setDrawer',
+      'setUser',
     ]),
     onResize() {
       this.setSizeTopBar({

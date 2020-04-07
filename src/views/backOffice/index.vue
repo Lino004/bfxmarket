@@ -4,80 +4,40 @@
       v-model="drawer"
       app
     >
-      <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <v-list-item>
+        <v-list-item-avatar  class="bg-blue-grad">
+          <v-img :src="require('@/assets/img/logo-white.png')"/>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>Wfx School</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+      <Drawer/>
     </v-navigation-drawer>
 
     <v-app-bar
       app
-      color="indigo"
-      dark
+      class="bg-blue-grad topbar px-4"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>Tableau de bord</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
       <v-container
         class="fill-height"
         fluid
+        style="align-items: start;"
       >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col class="text-center">
-            <v-tooltip left>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/zgxeLQ"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-codepen</v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
-          </v-col>
-        </v-row>
+        <router-view/>
       </v-container>
     </v-content>
+
     <v-footer
-      color="indigo"
+      class="bg-blue-grad topbar px-4"
       app
     >
       <span class="white--text">&copy; 2019</span>
@@ -86,9 +46,11 @@
 </template>
 
 <script>
+import Drawer from '@/components/backOffice/Drawer.vue';
+
 export default {
-  props: {
-    source: String,
+  components: {
+    Drawer,
   },
   data: () => ({
     drawer: null,

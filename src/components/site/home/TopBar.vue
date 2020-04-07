@@ -3,7 +3,7 @@
     :fixed="valueScroll > 20"
     :flat="valueScroll < 20"
     v-resize="onResize"
-    class="bg-blue-grad topbar">
+    class="bg-blue-grad topbar px-4">
     <v-container mx-auto py-0>
       <v-layout align-center>
         <v-img

@@ -73,9 +73,7 @@
                 color="transparent"
               >
                 <div class="ml-6">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Similique minima voluptatum corporis sit quod! Ad debitis
-                  vel laudantium sed molestiae.
+                  {{info.intro}}
                 </div>
                 <v-list two-line>
                   <v-list-item>
@@ -84,7 +82,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>Adresse</v-list-item-title>
-                      <v-list-item-subtitle>123 Business Avenue, Hoston, BJ</v-list-item-subtitle>
+                      <v-list-item-subtitle>{{info.adresse}}</v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
 
@@ -94,7 +92,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>Contact</v-list-item-title>
-                      <v-list-item-subtitle>123456789</v-list-item-subtitle>
+                      <v-list-item-subtitle>{{info.contact}}</v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
 
@@ -104,7 +102,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>Email</v-list-item-title>
-                      <v-list-item-subtitle>bluefxmarket@blue.com</v-list-item-subtitle>
+                      <v-list-item-subtitle>{{info.email}}</v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -118,9 +116,39 @@
 </template>
 
 <script>
+import db from '@/plugins/firebase';
+
 export default {
-  data: () => ({}),
-  methods: {},
+  data: () => ({
+    ref: 'info-contact/',
+    info: {
+      intro: '',
+      adresse: '',
+      contact: '',
+      email: '',
+    },
+  }),
+  methods: {
+    update() {
+      if (!this.info.intro || !this.info.adresse || !this.info.contact || !this.info.email) return '';
+      db.ref(this.ref).update({ ...this.info });
+      this.dialog = false;
+      return '';
+    },
+    get() {
+      db.ref(this.ref).on('value', (snap) => {
+        if (snap.val()) {
+          this.info = snap.val();
+        }
+      });
+    },
+  },
+  mounted() {
+    this.get();
+  },
+  destroyed() {
+    db.ref(this.ref).off();
+  },
 };
 </script>
 

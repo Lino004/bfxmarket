@@ -10,6 +10,7 @@ import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
 import BackOffice from '@/views/backOffice/index.vue';
+import ConfigPageAccueil from '@/views/backOffice/ConfigPageAccueil.vue';
 
 Vue.use(VueRouter);
 
@@ -25,7 +26,13 @@ const routes = [
   {
     path: '/backffice',
     component: BackOffice,
-    children: [],
+    children: [
+      {
+        path: '',
+        name: 'back-office-config-home',
+        component: ConfigPageAccueil,
+      },
+    ],
   },
   {
     path: '/home',

@@ -10,7 +10,7 @@
       </v-list-item-avatar>
 
       <v-list-item-content>
-        <v-list-item-title>Blue FxMarket</v-list-item-title>
+        <v-list-item-title>Wfx School</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 

@@ -9,6 +9,7 @@ import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
+import BackOffice from '@/views/backOffice/index.vue';
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,11 @@ const routes = [
   {
     path: '/',
     redirect: '/home',
+  },
+  {
+    path: '/backffice',
+    component: BackOffice,
+    children: [],
   },
   {
     path: '/home',

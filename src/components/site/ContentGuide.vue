@@ -2,7 +2,7 @@
   <v-row align="center" justify="center">
     <v-window
       v-model="onboarding"
-      class="elevation-1"
+      class="elevation-0"
     >
       <v-window-item
         v-for="n in length"
@@ -33,7 +33,7 @@
               </v-navigation-drawer>
             </v-row>
 
-            <v-sheet class="textguideScroll">
+            <v-sheet class="textguideScroll" :style="`height: ${heigthTextGuidContent - reduce}px`">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua.
@@ -94,6 +94,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data: () => ({
     length: 3,
@@ -101,6 +103,27 @@ export default {
     isClick: false,
     drawer: false,
   }),
+  computed: {
+    ...mapGetters([
+      'sizeWindows',
+      'sizeTopBar',
+      'sizePageTitle',
+      'sizeFooter',
+    ]),
+    heigthTextGuidContent() {
+      if (!this.sizeWindows || !this.sizeTopBar
+         || !this.sizePageTitle || !this.sizeFooter) return 0;
+      return this.sizeWindows.y
+        - (this.sizeTopBar.y + this.sizePageTitle.y + this.sizeFooter.y * 2);
+    },
+    reduce() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 100;
+        case 'sm': return 100;
+        default: return 0;
+      }
+    },
+  },
   methods: {
     next() {
       this.onboarding = this.onboarding + 1 === this.length

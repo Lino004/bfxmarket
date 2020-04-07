@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%" class="bg-white-5">
+  <div style="height: 100%">
     <PageTitle :breadcrumbs="breadcrumbs" title="Guide Trading"/>
     <v-container class="d-flex justify-center">
       <content-guide></content-guide>

@@ -22,7 +22,7 @@ html{
   border-bottom: 1px solid #268dfb;
 }
 .textguideScroll{
-  height: 50vh;
+  /* height: 50vh; */
   overflow-y:auto;
 }
 .card-bg-img-black > .v-responsive__sizer {

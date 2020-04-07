@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     enDev: false,
+    sizeWindows: null,
     sizeTopBar: null,
+    sizePageTitle: null,
     sizeFooter: null,
     valueScroll: null,
     drawer: false,
@@ -16,8 +18,14 @@ export default new Vuex.Store({
     SET_EN_DEV(state, val) {
       state.enDev = val;
     },
+    SET_SIZE_WINDOWS(state, val) {
+      state.sizeWindows = val;
+    },
     SET_SIZE_TOP_BAR(state, val) {
       state.sizeTopBar = val;
+    },
+    SET_SIZE_PAGE_TITLE(state, val) {
+      state.sizePageTitle = val;
     },
     SET_SIZE_FOOTER(state, val) {
       state.sizeFooter = val;
@@ -55,7 +63,9 @@ export default new Vuex.Store({
   },
   getters: {
     enDev: state => state.enDev,
+    sizeWindows: state => state.sizeWindows,
     sizeTopBar: state => state.sizeTopBar,
+    sizePageTitle: state => state.sizePageTitle,
     sizeFooter: state => state.sizeFooter,
     valueScroll: state => state.valueScroll,
     drawer: state => state.drawer,

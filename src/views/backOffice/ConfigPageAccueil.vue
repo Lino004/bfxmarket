@@ -3,6 +3,7 @@
     <h2>Reglage de la page d'accueil</h2>
     <v-divider></v-divider>
     <Slide/>
+    <v-divider></v-divider>
     <ContactInfo/>
   </div>
 </template>

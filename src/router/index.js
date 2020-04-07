@@ -11,6 +11,7 @@ import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
 import BackOffice from '@/views/backOffice/index.vue';
 import ConfigPageAccueil from '@/views/backOffice/ConfigPageAccueil.vue';
+import QueFaisonsNousBackOffice from '@/views/backOffice/QueFaisonsNous.vue';
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,11 @@ const routes = [
         path: '',
         name: 'back-office-config-home',
         component: ConfigPageAccueil,
+      },
+      {
+        path: '/que-faisons-nous',
+        name: 'back-office-que-faisons-nous',
+        component: QueFaisonsNousBackOffice,
       },
     ],
   },

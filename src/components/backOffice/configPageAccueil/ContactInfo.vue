@@ -8,9 +8,9 @@
         <v-btn
           class="mx-2"
           fab dark
-          color="primary"
+          color="green"
           @click="dialog = true">
-          <v-icon dark>mdi-plus</v-icon>
+          <v-icon dark>mdi-pencil</v-icon>
         </v-btn>
       </v-col>
     </v-row>

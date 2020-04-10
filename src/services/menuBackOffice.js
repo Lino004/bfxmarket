@@ -29,4 +29,10 @@ export default [
       },
     ],
   },
+  {
+    text: 'Formations',
+    to: { name: 'back-office-ajout-formation' },
+    icon: 'mdi-school',
+    disabled: false,
+  },
 ];

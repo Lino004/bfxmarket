@@ -16,7 +16,7 @@
                       <div class="pr-3">
                         <v-avatar
                           left
-                          class="primary white--text"
+                          class="green white--text"
                           size="30">
                           {{i+1}}
                         </v-avatar>

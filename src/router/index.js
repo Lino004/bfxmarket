@@ -16,6 +16,7 @@ import ListeGuide from '@/views/backOffice/ListeGuide.vue';
 import AddChapGuide from '@/views/backOffice/AddChapGuide.vue';
 import DetailChapGuide from '@/views/backOffice/DetailChapGuide.vue';
 import FAQ from '@/views/backOffice/FAQ.vue';
+import AjouterFormation from '@/views/backOffice/AjouterFormation.vue';
 
 Vue.use(VueRouter);
 
@@ -38,29 +39,34 @@ const routes = [
         component: ConfigPageAccueil,
       },
       {
-        path: '/que-faisons-nous',
+        path: '/backffice/que-faisons-nous',
         name: 'back-office-que-faisons-nous',
         component: QueFaisonsNousBackOffice,
       },
       {
-        path: '/liste-chap-guide-trading',
+        path: '/backffice/liste-chap-guide-trading',
         name: 'back-office-liste-chap-guide-trading',
         component: ListeGuide,
       },
       {
-        path: '/add-chap-guide-trading/',
+        path: '/backffice/add-chap-guide-trading/',
         name: 'back-office-add-chap-guide-trading',
         component: AddChapGuide,
       },
       {
-        path: '/modif-chap-guide-trading/:id',
+        path: '/backffice/modif-chap-guide-trading/:id',
         name: 'back-office-modif-chap-guide-trading',
         component: DetailChapGuide,
       },
       {
-        path: '/page-faq',
+        path: '/backffice/page-faq',
         name: 'back-office-faq',
         component: FAQ,
+      },
+      {
+        path: '/backffice/ajout-fromation',
+        name: 'back-office-ajout-formation',
+        component: AjouterFormation,
       },
     ],
   },

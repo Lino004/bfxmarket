@@ -12,6 +12,9 @@ import chapitre from '@/components/site/formation/chapitre.vue';
 import BackOffice from '@/views/backOffice/index.vue';
 import ConfigPageAccueil from '@/views/backOffice/ConfigPageAccueil.vue';
 import QueFaisonsNousBackOffice from '@/views/backOffice/QueFaisonsNous.vue';
+import ListeGuide from '@/views/backOffice/ListeGuide.vue';
+import AddChapGuide from '@/views/backOffice/AddChapGuide.vue';
+import DetailChapGuide from '@/views/backOffice/DetailChapGuide.vue';
 
 Vue.use(VueRouter);
 
@@ -37,6 +40,21 @@ const routes = [
         path: '/que-faisons-nous',
         name: 'back-office-que-faisons-nous',
         component: QueFaisonsNousBackOffice,
+      },
+      {
+        path: '/liste-chap-guide-trading',
+        name: 'back-office-liste-chap-guide-trading',
+        component: ListeGuide,
+      },
+      {
+        path: '/add-chap-guide-trading/',
+        name: 'back-office-add-chap-guide-trading',
+        component: AddChapGuide,
+      },
+      {
+        path: '/modif-chap-guide-trading/:id',
+        name: 'back-office-modif-chap-guide-trading',
+        component: DetailChapGuide,
       },
     ],
   },

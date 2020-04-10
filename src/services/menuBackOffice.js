@@ -15,6 +15,12 @@ export default [
         icon: 'mdi-information-outline',
         disabled: false,
       },
+      {
+        text: 'Guide de trading',
+        to: { name: 'back-office-liste-chap-guide-trading' },
+        icon: 'mdi-book-open-page-variant',
+        disabled: false,
+      },
     ],
   },
 ];

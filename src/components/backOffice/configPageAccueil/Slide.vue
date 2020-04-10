@@ -111,7 +111,7 @@
 
 <script>
 import db from '@/plugins/firebase';
-import uuidv1 from 'uuid/v1';
+import { v1 as uuidv1 } from 'uuid';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {

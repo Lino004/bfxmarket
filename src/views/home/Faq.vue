@@ -23,7 +23,7 @@
                       </div>
                       <v-col class="pa-0">
                         <h2 class="title pr-3">
-                          {{faq.title}}
+                          {{faq.titre}}
                         </h2>
                       </v-col>
                     </v-row>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import db from '@/plugins/firebase';
 import PageTitle from '@/components/site/general/PageTitle.vue';
 
 export default {
@@ -60,50 +61,39 @@ export default {
         disabled: true,
       },
     ],
-    dataFaq: [
-      {
-        title: 'Titre du contenu faq kkhug ftr tdfytc',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      {
-        title: 'Titre du contenu faq',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-    ],
+    dataFaq: [],
     snackbar: false,
+    ref: 'page/faq/',
   }),
   computed: {
     currentPage() {
       return this.breadcrumbs.filter(el => el.disabled).text;
     },
+  },
+  methods: {
+    showSnackComp(msg, color) {
+      this.colorSnack = color;
+      this.message = msg;
+      this.valueSnack = true;
+    },
+    get() {
+      db.ref(this.ref).on('value', (snap) => {
+        if (snap.val()) {
+          this.dataFaq = Object.values(snap.val());
+        } else {
+          this.dataFaq = [];
+        }
+      });
+    },
+    getNumeroFaq(id) {
+      return this.dataFaq.map(el => el.id).indexOf(id) + 1;
+    },
+  },
+  mounted() {
+    this.get();
+  },
+  destroyed() {
+    db.ref(this.ref).off();
   },
 };
 </script>

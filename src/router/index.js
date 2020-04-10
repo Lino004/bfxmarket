@@ -15,6 +15,7 @@ import QueFaisonsNousBackOffice from '@/views/backOffice/QueFaisonsNous.vue';
 import ListeGuide from '@/views/backOffice/ListeGuide.vue';
 import AddChapGuide from '@/views/backOffice/AddChapGuide.vue';
 import DetailChapGuide from '@/views/backOffice/DetailChapGuide.vue';
+import FAQ from '@/views/backOffice/FAQ.vue';
 
 Vue.use(VueRouter);
 
@@ -55,6 +56,11 @@ const routes = [
         path: '/modif-chap-guide-trading/:id',
         name: 'back-office-modif-chap-guide-trading',
         component: DetailChapGuide,
+      },
+      {
+        path: '/page-faq',
+        name: 'back-office-faq',
+        component: FAQ,
       },
     ],
   },

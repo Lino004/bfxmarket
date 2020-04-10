@@ -21,6 +21,12 @@ export default [
         icon: 'mdi-book-open-page-variant',
         disabled: false,
       },
+      {
+        text: 'FAQ',
+        to: { name: 'back-office-faq' },
+        icon: 'mdi-help-circle-outline',
+        disabled: false,
+      },
     ],
   },
 ];

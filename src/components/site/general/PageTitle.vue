@@ -3,7 +3,9 @@
     tile
     :elevation="0"
     min-height="10vh"
-    color="grey lighten-2">
+    color="grey lighten-2"
+    v-resize="onResize"
+    id="pageTitle">
     <v-container fill-height>
       <v-row>
         <v-col cols="12" md="4" class="hidden-sm-and-down">
@@ -23,6 +25,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   props: {
     breadcrumbs: {
@@ -36,6 +40,17 @@ export default {
     currentPage() {
       const find = this.breadcrumbs.find(el => el.disabled);
       return find.text;
+    },
+  },
+  methods: {
+    ...mapMutations({
+      setSizePageTitle: 'SET_SIZE_PAGE_TITLE',
+    }),
+    onResize() {
+      this.setSizePageTitle({
+        x: document.querySelector('#pageTitle').clientWidth,
+        y: document.querySelector('#pageTitle').clientHeight,
+      });
     },
   },
 };

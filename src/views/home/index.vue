@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Drawer from '@/components/site/home/Drawer.vue';
 import TopBar from '@/components/site/home/TopBar.vue';
 import Footer from '@/components/site/home/Footer.vue';
@@ -47,14 +47,18 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      'setValueScroll',
-    ]),
+    ...mapMutations({
+      setSizeWindows: 'SET_SIZE_WINDOWS',
+    }),
     onResize() {
       this.windowsSize = {
         x: window.innerWidth,
         y: window.innerHeight,
       };
+      this.setSizeWindows({
+        x: window.innerWidth,
+        y: window.innerHeight,
+      });
     },
   },
   mounted() {

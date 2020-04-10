@@ -33,7 +33,11 @@
     <v-card-actions>
       <v-spacer />
       <v-btn color="primary" @click="$emit('annuler')">Annuler</v-btn>
-      <v-btn color="primary" @click="login2">Se connecter</v-btn>
+      <v-btn
+        color="primary"
+        @click="login">
+        Se connecter
+      </v-btn>
     </v-card-actions>
     <SnackComp
       :value="valueSnack"
@@ -46,7 +50,6 @@
 <script>
 import { mapActions } from 'vuex';
 import { login } from '@/api/auth/index';
-import axios from 'axios';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
@@ -54,7 +57,7 @@ export default {
     SnackComp,
   },
   data: () => ({
-    email: null,
+    email: 'test@test.test',
     regleEmail: [
       v => !!v || 'Votre email est obligatoire',
       v => /.+@.+\..+/.test(v) || 'Entrez un email valide',
@@ -81,44 +84,19 @@ export default {
       try {
         this.createLoading = true;
         const infoUser = {
-          email: this.email,
+          login: this.email,
           password: this.password,
         };
         const user = (await login(infoUser)).data;
         this.showSnackComp('Connexion réussi', 'success');
-        console.log(user);
-        /* user.password = '';
-        this.setUser(user); */
+        user.password = '';
+        this.setUser(user);
         this.createLoading = false;
         this.$emit('annuler');
       } catch (error) {
-        this.showSnackComp('Erreur serveur', 'error');
-        this.createLoading = false;
-      }
-    },
-    async login2() {
-      try {
-        this.createLoading = true;
-        /* const infoUser = {
-          email: this.email,
-          password: this.password,
-        }; */
-        // const user = await axios.post('http://backend.wfxschool.com/services/api/auth/login');
-        const user = await axios({
-          method: 'post',
-          url: 'http://backend.wfxschool.com/services/api/auth/login',
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        });
-        console.log(user);
-        /* const user = await axios.get('http://backend.wfxschool.com/services/api/tasks/pays/list');
-        console.log(user); */
-        this.showSnackComp('Connexion réussi', 'success');
-      } catch (error) {
-        console.log(error);
-        this.showSnackComp('Erreur serveur', 'error');
+        if (error.response.status === 404) {
+          this.showSnackComp(error.response.data.error, 'error');
+        }
         this.createLoading = false;
       }
     },

@@ -7,16 +7,12 @@
           <v-row align="center" class="fill-height">
             <v-col class="text-center">
               <p class="mb-0">
-                Incididunt aliqua aute aute sunt velit commodo sunt eu in quis.
-                In reprehenderit esse veniam consequat cupidatat ad esse veniam
-                cupidatat consectetur. Tempor proident magna occaecat commodo fugiat
-                laborum sit ex esse tempor adipisicing. Ad veniam voluptate pariatur
-                culpa consectetur.
+                {{page.resume}}
               </p>
               <v-btn
                 small
                 color="bg-blue-grad my-2"
-                @click="setEnDev(true)">
+                :to="{ name: 'bfx-faisons' }">
                 En savoir plus
               </v-btn>
             </v-col>
@@ -34,14 +30,35 @@
 
 <script>
 import { mapActions } from 'vuex';
+import db from '@/plugins/firebase';
 import Bande from '@/components/site/general/Bande.vue';
 
 export default {
   components: { Bande },
+  data: () => ({
+    page: {
+      content: '',
+      resume: '',
+    },
+    ref: 'page/',
+  }),
   methods: {
     ...mapActions([
       'setEnDev',
     ]),
+    get() {
+      const key = 'que-faisons-nous';
+      db.ref(this.ref).orderByKey().equalTo(key).once('value')
+        .then((snap) => {
+          this.page = snap.val()[key];
+        });
+    },
+  },
+  mounted() {
+    this.get();
+  },
+  destroyed() {
+    db.ref(this.ref).off();
   },
 };
 </script>

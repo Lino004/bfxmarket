@@ -42,7 +42,7 @@
           <v-divider></v-divider>
 
           <v-card-text class="white--text">
-            2020 — <strong>h.ayinlamouhayad@gmail.com</strong>
+            2020 — <strong>lino.me</strong>
           </v-card-text>
         </v-card>
       </v-container>

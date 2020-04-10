@@ -2,16 +2,16 @@
   <v-row align="center" justify="center">
     <v-window
       v-model="onboarding"
-      class="elevation-1"
+      class="elevation-0"
     >
       <v-window-item
-        v-for="n in length"
-        :key="n"
+        v-for="(chap) in chaps"
+        :key="chap.id"
       >
         <v-card flat>
           <v-card-text>
             <v-row class="mb-4" align="center">
-              <strong class="title ml-3">Title {{ n }}</strong>
+              <strong class="title ml-3"> {{chap.titre}} </strong>
               <v-spacer></v-spacer>
               <v-btn icon @click="drawer = !drawer">
                 <v-icon>mdi-menu</v-icon>
@@ -23,54 +23,18 @@
               >
                 <v-list>
                   <v-list-item
-                    v-for="(n, i) in length"
+                    v-for="(titre, i) in chaps.map(el => el.titre)"
                     :key="i"
-                    @click="onboarding = n - 1"
+                    @click="onboarding = i - 1"
                   >
-                    <v-list-item-title>Title {{ n }}</v-list-item-title>
+                    <v-list-item-title> {{titre}} </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-navigation-drawer>
             </v-row>
 
-            <v-sheet class="textguideScroll">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                id est laborum.
-              </p>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                mo llit anim id est laborum.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum.
-              </p>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
+            <v-sheet class="textguideScroll" :style="`height: ${heigthTextGuidContent - reduce}px`">
+              <div v-html="chap.content"></div>
             </v-sheet>
           </v-card-text>
           <v-card-actions class="justify-space-between">
@@ -94,13 +58,39 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import db from '@/plugins/firebase';
+
 export default {
   data: () => ({
     length: 3,
     onboarding: 0,
     isClick: false,
     drawer: false,
+    chaps: [],
+    ref: 'page/',
   }),
+  computed: {
+    ...mapGetters([
+      'sizeWindows',
+      'sizeTopBar',
+      'sizePageTitle',
+      'sizeFooter',
+    ]),
+    heigthTextGuidContent() {
+      if (!this.sizeWindows || !this.sizeTopBar
+         || !this.sizePageTitle || !this.sizeFooter) return 0;
+      return this.sizeWindows.y
+        - (this.sizeTopBar.y + this.sizePageTitle.y + this.sizeFooter.y * 2);
+    },
+    reduce() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 100;
+        case 'sm': return 100;
+        default: return 0;
+      }
+    },
+  },
   methods: {
     next() {
       this.onboarding = this.onboarding + 1 === this.length
@@ -112,6 +102,21 @@ export default {
         ? this.length - 1
         : this.onboarding - 1;
     },
+    async get() {
+      try {
+        const key = 'guide';
+        const responce = await db.ref(this.ref).orderByKey().equalTo(key).once('value');
+        this.chaps = Object.values(responce.val()[key]);
+      } catch (error) {
+        this.chaps = [];
+      }
+    },
+  },
+  async mounted() {
+    await this.get();
+  },
+  destroyed() {
+    db.ref(this.ref).off();
   },
 };
 </script>

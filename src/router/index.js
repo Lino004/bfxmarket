@@ -9,6 +9,14 @@ import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
+import BackOffice from '@/views/backOffice/index.vue';
+import ConfigPageAccueil from '@/views/backOffice/ConfigPageAccueil.vue';
+import QueFaisonsNousBackOffice from '@/views/backOffice/QueFaisonsNous.vue';
+import ListeGuide from '@/views/backOffice/ListeGuide.vue';
+import AddChapGuide from '@/views/backOffice/AddChapGuide.vue';
+import DetailChapGuide from '@/views/backOffice/DetailChapGuide.vue';
+import FAQ from '@/views/backOffice/FAQ.vue';
+import AjouterFormation from '@/views/backOffice/AjouterFormation.vue';
 
 Vue.use(VueRouter);
 
@@ -20,6 +28,47 @@ const routes = [
   {
     path: '/',
     redirect: '/home',
+  },
+  {
+    path: '/backffice',
+    component: BackOffice,
+    children: [
+      {
+        path: '',
+        name: 'back-office-config-home',
+        component: ConfigPageAccueil,
+      },
+      {
+        path: '/backffice/que-faisons-nous',
+        name: 'back-office-que-faisons-nous',
+        component: QueFaisonsNousBackOffice,
+      },
+      {
+        path: '/backffice/liste-chap-guide-trading',
+        name: 'back-office-liste-chap-guide-trading',
+        component: ListeGuide,
+      },
+      {
+        path: '/backffice/add-chap-guide-trading/',
+        name: 'back-office-add-chap-guide-trading',
+        component: AddChapGuide,
+      },
+      {
+        path: '/backffice/modif-chap-guide-trading/:id',
+        name: 'back-office-modif-chap-guide-trading',
+        component: DetailChapGuide,
+      },
+      {
+        path: '/backffice/page-faq',
+        name: 'back-office-faq',
+        component: FAQ,
+      },
+      {
+        path: '/backffice/ajout-fromation',
+        name: 'back-office-ajout-formation',
+        component: AjouterFormation,
+      },
+    ],
   },
   {
     path: '/home',

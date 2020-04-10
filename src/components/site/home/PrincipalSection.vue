@@ -18,7 +18,12 @@
             class="fill-height"
             align="center"
             justify="center">
-            <div class="container text-center">
+            <!-- <v-col cols="2">
+              <v-img
+                :src="require('@/assets/img/logo-white.png')"
+                class="mr-5"/>
+            </v-col> -->
+            <div class="container text-center col-12">
               <p class="display-4 font-weight-black"> {{img.title}} </p>
               <p class="display-2"> {{img.subtitle}} </p>
             </div>
@@ -32,29 +37,36 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import db from '@/plugins/firebase';
 
 export default {
   components: {},
   data() {
     return {
-      dataCarousel: [
-        {
-          src: 'https://firebasestorage.googleapis.com/v0/b/bluefxmarket.appspot.com/o/img%2Fbg001.png?alt=media&token=84c8a833-6e41-4584-87ba-930ad53a3e72',
-          title: 'Un grand titre',
-          subtitle: 'Un sous titre',
-        },
-        {
-          src: 'https://firebasestorage.googleapis.com/v0/b/bluefxmarket.appspot.com/o/img%2Fbg002.png?alt=media&token=92c15071-8fa3-420c-9605-92f2a0953a31',
-          title: 'Un grand titre',
-          subtitle: 'Un sous titre',
-        },
-      ],
+      dataCarousel: [],
     };
   },
   computed: {
     ...mapGetters([
       'sizeTopBar',
     ]),
+  },
+  methods: {
+    get() {
+      db.ref('slide/').on('value', (snap) => {
+        if (snap.val()) {
+          this.dataCarousel = Object.values(snap.val());
+        } else {
+          this.dataCarousel = [];
+        }
+      });
+    },
+  },
+  mounted() {
+    this.get();
+  },
+  destroyed() {
+    db.ref('slide/').off();
   },
 };
 </script>

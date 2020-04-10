@@ -28,11 +28,7 @@
             </div>
             <div>
               <flip-countdown
-                deadline="2020-04-02 24:00:00"
-                v-animate-css="{
-                  classes: 'zoomInUp',
-                  duration: 30000,
-                }"/>
+                deadline="2020-04-13 00:00:00"/>
             </div>
           </v-col>
         </v-row>

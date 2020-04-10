@@ -17,6 +17,7 @@ import AddChapGuide from '@/views/backOffice/AddChapGuide.vue';
 import DetailChapGuide from '@/views/backOffice/DetailChapGuide.vue';
 import FAQ from '@/views/backOffice/FAQ.vue';
 import AjouterFormation from '@/views/backOffice/AjouterFormation.vue';
+import ComingSoon from '@/views/ComingSoon.vue';
 
 Vue.use(VueRouter);
 
@@ -27,7 +28,12 @@ const routes = [
   },
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/coming-song',
+  },
+  {
+    path: '/coming-song',
+    name: 'comming-song',
+    component: ComingSoon,
   },
   {
     path: '/backffice',

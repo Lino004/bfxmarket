@@ -142,6 +142,11 @@ export default {
       db.ref(this.ref).on('value', (snap) => {
         if (snap.val()) {
           this.faqs = Object.values(snap.val());
+          this.faqs.sort((a, b) => {
+            if (moment(a.date).isBefore(b.date)) return -1;
+            if (moment(a.date).isAfter(b.date)) return 1;
+            return 0;
+          });
         } else {
           this.faqs = [];
         }

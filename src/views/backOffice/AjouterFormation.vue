@@ -18,7 +18,7 @@
         cols="12"
         sm="3"
       >
-        <UploadImg/>
+        <UploadImg v-model="formation.image"/>
       </v-col>
       <v-col>
       <v-text-field
@@ -36,6 +36,8 @@
       ></v-textarea>
       </v-col>
     </v-row>
+    <h3>Contenu detaillé de la formation</h3>
+    <vue-editor v-model="formation.content"></vue-editor>
     <SnackComp
       :value="valueSnack"
       @change="valueSnack = $event"
@@ -45,6 +47,7 @@
 </template>
 
 <script>
+import { VueEditor } from 'vue2-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import UploadImg from '@/components/backOffice/general/UploadImg.vue';
 // import createFormation from '@/api/formations/index';
@@ -53,6 +56,7 @@ export default {
   components: {
     SnackComp,
     UploadImg,
+    VueEditor,
   },
   data() {
     return {
@@ -61,12 +65,13 @@ export default {
       message: '',
       formation: {
         titre: '',
-        niveau: '',
         description: '',
         image: {
           code: '',
           ext: '',
         },
+        contenu: '',
+        is_lock: false,
       },
     };
   },

@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import VueFbCustomerChat from 'vue-fb-customer-chat';
 import VideoBg from 'vue-videobg';
 import VAnimateCss from 'v-animate-css';
 import App from './App.vue';
@@ -12,11 +11,6 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 Vue.component('video-bg', VideoBg);
 
 Vue.use(VAnimateCss);
-Vue.use(VueFbCustomerChat, {
-  page_id: 109259077302935,
-  theme_color: '#268dfb',
-  locale: 'en_US',
-});
 
 Vue.config.productionTip = false;
 

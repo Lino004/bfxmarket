@@ -41,7 +41,7 @@
 import moment from 'moment';
 import FlipCountdown from 'vue2-flip-countdown';
 
-moment.locale();
+moment.locale('fr');
 
 export default {
   components: { FlipCountdown },

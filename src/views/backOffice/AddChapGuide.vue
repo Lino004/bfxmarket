@@ -34,8 +34,11 @@
 <script>
 import db from '@/plugins/firebase';
 import { v1 as uuidv1 } from 'uuid';
+import moment from 'moment';
 import { VueEditor } from 'vue2-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
+
+moment.locale('fr');
 
 export default {
   components: {
@@ -64,6 +67,7 @@ export default {
           titre: this.chap.titre,
           content: this.chap.content,
           id: key,
+          date: moment().format('DD/MM/YYYY hh:mm:ss a'),
         });
         this.$router.push({ name: 'back-office-liste-chap-guide-trading' });
       }

@@ -20,10 +20,10 @@
       :items-per-page="10"
       class="elevation-1 mt-4"
     >
-      <template v-slot:item.numero="{ item }">
-        {{getNumeroFaq(item.id)}}
+      <template v-slot:item.date="{ item }">
+        {{item.date}}
       </template>
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.modifier="{ item }">
         <v-btn
           fab
           dark
@@ -33,7 +33,7 @@
           <v-icon dark>mdi-pencil</v-icon>
         </v-btn>
       </template>
-      <template v-slot:item.modifier="{ item }">
+      <template v-slot:item.supprimer="{ item }">
         <v-btn
           fab
           dark
@@ -100,8 +100,11 @@
 <script>
 import db from '@/plugins/firebase';
 import { v1 as uuidv1 } from 'uuid';
+import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import SnackComp from '@/components/site/general/SnackComp.vue';
+
+moment.locale('fr');
 
 export default {
   components: {
@@ -119,10 +122,10 @@ export default {
       faqs: [],
       ref: 'page/faq/',
       headers: [
-        { text: 'N° du FAQ', value: 'numero', width: 150 },
+        { text: 'Date de création', value: 'date', width: 200 },
         { text: 'Titre', value: 'titre' },
-        { text: 'Actions', value: 'actions', width: 80 },
         { text: 'Modifier', value: 'modifier', width: 80 },
+        { text: 'Supprimer', value: 'supprimer', width: 80 },
       ],
       dialog: false,
       isUpdate: false,
@@ -144,9 +147,6 @@ export default {
         }
       });
     },
-    getNumeroFaq(id) {
-      return this.faqs.map(el => el.id).indexOf(id) + 1;
-    },
     add() {
       if (this.faq.titre && this.faq.content) {
         let key = uuidv1();
@@ -155,12 +155,12 @@ export default {
           titre: this.faq.titre,
           content: this.faq.content,
           id: key,
+          date: moment().format('DD/MM/YYYY hh:mm:ss a'),
         });
         this.init();
       }
     },
     supp(id) {
-      console.log(id);
       const result = window.confirm('Etes vous sur de vouloir supprimer cette element?');
       if (result) db.ref(this.ref).child(id).remove();
     },

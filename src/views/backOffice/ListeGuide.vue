@@ -22,8 +22,8 @@
       :items-per-page="10"
       class="elevation-1 mt-4"
     >
-      <template v-slot:item.numero="{ item }">
-        {{getNumeroChap(item.id)}}
+      <template v-slot:item.date="{ item }">
+        {{item.date}}
       </template>
       <template v-slot:item.ouvrir="{ item }">
         <v-btn
@@ -40,6 +40,16 @@
           <v-icon dark>mdi-open-in-new</v-icon>
         </v-btn>
       </template>
+      <template v-slot:item.supprimer="{ item }">
+        <v-btn
+          fab
+          dark
+          small
+          color="red"
+          @click="supp(item.id)">
+          <v-icon dark>mdi-delete</v-icon>
+        </v-btn>
+      </template>
     </v-data-table>
     <SnackComp
       :value="valueSnack"
@@ -51,6 +61,7 @@
 
 <script>
 import db from '@/plugins/firebase';
+import moment from 'moment';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
@@ -65,9 +76,10 @@ export default {
       chaps: [],
       ref: 'page/',
       headers: [
-        { text: 'N° du chapitre', value: 'numero', width: 150 },
+        { text: 'Date de création', value: 'date', width: 200 },
         { text: 'Titre', value: 'titre' },
-        { text: 'Ouvrire', value: 'ouvrir', width: 150 },
+        { text: 'Ouvrire', value: 'ouvrir', width: 80 },
+        { text: 'Supprimer', value: 'supprimer', width: 80 },
       ],
     };
   },
@@ -83,12 +95,25 @@ export default {
         const key = 'guide';
         const responce = await db.ref(this.ref).orderByKey().equalTo(key).once('value');
         this.chaps = Object.values(responce.val()[key]);
+        this.chaps.sort((a, b) => {
+          if (moment(a.date).isBefore(b.date)) return -1;
+          if (moment(a.date).isAfter(b.date)) return 1;
+          return 0;
+        });
       } catch (error) {
         this.chaps = [];
       }
     },
     getNumeroChap(id) {
       return this.chaps.map(el => el.id).indexOf(id) + 1;
+    },
+    async supp(id) {
+      const key = 'guide';
+      const result = window.confirm('Etes vous sur de vouloir supprimer cette element?');
+      if (result) {
+        db.ref(`${this.ref}${key}`).child(id).remove();
+        await this.get();
+      }
     },
   },
   async mounted() {

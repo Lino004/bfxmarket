@@ -43,6 +43,7 @@
 
 <script>
 import db from '@/plugins/firebase';
+import moment from 'moment';
 import PageTitle from '@/components/site/general/PageTitle.vue';
 
 export default {
@@ -80,6 +81,11 @@ export default {
       db.ref(this.ref).on('value', (snap) => {
         if (snap.val()) {
           this.dataFaq = Object.values(snap.val());
+          this.dataFaq.sort((a, b) => {
+            if (moment(a.date).isBefore(b.date)) return -1;
+            if (moment(a.date).isAfter(b.date)) return 1;
+            return 0;
+          });
         } else {
           this.dataFaq = [];
         }

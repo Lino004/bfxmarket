@@ -59,6 +59,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 import db from '@/plugins/firebase';
 
 export default {
@@ -107,6 +108,11 @@ export default {
         const key = 'guide';
         const responce = await db.ref(this.ref).orderByKey().equalTo(key).once('value');
         this.chaps = Object.values(responce.val()[key]);
+        this.chaps.sort((a, b) => {
+          if (moment(a.date).isBefore(b.date)) return -1;
+          if (moment(a.date).isAfter(b.date)) return 1;
+          return 0;
+        });
       } catch (error) {
         this.chaps = [];
       }

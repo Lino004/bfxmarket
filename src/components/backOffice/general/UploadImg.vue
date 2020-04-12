@@ -8,7 +8,7 @@
       align="center"
       justify="center"
       class="fill-height px-3"
-      v-if="img">
+      v-if="value.src">
       <v-img :src="value.src" height="100%"></v-img>
     </v-row>
     <v-row

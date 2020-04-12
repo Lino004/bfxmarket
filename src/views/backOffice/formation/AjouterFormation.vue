@@ -7,7 +7,17 @@
       <v-col class="text-end">
         <v-btn
           small
-          color="primary">
+          class="mr-2"
+          :to="{
+            name: 'back-office-liste-formation',
+          }">
+          Annuler
+        </v-btn>
+        <v-btn
+          small
+          color="primary"
+          @click="addFormation"
+          :loading="isLoad">
           Enregistrer
         </v-btn>
       </v-col>
@@ -37,7 +47,7 @@
       </v-col>
     </v-row>
     <h3>Contenu detaillé de la formation</h3>
-    <vue-editor v-model="formation.content"></vue-editor>
+    <vue-editor v-model="formation.contenu"></vue-editor>
     <SnackComp
       :value="valueSnack"
       @change="valueSnack = $event"
@@ -50,7 +60,7 @@
 import { VueEditor } from 'vue2-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import UploadImg from '@/components/backOffice/general/UploadImg.vue';
-// import createFormation from '@/api/formations/index';
+import { createFormation } from '@/api/formations/index';
 
 export default {
   components: {
@@ -65,6 +75,7 @@ export default {
       message: '',
       formation: {
         titre: '',
+        niveau: 'test',
         description: '',
         image: {
           code: '',
@@ -73,6 +84,7 @@ export default {
         contenu: '',
         is_lock: false,
       },
+      isLoad: false,
     };
   },
   conputed: {},
@@ -81,6 +93,22 @@ export default {
       this.colorSnack = color;
       this.message = msg;
       this.valueSnack = true;
+    },
+    async addFormation() {
+      this.isLoad = true;
+      try {
+        if (this.formation.titre && this.formation.description
+            && this.formation.contenu && this.formation.image.code) {
+          await createFormation(this.formation);
+          this.showSnackComp('Enregistrement réussi', 'success');
+          this.$router.push({ name: 'back-office-liste-formation' });
+        } else {
+          this.showSnackComp('Il y a des éléments manquant', 'error');
+        }
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+      }
     },
   },
   mounted() {},

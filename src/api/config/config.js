@@ -5,3 +5,5 @@ export default {
     'Content-Type': 'application/json',
   },
 };
+
+export const BASE_HOST = 'https://bluefxmarket-backend.herokuapp.com';

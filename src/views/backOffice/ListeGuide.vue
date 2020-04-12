@@ -78,7 +78,7 @@ export default {
       headers: [
         { text: 'Date de création', value: 'date', width: 200 },
         { text: 'Titre', value: 'titre' },
-        { text: 'Ouvrire', value: 'ouvrir', width: 80 },
+        { text: 'Ouvrir', value: 'ouvrir', width: 80 },
         { text: 'Supprimer', value: 'supprimer', width: 80 },
       ],
     };

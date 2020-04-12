@@ -16,7 +16,9 @@ import ListeGuide from '@/views/backOffice/ListeGuide.vue';
 import AddChapGuide from '@/views/backOffice/AddChapGuide.vue';
 import DetailChapGuide from '@/views/backOffice/DetailChapGuide.vue';
 import FAQ from '@/views/backOffice/FAQ.vue';
-import AjouterFormation from '@/views/backOffice/AjouterFormation.vue';
+import ListeFormation from '@/views/backOffice/formation/ListeFormation.vue';
+import ModifierFormation from '@/views/backOffice/formation/ModifierFormation.vue';
+import AjouterFormation from '@/views/backOffice/formation/AjouterFormation.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
 
 Vue.use(VueRouter);
@@ -70,9 +72,19 @@ const routes = [
         component: FAQ,
       },
       {
+        path: '/backffice/liste-fromation',
+        name: 'back-office-liste-formation',
+        component: ListeFormation,
+      },
+      {
         path: '/backffice/ajout-fromation',
         name: 'back-office-ajout-formation',
         component: AjouterFormation,
+      },
+      {
+        path: '/backffice/modifier-fromation/:id',
+        name: 'back-office-modifier-formation',
+        component: ModifierFormation,
       },
     ],
   },

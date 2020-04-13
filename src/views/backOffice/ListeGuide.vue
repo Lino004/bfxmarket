@@ -109,6 +109,7 @@ export default {
     },
     async supp(id) {
       const key = 'guide';
+      // eslint-disable-next-line no-alert
       const result = window.confirm('Etes vous sur de vouloir supprimer cette element?');
       if (result) {
         db.ref(`${this.ref}${key}`).child(id).remove();

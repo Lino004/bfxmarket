@@ -9,7 +9,7 @@
       <v-flex xs12 sm4 class="my-4">
         <div class="text-center" v-animate-css="'fadeInDown'">
           <h2 class="headline font-weight-bold">
-            Profiter des meilleurs formations du moment
+            Devenez rentable sur les marchés financiers grace aux 3 fromations offertes
           </h2>
         </div>
       </v-flex>
@@ -21,7 +21,12 @@
                 :data="formation"
                 :index="i"
                 dataBtn="Débuter la formation"
-                @action="setEnDev(true)"/>
+                @action="$router.push({
+                  name: 'bfx-formation',
+                  params: {
+                    idFormation: formation.id
+                  }
+                })"/>
             </v-col>
           </v-row>
         </v-container>
@@ -32,32 +37,15 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { listeFormation } from '@/api/formations/index';
+import { BASE_HOST } from '@/api/config/config';
 import CardImg from '@/components/site/general/CardImg.vue';
 
 export default {
   components: { CardImg },
   data() {
     return {
-      listeFormation: [
-        {
-          title: 'Formation Débutant',
-          img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-          content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
-          active: true,
-        },
-        {
-          title: 'Formation Avancé',
-          img: 'https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-          content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
-          active: false,
-        },
-        {
-          title: 'Formation Professionnel',
-          img: 'https://images.pexels.com/photos/186464/pexels-photo-186464.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-          content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
-          active: false,
-        },
-      ],
+      listeFormation: [],
     };
   },
   computed: {},
@@ -65,8 +53,26 @@ export default {
     ...mapActions([
       'setEnDev',
     ]),
+    async getList() {
+      this.isLoad = true;
+      try {
+        this.listeFormation = (await listeFormation()).data;
+        /* eslint no-param-reassign: ["error", { "props": false }] */
+        this.listeFormation.forEach((el) => {
+          el.active = el.is_lock;
+          el.img = `${BASE_HOST}${el.image}`;
+          el.content = el.description;
+          el.title = el.titre;
+        });
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+      }
+    },
   },
-  mounted() {},
+  async mounted() {
+    await this.getList();
+  },
 };
 </script>
 

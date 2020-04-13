@@ -37,7 +37,8 @@
             <v-btn
               small
               :color="data.active ? 'bg-blue-grad' : 'grey'"
-              @click="$emit('action')">
+              @click="$emit('action')"
+              :disabled="!data.active">
               {{dataBtn}}
             </v-btn>
           </v-layout>

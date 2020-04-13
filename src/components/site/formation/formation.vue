@@ -1,8 +1,8 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.nameFormation"/>
+     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"/>
      <section>
-        <v-container fill-height v-html="formation.content">
+        <v-container fill-height v-html="formation.contenu">
         </v-container>
         <v-container>
           <v-row justify="space-between">
@@ -22,6 +22,7 @@
 <script>
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import CardImg from '@/components/site/general/CardImg.vue';
+import { getFormation } from '@/api/formations/index';
 
 export default {
   components: { PageTitle, CardImg },
@@ -37,25 +38,7 @@ export default {
         disabled: true,
       },
     ],
-    formation: {
-      nameFormation: 'Formation Débutante',
-      content: `<h1>Titre de ce que nous faisons1</h1>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-            Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
-            Cras elementum ultrices diam. Maecenas ligula massa, varius a,
-            semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie,
-            enim est eleifend mi, non fermentum diam nisl sit amet erat.
-            Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a,
-            enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor.
-            Cras vestibulum bibendum augue. Praesent egestas leo in pede.
-            Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-            posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede
-            pellentesque fermentum.
-            Maecenas adipiscing ante non diam sodales hendrerit.
-            </p>`,
-    },
+    formation: {},
     modules: [
       {
         title: 'Module 1',
@@ -81,6 +64,19 @@ export default {
     startFormation() {
       return this.$router.push({ name: 'bfx-module', params: { idModule: 1 } });
     },
+    async getFormation() {
+      this.isLoad = true;
+      try {
+        const { idFormation } = this.$route.params;
+        this.formation = (await getFormation(idFormation)).data;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+      }
+    },
+  },
+  async mounted() {
+    await this.getFormation();
   },
 };
 </script>

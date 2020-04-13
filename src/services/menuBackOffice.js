@@ -31,7 +31,7 @@ export default [
   },
   {
     text: 'Formations',
-    to: { name: 'back-office-ajout-formation' },
+    to: { name: 'back-office-liste-formation' },
     icon: 'mdi-school',
     disabled: false,
   },

@@ -24,8 +24,8 @@
                 class="mr-5"/>
             </v-col> -->
             <div class="container text-center col-12">
-              <p class="display-4 font-weight-black"> {{img.title}} </p>
-              <p class="display-2"> {{img.subtitle}} </p>
+              <p class="display-3 font-weight-black"> {{img.title}} </p>
+              <p class="display-1"> {{img.subtitle}} </p>
             </div>
           </v-row>
 

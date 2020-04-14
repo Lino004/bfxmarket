@@ -19,6 +19,12 @@ import FAQ from '@/views/backOffice/FAQ.vue';
 import ListeFormation from '@/views/backOffice/formation/ListeFormation.vue';
 import ModifierFormation from '@/views/backOffice/formation/ModifierFormation.vue';
 import AjouterFormation from '@/views/backOffice/formation/AjouterFormation.vue';
+import ListeModules from '@/views/backOffice/modules/ListeModules.vue';
+import ModifierModule from '@/views/backOffice/modules/ModifierModule.vue';
+import AjouterModule from '@/views/backOffice/modules/AjouterModule.vue';
+import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
+import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
+import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
 
 Vue.use(VueRouter);
@@ -77,14 +83,44 @@ const routes = [
         component: ListeFormation,
       },
       {
-        path: '/backffice/ajout-fromation',
+        path: '/backffice/ajout-formation',
         name: 'back-office-ajout-formation',
         component: AjouterFormation,
       },
       {
-        path: '/backffice/modifier-fromation/:id',
+        path: '/backffice/modifier-formation/:id',
         name: 'back-office-modifier-formation',
         component: ModifierFormation,
+      },
+      {
+        path: '/backffice/liste-modules',
+        name: 'back-office-liste-modules',
+        component: ListeModules,
+      },
+      {
+        path: '/backffice/ajout-module/',
+        name: 'back-office-ajout-module',
+        component: AjouterModule,
+      },
+      {
+        path: '/backffice/modifier-module/:id',
+        name: 'back-office-modifier-module',
+        component: ModifierModule,
+      },
+      {
+        path: '/backffice/liste-chapitres',
+        name: 'back-office-liste-chapitres',
+        component: ListeChapitres,
+      },
+      {
+        path: '/backffice/ajout-chapitre/',
+        name: 'back-office-ajout-chapitre',
+        component: AjouterChapitre,
+      },
+      {
+        path: '/backffice/modifier-chapitre/:id',
+        name: 'back-office-modifier-chapitre',
+        component: ModifierChapitre,
       },
     ],
   },

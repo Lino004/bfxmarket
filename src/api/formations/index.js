@@ -1,7 +1,7 @@
 import HTTP from '../HTTP';
 
 export async function createFormation(info) {
-  const response = await HTTP.post('tasks/formation/create', info);
+  const response = await HTTP.put('tasks/formation/create', info);
   return response;
 }
 

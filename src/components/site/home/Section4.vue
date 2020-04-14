@@ -38,56 +38,34 @@ export default {
     model: null,
     etudiants: [
       {
-        img: 'https://blog-fr.orson.io/wp-content/uploads/2017/06/jpeg-ou-png.jpg',
-        name: 'Polette DUPONT',
+        img: '',
+        name: 'Dieudonné S.',
         status: 'Trader Maser',
-        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur. <br>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur.`,
+        comment: `Cher WfxSchool, <br/>
+          Un ENORME merci pour votre formation précieuse, de qualité et structurante pour la suite de ma vie. <br/>
+          Certains diront que j’y vais un peu fort, mais je le pense sincèrement ! <br/>
+          L’école m’a permis de découvrir la meilleure stratégie d'intervention sur les machés financiers
+          à travers  des vidéos très concrètes, des explications claires. <br/>
+          Quel que soit votre niveau actuel , si vous voulez atteindre l'excellence en trading,
+          je vous recommande vraiment d’investir dans une de ces formations proposées par WfxSchool,
+          vous gagnerez du temps et vous comprendrez en très peu de temps  les mécanismes des marchés financiers.`,
       },
       {
         img: '',
-        name: 'Polette DUPONT',
+        name: 'Jean-Michael GBENONZAN',
         status: 'Trader Maser',
-        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur. <br>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur.`,
-      },
-      {
-        img: '',
-        name: 'Polette DUPONT',
-        status: 'Trader Maser',
-        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur. <br>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur.`,
-      },
-      {
-        img: '',
-        name: 'Polette DUPONT',
-        status: 'Trader Maser',
-        comment: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur. <br>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eos minus et autem qui vero vel eaque sit necessitatibus nemo possimus,
-                  similique dignissimos odit sunt labore commodi repellendus
-                  ipsum iure pariatur.`,
+        comment: `Je me nomme Jean-Michael GBENONZAN'
+          l'un de des étudiant de WFxSchool. Bien avant de suivre la formation chez WFxSchool je vous note
+          que j'ai suivi beaucoup de formations  chez d'autres traders qui se disent expert en la matière mais
+          hélas je ne sors toujours gagnant de mes trades. Mes bilans étaient toujours négatifs.
+          J'ai entendu parler de WFxSchool. Je me suis intéressé à eux et surtout à travers leur
+          devise qui stipule que Personne n’évolue seule et nul n’a le droit d’être heureux tout seul et en plus
+          leur formation était complètement gratuite ce qui n'est pas pareille avec mes précédents soit disant formateur en trading.
+          Je me suis inscrit sur leur plateforme et j'ai suivi leur formation durant 3 mois.
+          Une période au cours de laquelle j'ai côtoyé beaucoup d'expert en trading tel que notre formateur Mr Alao Fari Khalid.
+          Un Mr très sympa, claire et très précis dans ses explications, un Mr qui prône le travail bien fait. En bref je peux
+          vous dire grâce à WFxSchool et à ses formateurs je suis devenu un trader très rentable.
+          Je vis maintenant et pleinement de trading. Je vous recommande WFxSchool`,
       },
     ],
     isClick: false,

@@ -6,12 +6,12 @@
         </v-container>
         <v-container>
           <v-row justify="space-between">
-            <v-col md="3" class="mb-3" v-for="(module, i) in modules" :key="i">
+            <v-col md="4" class="mb-3" v-for="(m, i) in modules" :key="i">
               <CardImg
-                :data="module"
+                :data="m"
                 dataBtn="Démarrer le module"
                 :index="i"
-                @action="startFormation"/>
+                @action="startModule(m.id)"/>
             </v-col>
           </v-row>
         </v-container>
@@ -23,6 +23,8 @@
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import CardImg from '@/components/site/general/CardImg.vue';
 import { getFormation } from '@/api/formations/index';
+import { listeModuleByFormation } from '@/api/modules/index';
+import { BASE_HOST } from '@/api/config/config';
 
 export default {
   components: { PageTitle, CardImg },
@@ -39,36 +41,25 @@ export default {
       },
     ],
     formation: {},
-    modules: [
-      {
-        title: 'Module 1',
-        img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
-        active: true,
-      },
-      {
-        title: 'Module 2',
-        img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
-        active: true,
-      },
-      {
-        title: 'Module 3',
-        img: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        content: 'Ad ut voluptate reprehenderit incididunt excepteur occaecat. Magna quis ut quis cupidatat mollit fugiat esse cupidatat dolor sint est est commodo minim.',
-        active: true,
-      },
-    ],
+    modules: [],
   }),
   methods: {
-    startFormation() {
-      return this.$router.push({ name: 'bfx-module', params: { idModule: 1 } });
+    startModule(id) {
+      this.$router.push({ name: 'bfx-module', params: { idModule: id } });
     },
     async getFormation() {
       this.isLoad = true;
       try {
         const { idFormation } = this.$route.params;
         this.formation = (await getFormation(idFormation)).data;
+        this.modules = (await listeModuleByFormation(this.formation.id)).data;
+        /* eslint no-param-reassign: ["error", { "props": false }] */
+        this.modules.forEach((el) => {
+          el.active = el.is_lock;
+          el.img = `${BASE_HOST}${el.image}`;
+          el.content = el.description;
+          el.title = el.titre;
+        });
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

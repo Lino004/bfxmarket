@@ -1,22 +1,22 @@
 <template>
-  <div style="width: 100%" class="ma-3" v-if="formation">
+  <div style="width: 100%" class="ma-3">
     <v-row >
       <v-col>
-        <h2>Modifier une formation</h2>
+        <h2>Ajout d'un module</h2>
       </v-col>
       <v-col class="text-end">
         <v-btn
           small
           class="mr-2"
           :to="{
-            name: 'back-office-liste-formation',
+            name: 'back-office-liste-modules',
           }">
           Annuler
         </v-btn>
         <v-btn
           small
           color="primary"
-          @click="updateFormation"
+          @click="addModule"
           :loading="isLoad">
           Enregistrer
         </v-btn>
@@ -28,27 +28,32 @@
         cols="12"
         sm="3"
       >
-        <UploadImg v-model="formation.image"/>
+        <UploadImg v-model="module.image"/>
       </v-col>
       <v-col>
+      <v-select
+        v-model="formationSelect"
+        :items="formations"
+        item-text="titre"
+        item-value="id"
+        hide-details
+        outlined
+        expanded
+        label="Choisissez une formation"
+        class="mb-2"
+      ></v-select>
       <v-text-field
-        label="Titre de la formation"
+        label="Titre du module"
         outlined
         append-icon="card-text"
-        v-model="formation.titre"
+        v-model="module.titre"
         hide-details
         class="mb-2"/>
-      <!-- <v-textarea
-        label="Description de la formation"
-        outlined
-        v-model="formation.description"
-        hide-details
-      ></v-textarea> -->
-      <vue-editor v-model="formation.description" :editor-toolbar="customToolbar"></vue-editor>
+      <vue-editor v-model="module.description" :editor-toolbar="customToolbar"></vue-editor>
       </v-col>
     </v-row>
-    <h3>Contenu detaillé de la formation</h3>
-    <vue-editor v-model="formation.contenu"></vue-editor>
+    <h3>Contenu detaillé du module</h3>
+    <vue-editor v-model="module.contenu"></vue-editor>
     <SnackComp
       :value="valueSnack"
       @change="valueSnack = $event"
@@ -61,9 +66,8 @@
 import { VueEditor } from 'vue2-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import UploadImg from '@/components/backOffice/general/UploadImg.vue';
-import { updateFormation, getFormation } from '@/api/formations/index';
-import { BASE_HOST } from '@/api/config/config';
-import cloneDeep from 'lodash/cloneDeep';
+import { listeFormation } from '@/api/formations/index';
+import { createModule } from '@/api/modules/index';
 
 export default {
   components: {
@@ -76,18 +80,24 @@ export default {
       valueSnack: false,
       colorSnack: '',
       message: '',
-      base: BASE_HOST,
-      formation: {
+      module: {
+        titre: '',
+        niveau: 'test',
+        description: '',
         image: {
           code: '',
           ext: '',
         },
+        contenu: '',
+        is_lock: false,
       },
       isLoad: false,
       customToolbar: [
         ['bold', 'italic', 'underline'],
         [{ list: 'bullet' }],
       ],
+      formationSelect: 1,
+      formations: [],
     };
   },
   conputed: {},
@@ -97,18 +107,15 @@ export default {
       this.message = msg;
       this.valueSnack = true;
     },
-    async updateFormation() {
+    async addModule() {
       this.isLoad = true;
       try {
-        if (this.formation.titre && this.formation.description
-            && this.formation.contenu) {
-          const dataClone = cloneDeep(this.formation);
-          const { id } = dataClone;
-          delete dataClone.id;
-          if (dataClone.image.src.includes(this.base)) delete dataClone.image;
-          await updateFormation(id, dataClone);
+        if (this.module.titre && this.module.description
+            && this.module.contenu && this.module.image.code) {
+          this.module.formation = this.formationSelect;
+          await createModule(this.module);
           this.showSnackComp('Enregistrement réussi', 'success');
-          this.$router.push({ name: 'back-office-liste-formation' });
+          this.$router.push({ name: 'back-office-liste-modules' });
         } else {
           this.showSnackComp('Il y a des éléments manquant', 'error');
         }
@@ -117,16 +124,18 @@ export default {
         this.isLoad = false;
       }
     },
-    async getFormation() {
+    async getListFormation() {
       this.isLoad = true;
       try {
-        const { id } = this.$route.params;
-        this.formation = (await getFormation(id)).data;
-        this.formation.image = {
-          code: '',
-          ext: '',
-          src: `${this.base}${this.formation.image}`,
-        };
+        this.formations = (await listeFormation()).data.map((el) => {
+          const data = {
+            id: el.id,
+            titre: el.titre,
+          };
+          return data;
+        });
+        /* eslint no-param-reassign: ["error", { "props": false }] */
+        this.formations.sort((a, b) => a.id - b.id);
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
@@ -134,7 +143,7 @@ export default {
     },
   },
   async mounted() {
-    await this.getFormation();
+    await this.getListFormation();
   },
   destroyed() {},
 };

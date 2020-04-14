@@ -12,8 +12,9 @@
           class="align-end"
           :class="data.active ? 'white--text card-bg-img-black'
                                     : 'grey--text card-bg-img-grey'"
-          :src="data.img"
+          :src="img"
           max-height="200"
+          @error="imgError"
         >
           <v-card-title class="title white--text">
             <v-row
@@ -30,7 +31,7 @@
         </v-img>
         <v-card-text
           :class="data.active ? 'black--text' : 'grey--text'">
-          {{data.content}}
+          <div v-html="data.content"></div>
         </v-card-text>
         <v-card-actions>
           <v-layout justify-center class="ma-2">
@@ -54,6 +55,20 @@ export default {
     data: Object,
     dataBtn: String,
     index: Number,
+  },
+  data: () => ({
+    defaultImg: '',
+  }),
+  computed: {
+    img() {
+      if (this.defaultImg) return this.defaultImg;
+      return this.data.img;
+    },
+  },
+  methods: {
+    imgError() {
+      this.defaultImg = 'https://firebasestorage.googleapis.com/v0/b/wfxschool.appspot.com/o/Slide%2Fpexels-photo-186464.jpeg?alt=media&token=f68b8056-330b-4eaf-99f6-e9eec8f54018';
+    },
   },
 };
 </script>

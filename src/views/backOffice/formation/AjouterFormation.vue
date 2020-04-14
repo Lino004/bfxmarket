@@ -38,12 +38,13 @@
         v-model="formation.titre"
         hide-details
         class="mb-2"/>
-      <v-textarea
+      <!-- <v-textarea
         label="Description de la formation"
         outlined
         v-model="formation.description"
         hide-details
-      ></v-textarea>
+      ></v-textarea> -->
+      <vue-editor v-model="formation.description" :editor-toolbar="customToolbar"></vue-editor>
       </v-col>
     </v-row>
     <h3>Contenu detaillé de la formation</h3>
@@ -85,6 +86,10 @@ export default {
         is_lock: false,
       },
       isLoad: false,
+      customToolbar: [
+        ['bold', 'italic', 'underline'],
+        [{ list: 'bullet' }],
+      ],
     };
   },
   conputed: {},

@@ -64,6 +64,7 @@ export default {
           el.content = el.description;
           el.title = el.titre;
         });
+        this.listeFormation.sort((a, b) => a.id - b.id);
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

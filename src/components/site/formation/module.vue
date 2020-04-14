@@ -20,8 +20,8 @@
             </v-row>
         </v-container>
         <v-container>
-          <v-row justify="space-between">
-            <v-col md="3" class="mb-3" v-for="(chapitre, i) in chapitres" :key="i">
+          <v-row justify="space-around">
+            <v-col md="3" class="mb-3 mx-2" v-for="(chapitre, i) in chapitres" :key="i">
               <CardImg
                 :data="chapitre"
                 dataBtn="Lire le chapitre"

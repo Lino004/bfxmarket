@@ -2,14 +2,14 @@
   <div style="width: 100%" class="ma-3">
     <v-row >
       <v-col>
-        <h2>Liste des formations</h2>
+        <h2>Liste des modules </h2>
       </v-col>
       <v-col class="text-end">
         <v-btn
           small
           color="primary"
           :to="{
-            name: 'back-office-ajout-formation'
+            name: 'back-office-ajout-module',
           }">
           Ajouter
         </v-btn>
@@ -19,7 +19,7 @@
     <v-data-table
       class="elevation-1 mt-4"
       :headers="headers"
-      :items="formations"
+      :items="modules"
       :items-per-page="10"
       :loading="isLoad">
       <template v-slot:item.image="{ item }">
@@ -42,7 +42,7 @@
           small
           color="green"
           :to="{
-            name: 'back-office-modifier-formation',
+            name: 'back-office-modifier-module',
             params: {
               id: item.id
             }
@@ -71,7 +71,7 @@
 
 <script>
 import SnackComp from '@/components/site/general/SnackComp.vue';
-import { listeFormation, deleteFormation, updateFormation } from '@/api/formations/index';
+import { listeModule, deleteModule, updateModule } from '@/api/modules/index';
 import cloneDeep from 'lodash/cloneDeep';
 import { BASE_HOST } from '@/api/config/config';
 
@@ -85,7 +85,7 @@ export default {
       base: BASE_HOST,
       colorSnack: '',
       message: '',
-      formations: [],
+      modules: [],
       isLoad: false,
       headers: [
         { text: 'Image', value: 'image', width: 100 },
@@ -96,6 +96,7 @@ export default {
       ],
       expanded: [],
       singleExpand: false,
+      formations: [],
     };
   },
   conputed: {},
@@ -108,21 +109,22 @@ export default {
     async getList() {
       this.isLoad = true;
       try {
-        this.formations = (await listeFormation()).data;
-        this.formations.sort((a, b) => a.id - b.id);
+        this.modules = (await listeModule()).data;
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
       }
     },
     async supp(id) {
-      await deleteFormation(id);
+      await deleteModule(id);
       await this.getList();
     },
     async uploadIsLock(data) {
       const dataClone = cloneDeep(data);
       const { id } = dataClone;
-      await updateFormation(id, {
+      delete dataClone.image;
+      await updateModule(id, {
+        ...dataClone,
         is_lock: !dataClone.is_lock,
       });
       await this.getList();
@@ -130,6 +132,7 @@ export default {
   },
   async mounted() {
     await this.getList();
+    await this.getListFormation();
   },
   destroyed() {},
 };

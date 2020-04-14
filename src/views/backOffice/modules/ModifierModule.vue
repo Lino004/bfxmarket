@@ -1,22 +1,22 @@
 <template>
-  <div style="width: 100%" class="ma-3" v-if="formation">
+  <div style="width: 100%" class="ma-3" v-if="module">
     <v-row >
       <v-col>
-        <h2>Modifier une formation</h2>
+        <h2>Modifier une module</h2>
       </v-col>
       <v-col class="text-end">
         <v-btn
           small
           class="mr-2"
           :to="{
-            name: 'back-office-liste-formation',
+            name: 'back-office-liste-modules',
           }">
           Annuler
         </v-btn>
         <v-btn
           small
           color="primary"
-          @click="updateFormation"
+          @click="updateModule"
           :loading="isLoad">
           Enregistrer
         </v-btn>
@@ -28,27 +28,27 @@
         cols="12"
         sm="3"
       >
-        <UploadImg v-model="formation.image"/>
+        <UploadImg v-model="module.image"/>
       </v-col>
       <v-col>
       <v-text-field
-        label="Titre de la formation"
+        label="Titre de la module"
         outlined
         append-icon="card-text"
-        v-model="formation.titre"
+        v-model="module.titre"
         hide-details
         class="mb-2"/>
       <!-- <v-textarea
-        label="Description de la formation"
+        label="Description de la module"
         outlined
-        v-model="formation.description"
+        v-model="module.description"
         hide-details
       ></v-textarea> -->
-      <vue-editor v-model="formation.description" :editor-toolbar="customToolbar"></vue-editor>
+      <vue-editor v-model="module.description" :editor-toolbar="customToolbar"></vue-editor>
       </v-col>
     </v-row>
-    <h3>Contenu detaillé de la formation</h3>
-    <vue-editor v-model="formation.contenu"></vue-editor>
+    <h3>Contenu detaillé de la module</h3>
+    <vue-editor v-model="module.contenu"></vue-editor>
     <SnackComp
       :value="valueSnack"
       @change="valueSnack = $event"
@@ -61,7 +61,7 @@
 import { VueEditor } from 'vue2-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import UploadImg from '@/components/backOffice/general/UploadImg.vue';
-import { updateFormation, getFormation } from '@/api/formations/index';
+import { updateModule, getModule } from '@/api/modules/index';
 import { BASE_HOST } from '@/api/config/config';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -77,7 +77,7 @@ export default {
       colorSnack: '',
       message: '',
       base: BASE_HOST,
-      formation: {
+      module: {
         image: {
           code: '',
           ext: '',
@@ -97,18 +97,18 @@ export default {
       this.message = msg;
       this.valueSnack = true;
     },
-    async updateFormation() {
+    async updateModule() {
       this.isLoad = true;
       try {
-        if (this.formation.titre && this.formation.description
-            && this.formation.contenu) {
-          const dataClone = cloneDeep(this.formation);
+        if (this.module.titre && this.module.description
+            && this.module.contenu) {
+          const dataClone = cloneDeep(this.module);
           const { id } = dataClone;
           delete dataClone.id;
           if (dataClone.image.src.includes(this.base)) delete dataClone.image;
-          await updateFormation(id, dataClone);
+          await updateModule(id, dataClone);
           this.showSnackComp('Enregistrement réussi', 'success');
-          this.$router.push({ name: 'back-office-liste-formation' });
+          this.$router.push({ name: 'back-office-liste-modules' });
         } else {
           this.showSnackComp('Il y a des éléments manquant', 'error');
         }
@@ -117,15 +117,15 @@ export default {
         this.isLoad = false;
       }
     },
-    async getFormation() {
+    async getModule() {
       this.isLoad = true;
       try {
         const { id } = this.$route.params;
-        this.formation = (await getFormation(id)).data;
-        this.formation.image = {
+        this.module = (await getModule(id)).data;
+        this.module.image = {
           code: '',
           ext: '',
-          src: `${this.base}${this.formation.image}`,
+          src: `${this.base}${this.module.image}`,
         };
         this.isLoad = false;
       } catch (error) {
@@ -134,7 +134,7 @@ export default {
     },
   },
   async mounted() {
-    await this.getFormation();
+    await this.getModule();
   },
   destroyed() {},
 };

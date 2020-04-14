@@ -2,14 +2,14 @@
   <div style="width: 100%" class="ma-3">
     <v-row >
       <v-col>
-        <h2>Liste des formations</h2>
+        <h2>Liste des chapitres </h2>
       </v-col>
       <v-col class="text-end">
         <v-btn
           small
           color="primary"
           :to="{
-            name: 'back-office-ajout-formation'
+            name: 'back-office-ajout-chapitre',
           }">
           Ajouter
         </v-btn>
@@ -19,12 +19,9 @@
     <v-data-table
       class="elevation-1 mt-4"
       :headers="headers"
-      :items="formations"
+      :items="chapitres"
       :items-per-page="10"
       :loading="isLoad">
-      <template v-slot:item.image="{ item }">
-        <v-img :src="`${base}${item.image}`" height="50" width="50"></v-img>
-      </template>
       <template v-slot:item.status="{ item }">
         <v-btn
           fab
@@ -42,7 +39,7 @@
           small
           color="green"
           :to="{
-            name: 'back-office-modifier-formation',
+            name: 'back-office-modifier-chapitre',
             params: {
               id: item.id
             }
@@ -71,9 +68,8 @@
 
 <script>
 import SnackComp from '@/components/site/general/SnackComp.vue';
-import { listeFormation, deleteFormation, updateFormation } from '@/api/formations/index';
+import { listeChapitre, deleteChapitre, updateChapitre } from '@/api/chapitres/index';
 import cloneDeep from 'lodash/cloneDeep';
-import { BASE_HOST } from '@/api/config/config';
 
 export default {
   components: {
@@ -82,13 +78,11 @@ export default {
   data() {
     return {
       valueSnack: false,
-      base: BASE_HOST,
       colorSnack: '',
       message: '',
-      formations: [],
+      chapitres: [],
       isLoad: false,
       headers: [
-        { text: 'Image', value: 'image', width: 100 },
         { text: 'Titre', value: 'titre' },
         { text: 'Status', value: 'status', width: 80 },
         { text: 'Modifier', value: 'modifier', width: 80 },
@@ -96,6 +90,7 @@ export default {
       ],
       expanded: [],
       singleExpand: false,
+      formations: [],
     };
   },
   conputed: {},
@@ -108,21 +103,20 @@ export default {
     async getList() {
       this.isLoad = true;
       try {
-        this.formations = (await listeFormation()).data;
-        this.formations.sort((a, b) => a.id - b.id);
+        this.chapitres = (await listeChapitre()).data;
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
       }
     },
     async supp(id) {
-      await deleteFormation(id);
+      await deleteChapitre(id);
       await this.getList();
     },
     async uploadIsLock(data) {
       const dataClone = cloneDeep(data);
       const { id } = dataClone;
-      await updateFormation(id, {
+      await updateChapitre(id, {
         is_lock: !dataClone.is_lock,
       });
       await this.getList();

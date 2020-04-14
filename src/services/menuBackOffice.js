@@ -31,8 +31,26 @@ export default [
   },
   {
     text: 'Formations',
-    to: { name: 'back-office-liste-formation' },
     icon: 'mdi-school',
-    disabled: false,
+    child: [
+      {
+        text: 'Liste des formations',
+        to: { name: 'back-office-liste-formation' },
+        icon: 'mdi-format-list-bulleted',
+        disabled: false,
+      },
+      {
+        text: 'Liste des modules',
+        to: { name: 'back-office-liste-modules' },
+        icon: 'mdi-format-list-bulleted',
+        disabled: false,
+      },
+      {
+        text: 'Liste des chapitres',
+        to: { name: 'back-office-liste-chapitres' },
+        icon: 'mdi-format-list-bulleted',
+        disabled: false,
+      },
+    ],
   },
 ];

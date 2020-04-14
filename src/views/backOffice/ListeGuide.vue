@@ -22,9 +22,6 @@
       :items-per-page="10"
       class="elevation-1 mt-4"
     >
-      <template v-slot:item.date="{ item }">
-        {{item.date}}
-      </template>
       <template v-slot:item.ouvrir="{ item }">
         <v-btn
           fab
@@ -61,7 +58,7 @@
 
 <script>
 import db from '@/plugins/firebase';
-import moment from 'moment';
+// import moment from 'moment';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
@@ -76,7 +73,6 @@ export default {
       chaps: [],
       ref: 'page/',
       headers: [
-        { text: 'Date de création', value: 'date', width: 200 },
         { text: 'Titre', value: 'titre' },
         { text: 'Ouvrir', value: 'ouvrir', width: 80 },
         { text: 'Supprimer', value: 'supprimer', width: 80 },
@@ -95,11 +91,7 @@ export default {
         const key = 'guide';
         const responce = await db.ref(this.ref).orderByKey().equalTo(key).once('value');
         this.chaps = Object.values(responce.val()[key]);
-        this.chaps.sort((a, b) => {
-          if (moment(a.date).isBefore(b.date)) return -1;
-          if (moment(a.date).isAfter(b.date)) return 1;
-          return 0;
-        });
+        this.chaps.sort((a, b) => a.titre.split(' ')[0] - b.titre.split(' ')[0]);
       } catch (error) {
         this.chaps = [];
       }

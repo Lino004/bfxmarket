@@ -3,7 +3,7 @@ export default {
   // baseURL: 'https://bluefxmarket-backend.herokuapp.com/api/',
   headers: {
     'Content-Type': 'application/json',
-    // 'access-control-allow-origin': '*',
+    // 'Access-Control-Allow-Origin': '*',
   },
 };
 

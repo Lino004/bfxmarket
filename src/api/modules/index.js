@@ -1,7 +1,7 @@
 import HTTP from '../HTTP';
 
 export async function createModule(info) {
-  const response = await HTTP.post('tasks/module/create', info);
+  const response = await HTTP.put('tasks/module/create', info);
   return response;
 }
 

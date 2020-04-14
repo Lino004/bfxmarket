@@ -96,7 +96,8 @@ export default {
         ['bold', 'italic', 'underline'],
         [{ list: 'bullet' }],
       ],
-      formationSelect: 3,
+      formationSelect: 1,
+      formations: [],
     };
   },
   conputed: {},

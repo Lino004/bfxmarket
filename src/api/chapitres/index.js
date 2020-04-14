@@ -1,12 +1,17 @@
 import HTTP from '../HTTP';
 
 export async function createChapitre(info) {
-  const response = await HTTP.post('tasks/chapitre/create', info);
+  const response = await HTTP.put('tasks/chapitre/create', info);
   return response;
 }
 
 export async function listeChapitre() {
   const response = await HTTP.get('tasks/chapitre/list');
+  return response;
+}
+
+export async function listeChapitreByModule(id) {
+  const response = await HTTP.get(`tasks/chapitre/list/${id}`);
   return response;
 }
 

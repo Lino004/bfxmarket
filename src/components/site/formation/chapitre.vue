@@ -1,56 +1,8 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" title="Chapitre 1"/>
+     <PageTitle :breadcrumbs="breadcrumbs" :title="chapitre.titre"/>
      <section>
-        <v-container fill-height>
-            <h1>Titre du chapitre</h1>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-            Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
-            Cras elementum ultrices diam. Maecenas ligula massa, varius a,
-            semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie,
-            enim est eleifend mi, non fermentum diam nisl sit amet erat.
-            Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a,
-            enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor.
-            Cras vestibulum bibendum augue. Praesent egestas leo in pede.
-            Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-            posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede
-            pellentesque fermentum.
-            Maecenas adipiscing ante non diam sodales hendrerit.
-            </p>
-            <h1>Titre de ce que nous faisons1</h1>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-            Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
-            Cras elementum ultrices diam. Maecenas ligula massa, varius a,
-            semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie,
-            enim est eleifend mi, non fermentum diam nisl sit amet erat.
-            Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a,
-            enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor.
-            Cras vestibulum bibendum augue. Praesent egestas leo in pede.
-            Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-            posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede
-            pellentesque fermentum.
-            Maecenas adipiscing ante non diam sodales hendrerit.
-            </p>
-            <h1>Titre de ce que nous faisons1</h1>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-            Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
-            Cras elementum ultrices diam. Maecenas ligula massa, varius a,
-            semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie,
-            enim est eleifend mi, non fermentum diam nisl sit amet erat.
-            Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a,
-            enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor.
-            Cras vestibulum bibendum augue. Praesent egestas leo in pede.
-            Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-            posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede
-            pellentesque fermentum.
-            Maecenas adipiscing ante non diam sodales hendrerit.
-            </p>
+        <v-container fill-height v-html="chapitre.contenu">
         </v-container>
      </section>
   </div>
@@ -58,33 +10,53 @@
 
 <script>
 import PageTitle from '@/components/site/general/PageTitle.vue';
+import { getChapitre } from '@/api/chapitres/index';
 
 export default {
   components: { PageTitle },
   data: () => ({
-    breadcrumbs: [
-      {
-        text: 'Accueil',
-        disabled: false,
-        to: '/',
-      },
-      {
-        text: 'Formation',
-        disabled: false,
-        to: 'formation/1',
-      },
-      {
-        text: 'Module',
-        disabled: false,
-        to: 'formation/1/module/1',
-      },
-      {
-        text: 'Chapitre',
-        disabled: true,
-      },
-    ],
+    chapitre: {},
   }),
+  computed: {
+    breadcrumbs() {
+      const { idModule, idFormation } = this.$route.params;
+      return [
+        {
+          text: 'Accueil',
+          disabled: false,
+          to: '/home',
+        },
+        {
+          text: 'Formation',
+          disabled: false,
+          to: `/home/formation/${idFormation}`,
+        },
+        {
+          text: 'Module',
+          disabled: false,
+          to: `/home/formation/${idFormation}/module/${idModule}`,
+        },
+        {
+          text: 'Chapitre',
+          disabled: true,
+        },
+      ];
+    },
+  },
   methods: {
+    async getChapitre() {
+      this.isLoad = true;
+      try {
+        const { idChapitre } = this.$route.params;
+        this.chapitre = (await getChapitre(idChapitre)).data;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+      }
+    },
+  },
+  async mounted() {
+    await this.getChapitre();
   },
 };
 </script>

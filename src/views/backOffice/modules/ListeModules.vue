@@ -132,7 +132,6 @@ export default {
   },
   async mounted() {
     await this.getList();
-    await this.getListFormation();
   },
   destroyed() {},
 };

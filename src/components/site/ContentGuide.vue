@@ -25,7 +25,7 @@
                   <v-list-item
                     v-for="(titre, i) in chaps.map(el => el.titre)"
                     :key="i"
-                    @click="onboarding = i - 1"
+                    @click="onboarding = i"
                   >
                     <v-list-item-title> {{titre}} </v-list-item-title>
                   </v-list-item>
@@ -59,7 +59,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import moment from 'moment';
+// import moment from 'moment';
 import db from '@/plugins/firebase';
 
 export default {
@@ -107,11 +107,7 @@ export default {
         const key = 'guide';
         const responce = await db.ref(this.ref).orderByKey().equalTo(key).once('value');
         this.chaps = Object.values(responce.val()[key]);
-        this.chaps.sort((a, b) => {
-          if (moment(a.date).isBefore(b.date)) return -1;
-          if (moment(a.date).isAfter(b.date)) return 1;
-          return 0;
-        });
+        this.chaps.sort((a, b) => a.titre.split(' ')[0] - b.titre.split(' ')[0]);
       } catch (error) {
         this.chaps = [];
       }

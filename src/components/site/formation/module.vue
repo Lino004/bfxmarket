@@ -21,7 +21,7 @@
         </v-container>
         <v-container>
           <v-row justify="space-around">
-            <v-col md="3" class="mb-3 mx-2" v-for="(chapitre, i) in chapitres" :key="i">
+            <v-col md="4" class="mb-3 mx-2" v-for="(chapitre, i) in chapitres" :key="i">
               <CardImg
                 :data="chapitre"
                 dataBtn="Lire le chapitre"

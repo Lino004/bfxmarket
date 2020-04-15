@@ -7,11 +7,12 @@
         <v-container>
           <v-list shaped>
             <v-subheader>Nos chapitres: </v-subheader>
-            <v-list-item-group color="primary">
+            <v-list-item-group :color="primary">
               <v-list-item
                 v-for="(chap, i) in chapitres"
                 :key="i"
                 @click="startChapitre(chap.id)"
+                :disabled="!chap.is_lock"
               >
                 <v-list-item-icon>
                   <v-avatar
@@ -29,6 +30,9 @@
           </v-list>
         </v-container>
      </section>
+     <v-overlay :value="isLoad">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
     </div>
 </template>
 
@@ -58,6 +62,7 @@ export default {
     ],
     module: {},
     chapitres: [],
+    isLoad: false,
   }),
   methods: {
     startChapitre(idChap) {
@@ -81,6 +86,7 @@ export default {
           el.active = el.is_lock;
           el.title = el.titre;
         });
+        this.chapitres.sort((a, b) => a.id - b.id);
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

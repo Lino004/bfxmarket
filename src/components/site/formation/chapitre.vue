@@ -2,9 +2,12 @@
   <div>
      <PageTitle :breadcrumbs="breadcrumbs" :title="chapitre.titre"/>
      <section>
-        <v-container fill-height v-html="chapitre.contenu">
-        </v-container>
+      <v-container fill-height v-html="chapitre.contenu">
+      </v-container>
      </section>
+     <v-overlay :value="isLoad">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -16,6 +19,7 @@ export default {
   components: { PageTitle },
   data: () => ({
     chapitre: {},
+    isLoad: false,
   }),
   computed: {
     breadcrumbs() {

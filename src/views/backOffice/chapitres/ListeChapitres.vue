@@ -104,6 +104,7 @@ export default {
       this.isLoad = true;
       try {
         this.chapitres = (await listeChapitre()).data;
+        this.chapitres.sort((a, b) => a.id - b.id);
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
@@ -117,6 +118,7 @@ export default {
       const dataClone = cloneDeep(data);
       const { id } = dataClone;
       await updateChapitre(id, {
+        ...dataClone,
         is_lock: !dataClone.is_lock,
       });
       await this.getList();

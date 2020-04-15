@@ -31,7 +31,7 @@
         open-on-hover
         offset-y
         transition="scale-transition"
-        v-else
+        v-if="user && link.child"
       >
         <template v-slot:activator="{ on }">
           <v-btn

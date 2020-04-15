@@ -2,8 +2,8 @@
   <div>
     <PrincipalSection/>
     <Section2/>
-    <Section4/>
     <Section3/>
+    <Section4/>
     <Section5/>
   </div>
 </template>

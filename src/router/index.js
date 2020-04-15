@@ -26,6 +26,7 @@ import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
+import store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -36,7 +37,7 @@ const routes = [
   },
   {
     path: '/',
-    redirect: '/coming-song',
+    redirect: '/home',
   },
   {
     path: '/coming-song',
@@ -153,16 +154,19 @@ const routes = [
         path: 'formation/:idFormation',
         name: 'bfx-formation',
         component: formation,
+        meta: { requiresAuth: true },
       },
       {
         path: 'formation/:idFormation/module/:idModule',
         name: 'bfx-module',
         component: modules,
+        meta: { requiresAuth: true },
       },
       {
         path: 'formation/:idFormation/module/:idModule/chapitre/:idChapitre',
         name: 'bfx-chapitre',
         component: chapitre,
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -183,6 +187,20 @@ const router = new VueRouter({
     return goTo(scrollTo);
   },
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.user) {
+      next({
+        path: '/',
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

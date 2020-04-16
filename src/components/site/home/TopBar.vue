@@ -79,7 +79,7 @@
             </v-avatar>
           </template>
           <v-list>
-            <v-list-item @click="setUser(false)">
+            <v-list-item @click="deconnexion">
               <v-list-item-title>Déconnexion</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -146,6 +146,10 @@ export default {
         x: document.querySelector('.topbar .v-toolbar__content').clientWidth,
         y: document.querySelector('.topbar .v-toolbar__content').clientHeight,
       });
+    },
+    deconnexion() {
+      this.setUser(false);
+      window.location.reload();
     },
   },
   mounted() {

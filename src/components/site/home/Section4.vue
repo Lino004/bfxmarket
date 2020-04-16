@@ -67,6 +67,14 @@ export default {
           vous dire grâce à WFxSchool et à ses formateurs je suis devenu un trader très rentable.
           Je vis maintenant et pleinement de trading. Je vous recommande WFxSchool`,
       },
+      {
+        img: '',
+        name: 'The Light',
+        status: 'Trader Maser',
+        comment: `Ah la vie, qui pourrait croire qu'aujourd'hui, je pourrais parler de trading sans que mon coeur ne se mette à battre fort 😂. <br/>
+          Encore merci coach, sans cette formation, je ne sais pas dans quel état d'âme je serai aujourd'hui. <br/>
+          J'ai vu l'espoir sous Bluefx market.  Infiniment merci et que Dieu vous accorde la santé qu'il faut pour aider encore plus de personnes 😊`,
+      },
     ],
     isClick: false,
   }),

@@ -269,6 +269,7 @@ export default {
         this.showSnackComp('Inscription réussi', 'success');
         user.password = '';
         this.setUser(user);
+        window.location.reload();
         this.createLoading = false;
         this.$emit('annuler');
       } catch (error) {

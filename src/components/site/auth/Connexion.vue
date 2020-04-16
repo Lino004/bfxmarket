@@ -31,7 +31,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-spacer />
+      <v-spacer/>
       <v-btn color="primary" @click="$emit('annuler')">Annuler</v-btn>
       <v-btn
         color="primary"
@@ -84,13 +84,14 @@ export default {
       try {
         this.createLoading = true;
         const infoUser = {
-          login: this.email,
+          login: this.email.toLowerCase(),
           password: this.password,
         };
         const user = (await login(infoUser)).data;
         this.showSnackComp('Connexion réussi', 'success');
         user.password = '';
         this.setUser(user);
+        window.location.reload();
         this.createLoading = false;
         this.$emit('annuler');
       } catch (error) {

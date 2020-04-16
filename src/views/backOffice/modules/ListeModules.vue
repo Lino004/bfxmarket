@@ -110,6 +110,7 @@ export default {
       this.isLoad = true;
       try {
         this.modules = (await listeModule()).data;
+        this.modules.sort((a, b) => a.id - b.id);
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

@@ -5,14 +5,15 @@
         <v-container fill-height v-html="module.contenu">
         </v-container>
         <v-container>
-          <v-list shaped>
-            <v-subheader>Nos chapitres: </v-subheader>
-            <v-list-item-group :color="primary">
+          <v-list shaped class="pa-0">
+            <v-subheader class="px-0">Nos chapitres: </v-subheader>
+            <v-list-item-group :color="'primary'">
               <v-list-item
                 v-for="(chap, i) in chapitres"
                 :key="i"
                 @click="startChapitre(chap.id)"
                 :disabled="!chap.is_lock"
+                class="px-0"
               >
                 <v-list-item-icon>
                   <v-avatar
@@ -50,11 +51,11 @@ export default {
         disabled: false,
         to: '/',
       },
-      {
+      /* {
         text: 'Formation',
         disabled: false,
         to: { name: 'bfx-formation', params: { idModule: 1 } },
-      },
+      }, */
       {
         text: 'Modules',
         disabled: true,

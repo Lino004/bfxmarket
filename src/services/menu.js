@@ -23,7 +23,7 @@ export default [
     icon: 'mdi-information-outline',
     disabled: false,
   },
-  {
+  /* {
     text: 'Formation',
     icon: 'mdi-book',
     child: [
@@ -46,5 +46,5 @@ export default [
         disabled: true,
       },
     ],
-  },
+  }, */
 ];

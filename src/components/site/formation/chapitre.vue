@@ -23,14 +23,14 @@ export default {
   }),
   computed: {
     breadcrumbs() {
-      const { idModule, idFormation } = this.$route.params;
+      // const { idModule, idFormation } = this.$route.params;
       return [
         {
           text: 'Accueil',
           disabled: false,
-          to: '/home',
+          to: '/',
         },
-        {
+        /* {
           text: 'Formation',
           disabled: false,
           to: `/home/formation/${idFormation}`,
@@ -39,7 +39,7 @@ export default {
           text: 'Module',
           disabled: false,
           to: `/home/formation/${idFormation}/module/${idModule}`,
-        },
+        }, */
         {
           text: 'Chapitre',
           disabled: true,

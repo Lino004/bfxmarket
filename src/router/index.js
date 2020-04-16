@@ -12,6 +12,8 @@ import chapitre from '@/components/site/formation/chapitre.vue';
 import BackOffice from '@/views/backOffice/index.vue';
 import ConfigPageAccueil from '@/views/backOffice/ConfigPageAccueil.vue';
 import QueFaisonsNousBackOffice from '@/views/backOffice/QueFaisonsNous.vue';
+import PolitiqueEtConf from '@/views/backOffice/PolitiqueEtConf.vue';
+import TermeEtCondition from '@/views/backOffice/TermeEtCondition.vue';
 import ListeGuide from '@/views/backOffice/ListeGuide.vue';
 import AddChapGuide from '@/views/backOffice/AddChapGuide.vue';
 import DetailChapGuide from '@/views/backOffice/DetailChapGuide.vue';
@@ -26,7 +28,7 @@ import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
-import store from '../store/index';
+// import store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -57,6 +59,16 @@ const routes = [
         path: '/backffice/que-faisons-nous',
         name: 'back-office-que-faisons-nous',
         component: QueFaisonsNousBackOffice,
+      },
+      {
+        path: '/backffice/politique-conf',
+        name: 'back-office-politique-conf',
+        component: PolitiqueEtConf,
+      },
+      {
+        path: '/backffice/termes-conditions',
+        name: 'back-office-termes-conditions',
+        component: TermeEtCondition,
       },
       {
         path: '/backffice/liste-chap-guide-trading',
@@ -191,7 +203,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters.user) {
+    if (!JSON.parse(localStorage.getItem('user'))) {
       next({
         path: '/',
       });

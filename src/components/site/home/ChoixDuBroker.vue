@@ -1,6 +1,6 @@
 <template>
   <section class="white">
-    <Bande title="Choix du broker"/>
+    <Bande position="right" title="Choix du broker"/>
     <v-container>
       <div v-html="page.content"></div>
     </v-container>

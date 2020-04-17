@@ -2,7 +2,8 @@
   <div>
      <PageTitle :breadcrumbs="breadcrumbs" :title="chapitre.titre"/>
      <section>
-      <v-container fill-height v-html="chapitre.contenu">
+      <v-container fill-height>
+        <div style="width: 100%" v-html="chapitre.contenu"></div>
       </v-container>
      </section>
      <v-overlay :value="isLoad">

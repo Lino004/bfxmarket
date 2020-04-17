@@ -57,7 +57,7 @@ export default {
     SnackComp,
   },
   data: () => ({
-    email: 'test@test.test',
+    email: '',
     regleEmail: [
       v => !!v || 'Votre email est obligatoire',
       v => /.+@.+\..+/.test(v) || 'Entrez un email valide',

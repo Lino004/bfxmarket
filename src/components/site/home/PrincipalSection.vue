@@ -18,11 +18,6 @@
             class="fill-height"
             align="center"
             justify="center">
-            <!-- <v-col cols="2">
-              <v-img
-                :src="require('@/assets/img/logo-white.png')"
-                class="mr-5"/>
-            </v-col> -->
             <div class="container text-center col-12">
               <p
                 class="font-weight-black"

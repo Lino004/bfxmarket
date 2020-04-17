@@ -9,7 +9,7 @@
       <v-flex xs12 sm4 class="my-4">
         <div class="text-center" v-animate-css="'fadeInDown'">
           <h2 class="headline font-weight-bold">
-            Devenez rentable sur les marchés financiers grace aux 3 fromations offertes
+            Devenez rentable sur les marchés financiers grace aux 3 formations offertes
           </h2>
         </div>
       </v-flex>

@@ -57,6 +57,7 @@
       </v-col>
     </v-row>
     <h3>Contenu detaillé du chapitre</h3>
+    <yimo-vue-editor v-model="chapitre.contenu"></yimo-vue-editor>
     <vue-editor v-model="chapitre.contenu"></vue-editor>
     <SnackComp
       :value="valueSnack"
@@ -68,6 +69,7 @@
 
 <script>
 import { VueEditor } from 'vue2-editor';
+import YimoVueEditor from 'yimo-vue-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import { createChapitre } from '@/api/chapitres/index';
 import { listeFormation } from '@/api/formations/index';
@@ -77,6 +79,7 @@ export default {
   components: {
     SnackComp,
     VueEditor,
+    YimoVueEditor,
   },
   data() {
     return {

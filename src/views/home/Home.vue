@@ -2,9 +2,9 @@
   <div>
     <PrincipalSection/>
     <Section2/>
+    <ChoixDuBroker/>
     <Section3/>
     <Section4/>
-    <ChoixDuBroker/>
     <Section5/>
   </div>
 </template>

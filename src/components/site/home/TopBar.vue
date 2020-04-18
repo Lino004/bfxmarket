@@ -139,7 +139,7 @@ export default {
     ...mapActions([
       'setSizeTopBar',
       'setDrawer',
-      'setUser',
+      'logout',
     ]),
     onResize() {
       this.setSizeTopBar({
@@ -147,8 +147,8 @@ export default {
         y: document.querySelector('.topbar .v-toolbar__content').clientHeight,
       });
     },
-    deconnexion() {
-      this.setUser(false);
+    async deconnexion() {
+      await this.logout();
       window.location.reload();
     },
   },

@@ -138,10 +138,10 @@ export default {
   methods: {
     ...mapActions([
       'setDrawer',
-      'setUser',
+      'logout',
     ]),
-    deconnexion() {
-      this.setUser(false);
+    async deconnexion() {
+      await this.logout();
       window.location.reload();
     },
   },

@@ -31,7 +31,7 @@
         open-on-hover
         offset-y
         transition="scale-transition"
-        v-else
+        v-if="user && link.child"
       >
         <template v-slot:activator="{ on }">
           <v-btn
@@ -79,7 +79,7 @@
             </v-avatar>
           </template>
           <v-list>
-            <v-list-item @click="setUser(false)">
+            <v-list-item @click="deconnexion">
               <v-list-item-title>Déconnexion</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -139,13 +139,17 @@ export default {
     ...mapActions([
       'setSizeTopBar',
       'setDrawer',
-      'setUser',
+      'logout',
     ]),
     onResize() {
       this.setSizeTopBar({
         x: document.querySelector('.topbar .v-toolbar__content').clientWidth,
         y: document.querySelector('.topbar .v-toolbar__content').clientHeight,
       });
+    },
+    async deconnexion() {
+      await this.logout();
+      window.location.reload();
     },
   },
   mounted() {

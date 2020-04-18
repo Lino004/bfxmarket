@@ -88,6 +88,9 @@
           <span> {{userName.toUpperCase()}} </span>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item link @click="deconnexion">
+        Déconnexion
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -135,7 +138,12 @@ export default {
   methods: {
     ...mapActions([
       'setDrawer',
+      'logout',
     ]),
+    async deconnexion() {
+      await this.logout();
+      window.location.reload();
+    },
   },
   mounted() {},
 };

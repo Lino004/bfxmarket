@@ -9,7 +9,7 @@
       <v-flex xs12 sm4 class="my-4">
         <div class="text-center" v-animate-css="'fadeInDown'">
           <h2 class="headline font-weight-bold">
-            Devenez rentable sur les marchés financiers grace aux 3 fromations offertes
+            Devenez rentable sur les marchés financiers grace aux 3 formations offertes
           </h2>
         </div>
       </v-flex>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { listeFormation } from '@/api/formations/index';
 import { BASE_HOST } from '@/api/config/config';
 import CardImg from '@/components/site/general/CardImg.vue';
@@ -48,7 +48,11 @@ export default {
       listeFormation: [],
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'user',
+    ]),
+  },
   methods: {
     ...mapActions([
       'setEnDev',
@@ -59,7 +63,7 @@ export default {
         this.listeFormation = (await listeFormation()).data;
         /* eslint no-param-reassign: ["error", { "props": false }] */
         this.listeFormation.forEach((el) => {
-          el.active = el.is_lock;
+          el.active = el.is_lock && this.user;
           el.img = `${BASE_HOST}${el.image}`;
           el.content = el.description;
           el.title = el.titre;

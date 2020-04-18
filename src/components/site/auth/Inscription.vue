@@ -113,7 +113,7 @@
                   <div @click.stop="">
                     Acceptez vous les
                     <a href="javascript:;" @click.stop="showModalCondition = true">
-                      Conditions Générales de Vente?
+                      Termes et Conditions?
                     </a>
                   </div>
                 </template>
@@ -136,10 +136,8 @@
     </v-card-actions>
     <v-dialog v-model="showModalTermes" width="70%">
       <v-card>
-        <v-card-title class="title">Terme</v-card-title>
-        <v-card-text v-for="n in 5" :key="n">
-          {{ content }}
-        </v-card-text>
+        <v-card-title class="title">POLITIQUE DE CONFIDENTIALITÉ</v-card-title>
+        <v-card-text v-html="pagePolitiqueEtConf.content"></v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -152,10 +150,8 @@
     </v-dialog>
     <v-dialog v-model="showModalCondition" width="70%">
       <v-card>
-        <v-card-title class="title">Conditions</v-card-title>
-        <v-card-text v-for="n in 5" :key="n">
-          {{ content }}
-        </v-card-text>
+        <v-card-title class="title">TERMES ET CONDITIONS</v-card-title>
+        <v-card-text v-html="pageTermesConditions.content"></v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -176,6 +172,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import db from '@/plugins/firebase';
 import listePays from '@/services/pays';
 import { create } from '@/api/auth/index';
 import SnackComp from '@/components/site/general/SnackComp.vue';
@@ -239,6 +236,9 @@ export default {
     valueSnack: false,
     colorSnack: '',
     message: '',
+    ref: 'page/',
+    pagePolitiqueEtConf: {},
+    pageTermesConditions: {},
   }),
   computed: {},
   watch: {},
@@ -269,6 +269,7 @@ export default {
         this.showSnackComp('Inscription réussi', 'success');
         user.password = '';
         this.setUser(user);
+        window.location.reload();
         this.createLoading = false;
         this.$emit('annuler');
       } catch (error) {
@@ -276,6 +277,27 @@ export default {
         this.createLoading = false;
       }
     },
+    getPolitiqueEtConf() {
+      const key = 'politique-conf';
+      db.ref(this.ref).orderByKey().equalTo(key).once('value')
+        .then((snap) => {
+          this.pagePolitiqueEtConf = snap.val()[key];
+        });
+    },
+    getTermesConditions() {
+      const key = 'termes-conditions';
+      db.ref(this.ref).orderByKey().equalTo(key).once('value')
+        .then((snap) => {
+          this.pageTermesConditions = snap.val()[key];
+        });
+    },
+  },
+  mounted() {
+    this.getPolitiqueEtConf();
+    this.getTermesConditions();
+  },
+  destroyed() {
+    db.ref(this.ref).off();
   },
 };
 </script>

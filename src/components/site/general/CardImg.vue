@@ -35,8 +35,16 @@
         </v-card-text>
         <v-card-actions>
           <v-layout justify-center class="ma-2">
+            <ModalAuth v-if="!user"
+              justify=""
+              custum-class="mx-2 primary" :type="'connexion'"/>
+            {{user ? '' : '/'}}
+            <ModalAuth v-if="!user"
+              justify=""
+              custum-class="mx-2 primary" :type="'inscription'"/>
             <v-btn
               small
+              v-else
               :color="data.active ? 'bg-blue-grad' : 'grey'"
               @click="$emit('action')"
               :disabled="!data.active">
@@ -50,7 +58,12 @@
 </template>
 
 <script>
+import ModalAuth from '@/components/site/auth/ModalAuth.vue';
+
 export default {
+  components: {
+    ModalAuth,
+  },
   props: {
     data: Object,
     dataBtn: String,
@@ -58,6 +71,7 @@ export default {
   },
   data: () => ({
     defaultImg: '',
+    user: JSON.parse(localStorage.getItem('user')),
   }),
   computed: {
     img() {

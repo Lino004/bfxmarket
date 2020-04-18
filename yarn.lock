@@ -5120,6 +5120,11 @@ jest-worker@^25.1.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
+jquery@^3.3.1:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.0.tgz#9980b97d9e4194611c36530e7dc46a58d7340fc9"
+  integrity sha512-Xb7SVYMvygPxbFMpTFQiHh1J7HClEaThguL15N/Gg37Lri/qKyhRGZYzHRyLH8Stq3Aow0LsHO2O2ci86fCrNQ==
+
 js-message@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/js-message/-/js-message-1.0.5.tgz#2300d24b1af08e89dd095bc1a4c9c9cfcb892d15"
@@ -8682,7 +8687,7 @@ vue2-flip-countdown@^0.9.3:
   dependencies:
     uuid "^3.3.2"
 
-vue@^2.3.2, vue@^2.6.10:
+vue@^2.3.2, vue@^2.5.11, vue@^2.6.10:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
@@ -9036,6 +9041,14 @@ yargs@^15.0.0:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^16.1.0"
+
+yimo-vue-editor@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/yimo-vue-editor/-/yimo-vue-editor-1.1.5.tgz#c8e12331fd45e277b2faf815558b8d0f667a6ce3"
+  integrity sha512-WeGL5i+YwPv5qNB393nEUEo/W4JPgYq0apjGJcVVaKqs2lQ6JQdEalxjZ/yMGQ1nqC4WBiyCgLa/4tCXIxcCZg==
+  dependencies:
+    jquery "^3.3.1"
+    vue "^2.5.11"
 
 yorkie@^2.0.0:
   version "2.0.0"

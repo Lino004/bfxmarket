@@ -2,9 +2,13 @@
   <div>
      <PageTitle :breadcrumbs="breadcrumbs" :title="chapitre.titre"/>
      <section>
-        <v-container fill-height v-html="chapitre.contenu">
-        </v-container>
+      <v-container fill-height>
+        <div style="width: 100%" v-html="chapitre.contenu"></div>
+      </v-container>
      </section>
+     <v-overlay :value="isLoad">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -16,17 +20,18 @@ export default {
   components: { PageTitle },
   data: () => ({
     chapitre: {},
+    isLoad: false,
   }),
   computed: {
     breadcrumbs() {
-      const { idModule, idFormation } = this.$route.params;
+      // const { idModule, idFormation } = this.$route.params;
       return [
         {
           text: 'Accueil',
           disabled: false,
-          to: '/home',
+          to: '/',
         },
-        {
+        /* {
           text: 'Formation',
           disabled: false,
           to: `/home/formation/${idFormation}`,
@@ -35,7 +40,7 @@ export default {
           text: 'Module',
           disabled: false,
           to: `/home/formation/${idFormation}/module/${idModule}`,
-        },
+        }, */
         {
           text: 'Chapitre',
           disabled: true,

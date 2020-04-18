@@ -13,8 +13,8 @@
             <v-row class="mb-4" align="center">
               <strong class="title ml-3"> {{chap.titre}} </strong>
               <v-spacer></v-spacer>
-              <v-btn icon @click="drawer = !drawer">
-                <v-icon>mdi-menu</v-icon>
+              <v-btn fab dark small color="primary" @click="drawer = !drawer">
+                <v-icon dark>mdi-menu</v-icon>
               </v-btn>
               <v-navigation-drawer v-if="drawer"
                 v-model="drawer"

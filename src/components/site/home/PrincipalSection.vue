@@ -18,14 +18,11 @@
             class="fill-height"
             align="center"
             justify="center">
-            <!-- <v-col cols="2">
-              <v-img
-                :src="require('@/assets/img/logo-white.png')"
-                class="mr-5"/>
-            </v-col> -->
             <div class="container text-center col-12">
-              <p class="display-3 font-weight-black"> {{img.title}} </p>
-              <p class="display-1"> {{img.subtitle}} </p>
+              <p
+                class="font-weight-black"
+                :class="classText.title"> {{img.title}} </p>
+              <p :class="classText.subtitle"> {{img.subtitle}} </p>
             </div>
           </v-row>
 
@@ -50,6 +47,22 @@ export default {
     ...mapGetters([
       'sizeTopBar',
     ]),
+    classText() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return {
+          title: 'display-1',
+          subtitle: 'subtitle-1',
+        };
+        case 'sm': return {
+          title: 'display-1',
+          subtitle: 'subtitle-1',
+        };
+        default: return {
+          title: 'display-3',
+          subtitle: 'display-1',
+        };
+      }
+    },
   },
   methods: {
     get() {

@@ -27,6 +27,18 @@ export default [
         icon: 'mdi-help-circle-outline',
         disabled: false,
       },
+      {
+        text: 'Politique et confidentialité',
+        to: { name: 'back-office-politique-conf' },
+        icon: 'mdi-block-helper',
+        disabled: false,
+      },
+      {
+        text: 'Termes et conditions',
+        to: { name: 'back-office-termes-conditions' },
+        icon: 'mdi-block-helper',
+        disabled: false,
+      },
     ],
   },
   {

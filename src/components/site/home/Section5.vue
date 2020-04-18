@@ -1,7 +1,7 @@
 <template>
   <section class="white">
+    <Bande title="Plus d'information?"/>
     <v-container grid-list-xl>
-      <v-divider></v-divider>
       <v-layout row wrap justify-center>
         <v-flex xs12 sm-4>
           <v-row>
@@ -111,14 +111,35 @@
           </v-row>
         </v-flex>
       </v-layout>
+      <v-alert
+        v-model="alert"
+        close-text="Close Alert"
+        color="black" dark dismissible>
+        <h3 class="headline">Avertissement au risque</h3>
+        Le trading implique un risque élevé et ne convient
+        pas à tous les investisseurs. Le degré élevé d’effet de levier
+        peut opérer en votre faveur aussi bien que contre vous. Avant de
+        décider de trader, vous devez attentivement considérer vos objectifs
+        d’investissement, votre niveau d’expérience et votre appétit du risque.
+        Pour cela, nous vous invitons à ne pas négliger de vous former avant
+        d’investir des fonds. Il y a toujours une relation entre rémunération
+        élevée et risque élevé. Tous types de marché ou de spéculation en trading,
+        qui peut rapporter exceptionnellement un rendement élevé sur l’investissement,
+        est soumis à un risque élevé exceptionnel, et le forex ne fait pas exception.
+        Vous ne devez donc jamais investir des sommes d’argent dont vous pourriez avoir
+        besoin pour vivre. Notez toutefois que la plupart des brokers disposent de règles
+        de sécurité automatiques vous empêchant de perdre plus que les fonds investis.
+      </v-alert>
     </v-container>
   </section>
 </template>
 
 <script>
 import db from '@/plugins/firebase';
+import Bande from '@/components/site/general/Bande.vue';
 
 export default {
+  components: { Bande },
   data: () => ({
     ref: 'info-contact/',
     info: {

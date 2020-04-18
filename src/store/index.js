@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { get } from '@/api/auth/index';
 
 Vue.use(Vuex);
 
@@ -59,6 +60,17 @@ export default new Vuex.Store({
     setUser(context, val) {
       localStorage.setItem('user', JSON.stringify(val));
       context.commit('SET_USER', val);
+    },
+    async getUser(context) {
+      try {
+        const user = (await get(context.getters.user.identifiant)).data;
+        user.password = '';
+        context.dispatch('setUser', user);
+        console.log(user);
+        return true;
+      } catch (error) {
+        return false;
+      }
     },
   },
   getters: {

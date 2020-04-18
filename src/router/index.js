@@ -28,7 +28,7 @@ import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
-// import store from '../store/index';
+import store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -201,8 +201,9 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    await store.dispatch('getUser');
     if (!JSON.parse(localStorage.getItem('user'))) {
       next({
         path: '/',

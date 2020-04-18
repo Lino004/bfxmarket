@@ -1,5 +1,5 @@
 export default {
-  baseURL: 'http://backend.wfxschool.com/services/api/',
+  baseURL: 'https://backend.wfxschool.com/services/api/',
   // baseURL: 'https://bluefxmarket-backend.herokuapp.com/api/',
   headers: {
     'Content-Type': 'application/json',
@@ -7,5 +7,5 @@ export default {
   },
 };
 
-export const BASE_HOST = 'http://backend.wfxschool.com/services';
+export const BASE_HOST = 'https://backend.wfxschool.com/services';
 // export const BASE_HOST = 'https://bluefxmarket-backend.herokuapp.com';

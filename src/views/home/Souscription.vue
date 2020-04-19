@@ -38,6 +38,7 @@
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import Parrainage from '@/components/site/souscription/Parrainage.vue';
 import { listeChapitre } from '@/api/chapitres/index';
+import { mapGetters } from 'vuex';
 
 export default {
   components: { PageTitle, Parrainage },
@@ -56,17 +57,23 @@ export default {
     tab: null,
     items: [
       { tab: 'Souscription par parrainage', component: 'Parrainage' },
-      { tab: 'Faire un don', component: '' },
+      /* { tab: 'Faire un don', component: '' }, */
     ],
     chapitres: [],
     isLoad: false,
   }),
+  computed: {
+    ...mapGetters([
+      'listeSouscript',
+    ]),
+  },
   methods: {
     async getList() {
       this.isLoad = true;
       try {
         this.chapitres = (await listeChapitre()).data;
         this.chapitres.sort((a, b) => a.id - b.id);
+        this.chapitres = this.chapitres.filter(el => !this.listeSouscript.includes(el.id));
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

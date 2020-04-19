@@ -182,6 +182,13 @@ const routes = [
         name: 'bfx-chapitre',
         component: chapitre,
         meta: { requiresAuth: true },
+        beforeEnter: async (to, from, next) => {
+          if (!store.getters.listeSouscript.includes(to.params.idChapitre)) {
+            next(from.path);
+          } else {
+            next();
+          }
+        },
       },
       {
         path: 'parrainage/:id',

@@ -6,6 +6,7 @@ import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
+import Parrainage from '@/views/home/Parrainage.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
@@ -180,6 +181,21 @@ const routes = [
         component: chapitre,
         meta: { requiresAuth: true },
       },
+      {
+        path: 'parrainage/:id',
+        name: 'bfx-parrainage',
+        component: Parrainage,
+        beforeEnter: async (to, from, next) => {
+          const response = await store.dispatch('isConnect');
+          if (response) {
+            next({
+              path: '/',
+            });
+          } else {
+            next();
+          }
+        },
+      },
     ],
   },
 ];
@@ -203,8 +219,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    await store.dispatch('getUser');
-    if (!JSON.parse(localStorage.getItem('user'))) {
+    const response = await store.dispatch('isConnect');
+    if (!response) {
       next({
         path: '/',
       });

@@ -64,3 +64,6 @@ html{
 .is-invisible-scroll::-webkit-scrollbar{
   display: none;
 }
+.cursor{
+  cursor: pointer;
+}

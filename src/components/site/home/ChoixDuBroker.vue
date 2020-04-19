@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import db from '@/plugins/firebase';
 import Bande from '@/components/site/general/Bande.vue';
 
@@ -22,9 +21,6 @@ export default {
     ref: 'page/',
   }),
   methods: {
-    ...mapActions([
-      'setEnDev',
-    ]),
     async get() {
       try {
         const key = 'guide';

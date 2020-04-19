@@ -88,8 +88,21 @@
           <span> {{userName.toUpperCase()}} </span>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item link @click="copieLienParainage">
+        <v-list-item-icon>
+          <v-icon>mdi-link</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          Copier le lien de parrainage
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link @click="deconnexion">
-        Déconnexion
+        <v-list-item-icon>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          Déconnexion
+        </v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -139,6 +152,7 @@ export default {
     ...mapActions([
       'setDrawer',
       'logout',
+      'copieLienParainage',
     ]),
     async deconnexion() {
       await this.logout();

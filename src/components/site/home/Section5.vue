@@ -112,7 +112,6 @@
         </v-flex>
       </v-layout>
       <v-alert
-        v-model="alert"
         close-text="Close Alert"
         color="black" dark dismissible>
         <h3 class="headline">Avertissement au risque</h3>

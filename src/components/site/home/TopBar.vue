@@ -67,22 +67,63 @@
       custum-class="mx-2 hidden-sm-and-down" :type="'inscription'"/>
     <div class="hidden-sm-and-down" v-else>
       <div class="d-flex justify-center align-center">
-        <v-btn text color="white">
-          {{ userName }}
-        </v-btn>
-        <v-menu offset-y open-on-hover>
+        <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-avatar color="grey" v-on="on">
+            <v-avatar color="grey" class="cursor" v-on="on">
               <span class="white--text headline">
                 {{ userAbb }}
               </span>
             </v-avatar>
           </template>
-          <v-list>
-            <v-list-item @click="deconnexion">
-              <v-list-item-title>Déconnexion</v-list-item-title>
-            </v-list-item>
-          </v-list>
+          <v-card>
+        <v-list>
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-avatar color="black">
+                <span class="white--text headline">
+                  {{ userAbb }}
+                </span>
+              </v-avatar>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ userName }}</v-list-item-title>
+            </v-list-item-content>
+
+            <v-list-item-action>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-avatar
+                    left
+                    class="green white--text"
+                    size="30"
+                    v-on="on">
+                    {{user.downline}}
+                  </v-avatar>
+                </template>
+                <span>Nomdre de parrainage</span>
+              </v-tooltip>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list>
+          <v-list-item @click="copieLienParainage">
+            <v-list-item-icon>
+              <v-icon>mdi-link</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Copier le lien de parrainage</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="deconnexion">
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Déconnexion</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-card>
         </v-menu>
       </div>
     </div>
@@ -140,6 +181,7 @@ export default {
       'setSizeTopBar',
       'setDrawer',
       'logout',
+      'copieLienParainage',
     ]),
     onResize() {
       this.setSizeTopBar({

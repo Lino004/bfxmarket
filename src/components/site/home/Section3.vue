@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import db from '@/plugins/firebase';
 import Bande from '@/components/site/general/Bande.vue';
 
@@ -43,9 +42,6 @@ export default {
     ref: 'page/',
   }),
   methods: {
-    ...mapActions([
-      'setEnDev',
-    ]),
     get() {
       const key = 'que-faisons-nous';
       db.ref(this.ref).orderByKey().equalTo(key).once('value')

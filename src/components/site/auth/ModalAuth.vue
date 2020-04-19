@@ -22,7 +22,10 @@
         </v-btn>
       </template>
       <Connexion @annuler="dialog = false"  v-if="type === 'connexion'"/>
-      <Inscription @annuler="dialog = false" v-if="type === 'inscription'"/>
+      <Inscription
+        @annuler="dialog = false"
+        :parrainage="parrainage"
+        v-if="type === 'inscription'"/>
     </v-dialog>
   </div>
 </template>
@@ -38,6 +41,7 @@ export default {
       type: String,
       default: '',
     },
+    parrainage: Boolean,
   },
   components: {
     Connexion,
@@ -46,5 +50,8 @@ export default {
   data: () => ({
     dialog: false,
   }),
+  mounted() {
+    if (this.parrainage) this.dialog = this.parrainage;
+  },
 };
 </script>

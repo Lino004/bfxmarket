@@ -1,12 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { get, logout } from '@/api/auth/index';
+import { get, logout, addDownline } from '@/api/auth/index';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    enDev: false,
     sizeWindows: null,
     sizeTopBar: null,
     sizePageTitle: null,
@@ -14,11 +13,12 @@ export default new Vuex.Store({
     valueScroll: null,
     drawer: false,
     user: null,
+    valueSnack: false,
+    colorSnack: '',
+    msgSnack: '',
+    idParrainage: '',
   },
   mutations: {
-    SET_EN_DEV(state, val) {
-      state.enDev = val;
-    },
     SET_SIZE_WINDOWS(state, val) {
       state.sizeWindows = val;
     },
@@ -40,11 +40,20 @@ export default new Vuex.Store({
     SET_USER(state, val) {
       state.user = val;
     },
+    SET_VALUE_SNACK(state, val) {
+      state.valueSnack = val;
+    },
+    SET_COLOR_SNACK(state, val) {
+      state.colorSnack = val;
+    },
+    SET_MSG_SNACK(state, val) {
+      state.msgSnack = val;
+    },
+    SET_ID_PARRAINAGE(state, val) {
+      state.idParrainage = val;
+    },
   },
   actions: {
-    setEnDev(context, val) {
-      context.commit('SET_EN_DEV', val);
-    },
     setSizeTopBar(context, val) {
       context.commit('SET_SIZE_TOP_BAR', val);
     },
@@ -61,6 +70,11 @@ export default new Vuex.Store({
       localStorage.setItem('user', JSON.stringify(val));
       context.commit('SET_USER', val);
     },
+    showSnackMsg(context, { msg, color }) {
+      context.commit('SET_MSG_SNACK', msg);
+      context.commit('SET_COLOR_SNACK', color);
+      context.commit('SET_VALUE_SNACK', true);
+    },
     async getUser(context) {
       try {
         const user = (await get(context.getters.user.identifiant)).data;
@@ -75,9 +89,51 @@ export default new Vuex.Store({
       await logout(context.getters.user.identifiant);
       context.dispatch('setUser', null);
     },
+    async actionParrainage(context) {
+      if (!context.getters.idParrainage) return false;
+      await addDownline(context.getters.idParrainage);
+      return true;
+    },
+    async isConnect(context) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (typeof user === 'object' && user) {
+        await context.dispatch('getUser');
+        if (context.getters.userStatus === 'Online') return true;
+        return false;
+      }
+      return false;
+    },
+    copieLienParainage(context) {
+      const domCreate = document.createElement('input');
+      document.body.appendChild(domCreate);
+      const getUrl = window.location;
+      domCreate.setAttribute('value', `${getUrl.protocol}//${getUrl.host}/home/parrainage/${context.getters.user.identifiant_url}`);
+      domCreate.select();
+      try {
+        const isCopied = document.execCommand('copy');
+        if (isCopied) {
+          context.dispatch('showSnackMsg', {
+            msg: 'Lien de parrainage copié',
+            color: 'success',
+          });
+        } else {
+          context.dispatch('showSnackMsg', {
+            msg: 'Problème lors de la copie',
+            color: 'error',
+          });
+        }
+      } catch (e) {
+        context.dispatch('showSnackMsg', {
+          msg: 'Problème lors de la copie',
+          color: 'error',
+        });
+      }
+    },
   },
   getters: {
-    enDev: state => state.enDev,
+    valueSnack: state => state.valueSnack,
+    colorSnack: state => state.colorSnack,
+    msgSnack: state => state.msgSnack,
     sizeWindows: state => state.sizeWindows,
     sizeTopBar: state => state.sizeTopBar,
     sizePageTitle: state => state.sizePageTitle,
@@ -85,6 +141,8 @@ export default new Vuex.Store({
     valueScroll: state => state.valueScroll,
     drawer: state => state.drawer,
     user: state => state.user,
+    userStatus: state => state.user.status,
+    idParrainage: state => state.idParrainage,
   },
   modules: {
   },

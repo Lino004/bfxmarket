@@ -1,41 +1,35 @@
 <template>
   <div>
-    <v-snackbar v-model="snackbar" :color="color">
-      {{ text }}
-      <v-btn text @click="snackbar = false">Fermer</v-btn>
+    <v-snackbar v-model="isSchow" :color="colorSnack">
+      {{ msgSnack }}
+      <v-btn text dark @click="isSchow = false">Fermer</v-btn>
     </v-snackbar>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
-  props: {
-    text: {
-      type: String,
-      default: '',
-    },
-    value: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: '',
-    },
-    colorBtn: {
-      type: String,
-      default: '',
-    },
-  },
   computed: {
-    snackbar: {
+    ...mapGetters([
+      'valueSnack',
+      'colorSnack',
+      'msgSnack',
+    ]),
+    isSchow: {
       get() {
-        return this.value;
+        return this.valueSnack;
       },
       set(val) {
-        this.$emit('change', val);
+        this.setValueSnack(val);
       },
     },
+  },
+  methods: {
+    ...mapMutations({
+      setValueSnack: 'SET_VALUE_SNACK',
+    }),
   },
 };
 </script>

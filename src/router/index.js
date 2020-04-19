@@ -48,7 +48,7 @@ const routes = [
     component: ComingSoon,
   },
   {
-    path: '/backffice',
+    path: '/backoffice',
     component: BackOffice,
     children: [
       {

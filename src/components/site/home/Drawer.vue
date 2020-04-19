@@ -4,7 +4,7 @@
     fixed
     temporary
   >
-    <v-list-item class="bg-blue-grad">
+    <v-list-item class="bg-blue-grad" v-if="!user">
       <v-list-item-avatar>
         <v-img :src="require('@/assets/img/logo-white.png')"/>
       </v-list-item-avatar>
@@ -13,6 +13,28 @@
         <v-list-item-title>Wfx School</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
+    <v-list-item link v-else>
+        <v-list-item-avatar color="grey">
+          <span> {{userAbb}} </span>
+        </v-list-item-avatar>
+        <v-list-item-title>
+          <span> {{userName}} </span>
+        </v-list-item-title>
+        <v-list-item-action>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-avatar
+                left
+                class="green white--text"
+                size="30"
+                v-on="on">
+                {{user.downline}}
+              </v-avatar>
+            </template>
+            <span>Nomdre de parrainage</span>
+          </v-tooltip>
+        </v-list-item-action>
+      </v-list-item>
 
     <v-divider></v-divider>
 
@@ -58,11 +80,11 @@
           <v-icon>mdi-login</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content>
+        <v-list-item-title>
           <ModalAuth
             custum-class="black--text px-0"
             :type="'connexion'"/>
-        </v-list-item-content>
+        </v-list-item-title>
       </v-list-item>
 
       <v-list-item link>
@@ -70,39 +92,26 @@
           <v-icon>mdi-account-plus</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content>
+        <v-list-item-title>
           <ModalAuth
             custum-class="black--text px-0"
             :type="'inscription'"/>
-        </v-list-item-content>
+        </v-list-item-title>
       </v-list-item>
     </v-list>
 
     <v-list dense v-else>
-      <v-list-item link>
-        <v-list-item-avatar color="grey">
-          <span> {{userAbb}} </span>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <span> {{userName.toUpperCase()}} </span>
-        </v-list-item-content>
-      </v-list-item>
       <v-list-item link @click="copieLienParainage">
         <v-list-item-icon>
           <v-icon>mdi-link</v-icon>
         </v-list-item-icon>
-        <v-list-item-content>
-          Copier le lien de parrainage
-        </v-list-item-content>
+        <v-list-item-title v-text="'Copier le lien de parrainage'"/>
       </v-list-item>
       <v-list-item link @click="deconnexion">
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-icon>
-        <v-list-item-content>
-          Déconnexion
-        </v-list-item-content>
+        <v-list-item-title v-text="'Déconnexion'"/>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

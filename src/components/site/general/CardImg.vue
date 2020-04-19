@@ -13,7 +13,7 @@
           :class="data.active ? 'white--text card-bg-img-black'
                                     : 'grey--text card-bg-img-grey'"
           :src="img"
-          max-height="200"
+          height="200"
           @error="imgError"
         >
           <v-card-title class="title white--text">
@@ -35,11 +35,11 @@
         </v-card-text>
         <v-card-actions>
           <v-layout justify-center class="ma-2">
-            <ModalAuth v-if="!user"
+            <ModalAuth v-if="userStatus !== 'Online'"
               justify=""
               custum-class="mx-2 primary" :type="'connexion'"/>
-            {{user ? '' : '/'}}
-            <ModalAuth v-if="!user"
+            {{userStatus === 'Online' ? '' : '/'}}
+            <ModalAuth v-if="userStatus !== 'Online'"
               justify=""
               custum-class="mx-2 primary" :type="'inscription'"/>
             <v-btn
@@ -59,6 +59,7 @@
 
 <script>
 import ModalAuth from '@/components/site/auth/ModalAuth.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -74,6 +75,9 @@ export default {
     user: JSON.parse(localStorage.getItem('user')),
   }),
   computed: {
+    ...mapGetters([
+      'userStatus',
+    ]),
     img() {
       if (this.defaultImg) return this.defaultImg;
       return this.data.img;

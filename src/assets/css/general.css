@@ -29,10 +29,12 @@ html{
   overflow-y:auto;
 }
 .card-bg-img-black > .v-responsive__sizer {
-  background-color: rgba(0, 0, 0, 0.5) !important
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  height: 100%;
 }
 .card-bg-img-grey > .v-responsive__sizer {
-  background-color: rgba(158, 158, 158, 0.5) !important
+  background-color: rgba(158, 158, 158, 0.5) !important;
+  height: 100%;
 }
 #scroll-target{
   overflow-y: auto;
@@ -63,4 +65,14 @@ html{
 }
 .is-invisible-scroll::-webkit-scrollbar{
   display: none;
+}
+.cursor{
+  cursor: pointer;
+}
+.noselect{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
 }

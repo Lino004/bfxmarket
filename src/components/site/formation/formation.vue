@@ -2,7 +2,8 @@
   <div>
      <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"/>
      <section>
-        <v-container fill-height v-html="formation.contenu">
+        <v-container fill-height>
+          <div v-html="formation.contenu"></div>
         </v-container>
         <v-container>
           <v-row justify="space-between">

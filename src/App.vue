@@ -1,40 +1,20 @@
 <template>
   <div id="scroll-target">
     <router-view></router-view>
-    <v-snackbar
-      v-model="isEnDev"
-      bottom
-      :color="'info'"
-    >
-      Developpement en cours...
-    </v-snackbar>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'App',
   data: () => ({
     //
   }),
-  computed: {
-    ...mapGetters([
-      'enDev',
-    ]),
-    isEnDev: {
-      get() {
-        return this.enDev;
-      },
-      set(val) {
-        this.setEnDev(val);
-      },
-    },
-  },
+  computed: {},
   methods: {
     ...mapActions([
-      'setEnDev',
       'setUser',
       'setValueScroll',
     ]),
@@ -67,6 +47,7 @@ export default {
 <style>
 @import url('./assets/css/general.css');
 @import url('./assets/css/elementor.css');
+@import url('./assets/css/crisp.css');
 @import url('./assets/css/countdown.css');
 @import url('./assets/css/uploadImg.css');
 </style>

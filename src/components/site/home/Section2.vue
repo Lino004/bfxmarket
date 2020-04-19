@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import { listeFormation } from '@/api/formations/index';
 import { BASE_HOST } from '@/api/config/config';
 import CardImg from '@/components/site/general/CardImg.vue';
@@ -54,9 +54,6 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions([
-      'setEnDev',
-    ]),
     async getList() {
       this.isLoad = true;
       try {

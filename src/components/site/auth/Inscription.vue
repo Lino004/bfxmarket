@@ -43,6 +43,7 @@
                 outlined
                 return-object
                 :rules="reglePays"
+                auto-select-first
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="6">
@@ -51,7 +52,6 @@
                 outlined
                 required
                 type="number"
-                :rules="regleNumero"
                 hint="Numéro sans l'indicatif"
                 v-model="numero"/>
             </v-col>
@@ -125,7 +125,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn color="primary" @click="$emit('annuler')">Annuler</v-btn>
+      <v-btn color="primary" :disabled="parrainage" @click="$emit('annuler')">Annuler</v-btn>
       <v-btn
         color="primary"
         :disabled="!valide"
@@ -162,24 +162,21 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <SnackComp
-      :value="valueSnack"
-      @change="valueSnack = $event"
-      :text="message"
-      :color="colorSnack"/>
+     <v-overlay :value="createLoading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-card>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import db from '@/plugins/firebase';
 import listePays from '@/services/pays';
 import { create } from '@/api/auth/index';
-import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
-  components: {
-    SnackComp,
+  props: {
+    parrainage: Boolean,
   },
   data: () => ({
     nom: null,
@@ -197,9 +194,6 @@ export default {
       v => !!v || 'Votre pays est obligatoire',
     ],
     numero: null,
-    regleNumero: [
-      v => !!v || 'Votre numéro est obligatoire',
-    ],
     email: null,
     regleEmail: [
       v => !!v || 'Votre email est obligatoire',
@@ -215,11 +209,11 @@ export default {
       v => !!v || 'La confirmation de mot de passe est obligatoire',
       v => (v && v.length >= 8) || 'Plus de 8 carractère pour le mot de passe SVP!!',
     ],
-    termes: null,
+    termes: true,
     regleTermes: [
       v => !!v || 'Case obligatoire',
     ],
-    conditions: null,
+    conditions: true,
     regleConditions: [
       v => !!v || 'Case obligatoire',
     ],
@@ -233,28 +227,27 @@ export default {
     showModalTermes: false,
     showModalCondition: false,
     createLoading: false,
-    valueSnack: false,
-    colorSnack: '',
-    message: '',
     ref: 'page/',
     pagePolitiqueEtConf: {},
     pageTermesConditions: {},
   }),
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'idParrainage',
+    ]),
+  },
   watch: {},
   methods: {
     ...mapActions([
       'setUser',
+      'showSnackMsg',
+      'actionParrainage',
     ]),
     testPass(v) {
       return (this.password === v) || 'Les mots de passe ne sont pas identiques';
     },
-    showSnackComp(msg, color) {
-      this.colorSnack = color;
-      this.message = msg;
-      this.valueSnack = true;
-    },
     async createUser() {
+      this.isLoad = true;
       try {
         this.createLoading = true;
         const infoUser = {
@@ -266,14 +259,21 @@ export default {
           pays: this.selectPays.id,
         };
         const user = (await create(infoUser)).data;
-        this.showSnackComp('Inscription réussi', 'success');
+        this.showSnackMsg({
+          msg: 'Votre inscription a été prit en compte. Veuillez vérifier votre boite mail.',
+          color: 'success',
+        });
         user.password = '';
+        await this.actionParrainage();
         this.setUser(user);
-        window.location.reload();
+        // window.location.reload();
         this.createLoading = false;
         this.$emit('annuler');
       } catch (error) {
-        this.showSnackComp('Erreur serveur', 'error');
+        this.showSnackMsg({
+          msg: 'Error serveur',
+          color: 'error',
+        });
         this.createLoading = false;
       }
     },

@@ -6,6 +6,8 @@ import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
+import Parrainage from '@/views/home/Parrainage.vue';
+import Souscription from '@/views/home/Souscription.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
@@ -28,6 +30,7 @@ import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
+import { confirmeUser, get } from '@/api/auth/index';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -47,7 +50,7 @@ const routes = [
     component: ComingSoon,
   },
   {
-    path: '/backffice',
+    path: '/backoffice',
     component: BackOffice,
     children: [
       {
@@ -180,6 +183,49 @@ const routes = [
         component: chapitre,
         meta: { requiresAuth: true },
       },
+      {
+        path: 'parrainage/:id',
+        name: 'bfx-parrainage',
+        component: Parrainage,
+        beforeEnter: async (to, from, next) => {
+          const response = await store.dispatch('isConnect');
+          if (response) {
+            next({
+              path: '/',
+            });
+          } else {
+            next();
+          }
+        },
+      },
+      {
+        path: 'souscription',
+        name: 'bfx-souscription',
+        component: Souscription,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'confirmation-inscription/:id',
+        name: 'bfx-confirmation-inscription',
+        beforeEnter: async (to, from, next) => {
+          try {
+            await confirmeUser(to.params.id);
+            const user = (await get(to.params.id)).data;
+            store.dispatch('setUser', user);
+            store.dispatch('showSnackMsg', {
+              color: 'success',
+              msg: 'Votre inscription a été confirmé. Bienvenu',
+            });
+            next('/');
+          } catch (error) {
+            store.dispatch('showSnackMsg', {
+              color: 'error',
+              msg: error.response.data.error,
+            });
+            next('/');
+          }
+        },
+      },
     ],
   },
 ];
@@ -202,9 +248,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  const response = await store.dispatch('isConnect');
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    await store.dispatch('getUser');
-    if (!JSON.parse(localStorage.getItem('user'))) {
+    if (!response) {
       next({
         path: '/',
       });

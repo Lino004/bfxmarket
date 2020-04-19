@@ -2,7 +2,8 @@
   <div>
      <PageTitle :breadcrumbs="breadcrumbs" :title="module.titre"/>
      <section>
-        <v-container fill-height v-html="module.contenu">
+        <v-container fill-height>
+          <div v-html="module.contenu"></div>
         </v-container>
         <v-container>
           <v-list shaped class="pa-0">

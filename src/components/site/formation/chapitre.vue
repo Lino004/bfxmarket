@@ -3,7 +3,11 @@
      <PageTitle :breadcrumbs="breadcrumbs" :title="chapitre.titre"/>
      <section>
       <v-container fill-height>
-        <div style="width: 100%" v-html="chapitre.contenu"></div>
+        <div
+          style="width: 100%;"
+          class="noselect"
+          v-html="chapitre.contenu"
+          @contextmenu.prevent="noContextMenu"></div>
       </v-container>
      </section>
      <v-overlay :value="isLoad">
@@ -58,6 +62,9 @@ export default {
       } catch (error) {
         this.isLoad = false;
       }
+    },
+    noContextMenu() {
+      return false;
     },
   },
   async mounted() {

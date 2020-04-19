@@ -31,7 +31,7 @@
         open-on-hover
         offset-y
         transition="scale-transition"
-        v-if="user && link.child"
+        v-if="userStatus === 'Online' && link.child"
       >
         <template v-slot:activator="{ on }">
           <v-btn
@@ -59,10 +59,10 @@
       class="mx-4 hidden-sm-and-down"
       vertical
     ></v-divider>
-    <ModalAuth v-if="!user"
+    <ModalAuth v-if="userStatus !== 'Online'"
       justify=""
       custum-class="mx-2 hidden-sm-and-down" :type="'connexion'"/>
-    <ModalAuth v-if="!user"
+    <ModalAuth v-if="userStatus !== 'Online'"
       justify=""
       custum-class="mx-2 hidden-sm-and-down" :type="'inscription'"/>
     <div class="hidden-sm-and-down" v-else>
@@ -162,6 +162,7 @@ export default {
       'valueScroll',
       'drawer',
       'user',
+      'userStatus',
     ]),
     userName() {
       if (this.user) {

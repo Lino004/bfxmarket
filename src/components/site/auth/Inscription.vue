@@ -260,13 +260,13 @@ export default {
         };
         const user = (await create(infoUser)).data;
         this.showSnackMsg({
-          msg: 'Inscription réussi',
+          msg: 'Votre inscription a été prit en compte. Veuillez vérifier votre boite mail.',
           color: 'success',
         });
         user.password = '';
         await this.actionParrainage();
         this.setUser(user);
-        window.location.reload();
+        // window.location.reload();
         this.createLoading = false;
         this.$emit('annuler');
       } catch (error) {

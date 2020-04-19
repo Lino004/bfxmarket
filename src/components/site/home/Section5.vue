@@ -27,30 +27,48 @@
                     label="Nom complet"
                     required
                     outlined
-                    class="contact-form"
+                    class="contact-form mb-2"
                     dense
                     append-icon="mdi-account"
+                    v-model="noms"
+                    hide-details
                   ></v-text-field>
 
                   <v-text-field
                     label="E-mail"
                     required
                     outlined
-                    class="contact-form"
+                    class="contact-form mb-2"
                     dense
                     append-icon="mdi-email"
+                    v-model="email"
+                    hide-details
+                  ></v-text-field>
+
+                  <v-text-field
+                    label="Sujet"
+                    required
+                    outlined
+                    class="contact-form mb-2"
+                    dense
+                    append-icon="mdi-text-subject"
+                    v-model="sujet"
+                    hide-details
                   ></v-text-field>
 
                   <v-textarea
                     outlined
                     label="Message"
                     rows="3"
-                    class="contact-form"
+                    class="contact-form mb-2"
                     dense
+                    v-model="msg"
+                    hide-details
                   ></v-textarea>
                   <v-btn
                     class="mr-4 bg-blue-grad"
                     block
+                    @click="soumettre"
                   >
                     Soumettre
                   </v-btn>
@@ -136,6 +154,9 @@
 <script>
 import db from '@/plugins/firebase';
 import Bande from '@/components/site/general/Bande.vue';
+import { sendMail } from '@/api/mail/index';
+import { mapActions } from 'vuex';
+
 
 export default {
   components: { Bande },
@@ -147,13 +168,37 @@ export default {
       contact: '',
       email: '',
     },
+    noms: '',
+    email: '',
+    sujet: '',
+    msg: '',
   }),
   methods: {
+    ...mapActions([
+      'showSnackMsg',
+    ]),
     update() {
       if (!this.info.intro || !this.info.adresse || !this.info.contact || !this.info.email) return '';
       db.ref(this.ref).update({ ...this.info });
       this.dialog = false;
       return '';
+    },
+    async soumettre() {
+      if (this.noms && this.email && this.msg) {
+        const data = {
+          sujet: this.sujet,
+          contenue: `Nom complet: ${this.noms} Email:  ${this.email} Contenu du message: ${this.msg}`,
+        };
+        await sendMail(data);
+        this.noms = '';
+        this.email = '';
+        this.sujet = '';
+        this.msg = '';
+        this.showSnackMsg({
+          msg: 'Message envoyé avec succès',
+          color: 'success',
+        });
+      }
     },
     get() {
       db.ref(this.ref).on('value', (snap) => {

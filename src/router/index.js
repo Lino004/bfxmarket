@@ -30,6 +30,7 @@ import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
+import { confirmeUser, get } from '@/api/auth/index';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -202,6 +203,28 @@ const routes = [
         name: 'bfx-souscription',
         component: Souscription,
         meta: { requiresAuth: true },
+      },
+      {
+        path: 'confirmation-inscription/:id',
+        name: 'bfx-confirmation-inscription',
+        beforeEnter: async (to, from, next) => {
+          try {
+            await confirmeUser(to.params.id);
+            const user = (await get(to.params.id)).data;
+            store.dispatch('setUser', user);
+            store.dispatch('showSnackMsg', {
+              color: 'success',
+              msg: 'Votre inscription a été confirmé. Bienvenu',
+            });
+            next('/');
+          } catch (error) {
+            store.dispatch('showSnackMsg', {
+              color: 'error',
+              msg: error.response.data.error,
+            });
+            next('/');
+          }
+        },
       },
     ],
   },

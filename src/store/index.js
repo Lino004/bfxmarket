@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { get, logout, addDownline } from '@/api/auth/index';
+import {
+  get,
+  logout,
+  addDownline,
+  getSouscript,
+} from '@/api/auth/index';
 
 Vue.use(Vuex);
 
@@ -17,6 +22,7 @@ export default new Vuex.Store({
     colorSnack: '',
     msgSnack: '',
     idParrainage: '',
+    listeSouscript: [],
   },
   mutations: {
     SET_SIZE_WINDOWS(state, val) {
@@ -52,6 +58,9 @@ export default new Vuex.Store({
     SET_ID_PARRAINAGE(state, val) {
       state.idParrainage = val;
     },
+    SET_LISTE_SOUSCRIPT(state, val) {
+      state.listeSouscript = val;
+    },
   },
   actions: {
     setSizeTopBar(context, val) {
@@ -80,6 +89,8 @@ export default new Vuex.Store({
         const user = (await get(context.getters.user.identifiant)).data;
         user.password = '';
         context.dispatch('setUser', user);
+        const tabSouscript = (await getSouscript(user.identifiant)).data.chapitre;
+        context.commit('SET_LISTE_SOUSCRIPT', tabSouscript);
         return true;
       } catch (error) {
         return false;
@@ -141,8 +152,12 @@ export default new Vuex.Store({
     valueScroll: state => state.valueScroll,
     drawer: state => state.drawer,
     user: state => state.user,
-    userStatus: state => state.user.status,
+    userStatus: (state) => {
+      if (state.user) return state.user.status;
+      return 'Offline';
+    },
     idParrainage: state => state.idParrainage,
+    listeSouscript: state => state.listeSouscript,
   },
   modules: {
   },

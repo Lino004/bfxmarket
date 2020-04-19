@@ -24,14 +24,34 @@
     </v-row>
     <v-divider></v-divider>
     <v-row>
+      <v-col cols="8">
+        <v-text-field
+          label="Titre de la chapitre"
+          outlined
+          append-icon="card-text"
+          v-model="chapitre.titre"
+          hide-details
+          class="mb-2"/>
+      </v-col>
       <v-col>
-      <v-text-field
-        label="Titre de la chapitre"
-        outlined
-        append-icon="card-text"
-        v-model="chapitre.titre"
-        hide-details
-        class="mb-2"/>
+        <v-text-field
+          label="Cout du chapitre en $"
+          outlined
+          append-icon="card-text"
+          v-model="chapitre.price"
+          hide-details
+          type="number"
+          class="mb-2"/>
+      </v-col>
+      <v-col>
+        <v-text-field
+          label="Nbr de pers à parrainer"
+          outlined
+          append-icon="card-text"
+          v-model="chapitre.downline"
+          hide-details
+          type="number"
+          class="mb-2"/>
       </v-col>
     </v-row>
     <h3>Contenu detaillé de la chapitre</h3>

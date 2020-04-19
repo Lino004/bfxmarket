@@ -12,9 +12,9 @@
               <v-list-item
                 v-for="(chap, i) in chapitres"
                 :key="i"
-                @click="startChapitre(chap.id)"
                 :disabled="!chap.is_lock"
                 class="px-0"
+                inactive
               >
                 <v-list-item-icon>
                   <v-avatar
@@ -27,6 +27,21 @@
                 <v-list-item-content>
                   <v-list-item-title v-text="chap.titre"></v-list-item-title>
                 </v-list-item-content>
+                <v-list-item-action>
+                  <v-btn
+                    v-text="'SOUSCRIRE'"
+                    :disabled="!chap.is_lock"
+                    color="primary"
+                    :to="{ name: 'bfx-souscription' }"
+                    v-if="!listeSouscript.includes(chap.id)"/>
+                  <v-btn
+                    v-text="'OUVRIR'"
+                    color="green"
+                    :dark="chap.is_lock"
+                    :disabled="!chap.is_lock"
+                    @click="startChapitre(chap.id)"
+                    v-else/>
+                </v-list-item-action>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -42,6 +57,7 @@
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import { getModule } from '@/api/modules/index';
 import { listeChapitreByModule } from '@/api/chapitres/index';
+import { mapGetters } from 'vuex';
 
 export default {
   components: { PageTitle },
@@ -66,16 +82,23 @@ export default {
     chapitres: [],
     isLoad: false,
   }),
+  computed: {
+    ...mapGetters([
+      'listeSouscript',
+    ]),
+  },
   methods: {
     startChapitre(idChap) {
-      this.$router.push({
-        name: 'bfx-chapitre',
-        params: {
-          idFormation: this.module.formation,
-          idModule: this.module.id,
-          idChapitre: idChap,
-        },
-      });
+      if (this.listeSouscript.includes(idChap)) {
+        this.$router.push({
+          name: 'bfx-chapitre',
+          params: {
+            idFormation: this.module.formation,
+            idModule: this.module.id,
+            idChapitre: idChap,
+          },
+        });
+      }
     },
     async getModule() {
       this.isLoad = true;

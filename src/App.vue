@@ -47,6 +47,7 @@ export default {
 <style>
 @import url('./assets/css/general.css');
 @import url('./assets/css/elementor.css');
+@import url('./assets/css/crisp.css');
 @import url('./assets/css/countdown.css');
 @import url('./assets/css/uploadImg.css');
 </style>

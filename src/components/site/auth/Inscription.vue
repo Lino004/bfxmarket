@@ -206,11 +206,11 @@ export default {
       v => !!v || 'La confirmation de mot de passe est obligatoire',
       v => (v && v.length >= 8) || 'Plus de 8 carractère pour le mot de passe SVP!!',
     ],
-    termes: null,
+    termes: true,
     regleTermes: [
       v => !!v || 'Case obligatoire',
     ],
-    conditions: null,
+    conditions: true,
     regleConditions: [
       v => !!v || 'Case obligatoire',
     ],

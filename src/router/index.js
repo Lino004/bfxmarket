@@ -7,6 +7,7 @@ import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import Parrainage from '@/views/home/Parrainage.vue';
+import Souscription from '@/views/home/Souscription.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
@@ -195,6 +196,11 @@ const routes = [
             next();
           }
         },
+      },
+      {
+        path: 'souscription',
+        name: 'bfx-souscription',
+        component: Souscription,
       },
     ],
   },

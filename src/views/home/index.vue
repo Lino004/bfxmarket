@@ -8,14 +8,16 @@
       </v-content>
       <Footer/>
     </div>
+    <SnackComp/>
   </v-app>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import Drawer from '@/components/site/home/Drawer.vue';
 import TopBar from '@/components/site/home/TopBar.vue';
 import Footer from '@/components/site/home/Footer.vue';
+import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
   name: 'home',
@@ -23,6 +25,7 @@ export default {
     Drawer,
     TopBar,
     Footer,
+    SnackComp,
   },
   data() {
     return {
@@ -50,6 +53,9 @@ export default {
     ...mapMutations({
       setSizeWindows: 'SET_SIZE_WINDOWS',
     }),
+    ...mapActions([
+      'isConnect',
+    ]),
     onResize() {
       this.windowsSize = {
         x: window.innerWidth,
@@ -61,8 +67,9 @@ export default {
       });
     },
   },
-  mounted() {
+  async mounted() {
     this.onResize();
+    await this.isConnect();
   },
   destroyed() {},
 };

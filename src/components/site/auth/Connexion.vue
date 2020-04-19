@@ -39,23 +39,17 @@
         Se connecter
       </v-btn>
     </v-card-actions>
-    <SnackComp
-      :value="valueSnack"
-      @change="valueSnack = $event"
-      :text="message"
-      :color="colorSnack"/>
+     <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-card>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import { login } from '@/api/auth/index';
-import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
-  components: {
-    SnackComp,
-  },
   data: () => ({
     email: '',
     regleEmail: [
@@ -67,38 +61,38 @@ export default {
       v => !!v || 'Votre mot de passe est obligatoire',
       v => (v && v.length >= 8) || 'Plus de 8 carractère pour le mot de passe SVP!!',
     ],
-    valueSnack: false,
-    colorSnack: '',
-    message: '',
+    loading: false,
   }),
   methods: {
     ...mapActions([
       'setUser',
+      'showSnackMsg',
     ]),
-    showSnackComp(msg, color) {
-      this.colorSnack = color;
-      this.message = msg;
-      this.valueSnack = true;
-    },
     async login() {
       try {
-        this.createLoading = true;
+        this.loading = true;
         const infoUser = {
           login: this.email.toLowerCase(),
           password: this.password,
         };
         const user = (await login(infoUser)).data;
-        this.showSnackComp('Connexion réussi', 'success');
+        this.showSnackMsg({
+          msg: 'Connexion réussi',
+          color: 'success',
+        });
         user.password = '';
         this.setUser(user);
         window.location.reload();
-        this.createLoading = false;
+        this.loading = false;
         this.$emit('annuler');
       } catch (error) {
         if (error.response.status === 404) {
-          this.showSnackComp(error.response.data.error, 'error');
+          this.showSnackMsg({
+            msg: error.response.data.error,
+            color: 'error',
+          });
         }
-        this.createLoading = false;
+        this.loading = false;
       }
     },
   },

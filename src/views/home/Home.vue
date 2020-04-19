@@ -6,7 +6,6 @@
     <Section3/>
     <Section4/>
     <Section5/>
-    <SnackComp/>
   </div>
 </template>
 
@@ -17,7 +16,6 @@ import Section3 from '@/components/site/home/Section3.vue';
 import Section4 from '@/components/site/home/Section4.vue';
 import Section5 from '@/components/site/home/Section5.vue';
 import ChoixDuBroker from '@/components/site/home/ChoixDuBroker.vue';
-import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
   components: {
@@ -27,7 +25,6 @@ export default {
     Section4,
     Section5,
     ChoixDuBroker,
-    SnackComp,
   },
 };
 </script>

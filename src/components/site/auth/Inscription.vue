@@ -162,6 +162,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+     <v-overlay :value="createLoading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-card>
 </template>
 
@@ -244,6 +247,7 @@ export default {
       return (this.password === v) || 'Les mots de passe ne sont pas identiques';
     },
     async createUser() {
+      this.isLoad = true;
       try {
         this.createLoading = true;
         const infoUser = {

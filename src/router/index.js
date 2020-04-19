@@ -201,6 +201,7 @@ const routes = [
         path: 'souscription',
         name: 'bfx-souscription',
         component: Souscription,
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -224,8 +225,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  const response = await store.dispatch('isConnect');
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const response = await store.dispatch('isConnect');
     if (!response) {
       next({
         path: '/',

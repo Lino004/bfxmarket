@@ -8,6 +8,7 @@ import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import Parrainage from '@/views/home/Parrainage.vue';
 import Souscription from '@/views/home/Souscription.vue';
+import AttentConfirmation from '@/views/home/AttentConfirmation.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
@@ -210,6 +211,11 @@ const routes = [
         name: 'bfx-souscription',
         component: Souscription,
         meta: { requiresAuth: true },
+      },
+      {
+        path: 'en-attente-confirmation',
+        name: 'bfx-en-attente-confirmation',
+        component: AttentConfirmation,
       },
       {
         path: 'confirmation-inscription/:id',

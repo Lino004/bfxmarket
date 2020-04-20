@@ -268,13 +268,23 @@ export default {
         this.setUser(user);
         // window.location.reload();
         this.createLoading = false;
+        this.$router.push({ name: 'bfx-en-attente-confirmation' });
         this.$emit('annuler');
+        return '';
       } catch (error) {
+        this.createLoading = false;
+        if (error.response.status === 400) {
+          this.showSnackMsg({
+            msg: 'Erreur: il est possible que vous ayez déjà fait une demande d\'inscription',
+            color: 'error',
+          });
+          return '';
+        }
         this.showSnackMsg({
-          msg: 'Error serveur',
+          msg: 'Ooooups, quelque c\'est mal passé réessayer',
           color: 'error',
         });
-        this.createLoading = false;
+        return '';
       }
     },
     getPolitiqueEtConf() {

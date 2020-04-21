@@ -53,7 +53,8 @@
                 required
                 type="number"
                 hint="Numéro sans l'indicatif"
-                v-model="numero"/>
+                v-model="numero"
+                :rules="regleNumero"/>
             </v-col>
             <v-col cols="12">
               <v-text-field
@@ -194,6 +195,10 @@ export default {
       v => !!v || 'Votre pays est obligatoire',
     ],
     numero: null,
+    regleNumero: [
+      v => !!v || 'Votre numéro est obligatoire',
+      v => v.length >= 8 || 'Au moins 8 chiffres svp',
+    ],
     email: null,
     regleEmail: [
       v => !!v || 'Votre email est obligatoire',

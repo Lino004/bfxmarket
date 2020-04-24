@@ -101,7 +101,7 @@
     </v-list>
 
     <v-list dense v-else>
-      <v-list-item link @click="copieLienParainage">
+      <v-list-item link @click="copieLien">
         <v-list-item-icon>
           <v-icon>mdi-link</v-icon>
         </v-list-item-icon>
@@ -161,11 +161,26 @@ export default {
     ...mapActions([
       'setDrawer',
       'logout',
-      'copieLienParainage',
+      'showSnackMsg',
     ]),
     async deconnexion() {
       await this.logout();
       window.location.reload();
+    },
+    async copieLien() {
+      try {
+        const getUrl = window.location;
+        await this.$copyText(`${getUrl.protocol}//${getUrl.host}/home/parrainage/${this.user.identifiant_url}`);
+        this.showSnackMsg({
+          msg: 'Lien de parrainage copié',
+          color: 'success',
+        });
+      } catch (error) {
+        this.showSnackMsg({
+          msg: 'Problème lors de la copie',
+          color: 'error',
+        });
+      }
     },
   },
   mounted() {},

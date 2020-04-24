@@ -37,11 +37,12 @@
 <script>
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import Parrainage from '@/components/site/souscription/Parrainage.vue';
+import FaireUnDon from '@/components/site/souscription/FaireUnDon.vue';
 import { listeChapitre } from '@/api/chapitres/index';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { PageTitle, Parrainage },
+  components: { PageTitle, Parrainage, FaireUnDon },
   data: () => ({
     breadcrumbs: [
       {

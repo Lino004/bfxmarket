@@ -114,32 +114,6 @@ export default new Vuex.Store({
       }
       return false;
     },
-    copieLienParainage(context) {
-      const domCreate = document.createElement('input');
-      document.body.appendChild(domCreate);
-      const getUrl = window.location;
-      domCreate.setAttribute('value', `${getUrl.protocol}//${getUrl.host}/home/parrainage/${context.getters.user.identifiant_url}`);
-      domCreate.select();
-      try {
-        const isCopied = document.execCommand('copy');
-        if (isCopied) {
-          context.dispatch('showSnackMsg', {
-            msg: 'Lien de parrainage copié',
-            color: 'success',
-          });
-        } else {
-          context.dispatch('showSnackMsg', {
-            msg: 'Problème lors de la copie',
-            color: 'error',
-          });
-        }
-      } catch (e) {
-        context.dispatch('showSnackMsg', {
-          msg: 'Problème lors de la copie',
-          color: 'error',
-        });
-      }
-    },
   },
   getters: {
     valueSnack: state => state.valueSnack,

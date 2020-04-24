@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VideoBg from 'vue-videobg';
 import VAnimateCss from 'v-animate-css';
+import VueClipboard from 'vue-clipboard2';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -22,6 +23,9 @@ window.CRISP_WEBSITE_ID = 'a07e6a43-b836-4f0a-be6b-015ba22ea2ce';
 
 Vue.component('video-bg', VideoBg);
 
+VueClipboard.config.autoSetContainer = true;
+
+Vue.use(VueClipboard);
 Vue.use(VAnimateCss);
 
 Vue.config.productionTip = false;

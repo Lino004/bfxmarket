@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VideoBg from 'vue-videobg';
 import VAnimateCss from 'v-animate-css';
 import VueClipboard from 'vue-clipboard2';
+import SocialSharing from 'vue-social-sharing';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -27,6 +28,7 @@ VueClipboard.config.autoSetContainer = true;
 
 Vue.use(VueClipboard);
 Vue.use(VAnimateCss);
+Vue.use(SocialSharing);
 
 Vue.config.productionTip = false;
 

@@ -262,6 +262,7 @@ export default {
           phone: this.numero,
           password: this.password,
           pays: this.selectPays.id,
+          is_ad: false,
         };
         const user = (await create(infoUser)).data;
         this.showSnackMsg({

@@ -18,6 +18,7 @@ export default new Vuex.Store({
     valueScroll: null,
     drawer: false,
     user: null,
+    userAdmin: null,
     valueSnack: false,
     colorSnack: '',
     msgSnack: '',
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     },
     SET_USER(state, val) {
       state.user = val;
+    },
+    SET_USER_ADMIN(state, val) {
+      state.userAdmin = val;
     },
     SET_VALUE_SNACK(state, val) {
       state.valueSnack = val;
@@ -126,6 +130,7 @@ export default new Vuex.Store({
     valueScroll: state => state.valueScroll,
     drawer: state => state.drawer,
     user: state => state.user,
+    userAdmin: state => state.userAdmin,
     userStatus: (state) => {
       if (state.user) return state.user.status;
       return 'Offline';

@@ -5,6 +5,7 @@ export async function sendMail(data) {
   return response;
 }
 
-export async function retourneRien() {
-  return 'rien';
+export async function sendMultiMail(data) {
+  const response = await HTTP.put('tasks/mail/user', data);
+  return response;
 }

@@ -65,4 +65,16 @@ export default [
       },
     ],
   },
+  {
+    text: 'Utilisateurs',
+    icon: 'mdi-account-multiple',
+    child: [
+      {
+        text: 'Liste des Utilisateurs',
+        to: { name: 'back-office-liste-users' },
+        icon: 'mdi-account-group',
+        disabled: false,
+      },
+    ],
+  },
 ];

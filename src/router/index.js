@@ -30,7 +30,9 @@ import AjouterModule from '@/views/backOffice/modules/AjouterModule.vue';
 import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
+import ListeUsers from '@/views/backOffice/users/ListeUsers.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
+import PrivateConnexion from '@/views/PrivateConnexion.vue';
 import { confirmeUser, get } from '@/api/auth/index';
 import store from '../store/index';
 
@@ -49,6 +51,11 @@ const routes = [
     path: '/coming-song',
     name: 'comming-song',
     component: ComingSoon,
+  },
+  {
+    path: '/private-connexion',
+    name: 'private-connexion',
+    component: PrivateConnexion,
   },
   {
     path: '/backoffice',
@@ -139,7 +146,19 @@ const routes = [
         name: 'back-office-modifier-chapitre',
         component: ModifierChapitre,
       },
+      {
+        path: '/backffice/liste-users',
+        name: 'back-office-liste-users',
+        component: ListeUsers,
+      },
     ],
+    beforeEnter: async (to, from, next) => {
+      if (!store.getters.userAdmin || !store.getters.userAdmin.is_ad) {
+        next({ name: 'private-connexion' });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: '/home',

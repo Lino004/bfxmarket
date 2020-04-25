@@ -1,16 +1,18 @@
 <template>
   <div style="height: 100%">
     <v-select
-      v-model="chapSelect"
-      :items="chapitres"
-      item-text="titre"
-      item-value="id"
-      label="Choisir un chapitre"
+      v-model="paiementSelect"
+      :items="paiements"
+      label="Liste des paiements"
       outlined
     ></v-select>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn v-text="'SOUSCRIPTION'" @click="souscrire" color="primary"/>
+      <v-btn
+        v-text="'CONTINUER'"
+        v-if="paiementSelect === 'Paiement manuel'"
+        color="primary"
+        href="https://wa.me/22967328981?text=Je%20voudrais%20faire%20un%20don%20"/>
     </v-card-actions>
     <v-overlay :value="isLoad">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
@@ -29,6 +31,10 @@ export default {
   data: () => ({
     chapSelect: null,
     isLoad: false,
+    paiements: [
+      'Paiement manuel',
+    ],
+    paiementSelect: 'Paiement manuel',
   }),
   computed: {
     ...mapGetters([

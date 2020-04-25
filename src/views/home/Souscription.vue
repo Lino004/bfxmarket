@@ -57,8 +57,8 @@ export default {
     ],
     tab: null,
     items: [
+      { tab: 'Faire un don', component: 'FaireUnDon' },
       { tab: 'Souscription par parrainage', component: 'Parrainage' },
-      /* { tab: 'Faire un don', component: '' }, */
     ],
     chapitres: [],
     isLoad: false,

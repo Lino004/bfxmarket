@@ -16,10 +16,10 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item @click="modalSouscription = true" disabled>
+            <v-list-item @click="modalSouscription = true">
               <v-list-item-title>Valider des souscriptions</v-list-item-title>
             </v-list-item>
-            <v-list-item @click="modalEnvoiEmail = true" disabled>
+            <v-list-item @click="modalEnvoiEmail = true">
               <v-list-item-title>Envoyer des e-mails</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -101,7 +101,7 @@
           <v-textarea
             label="Contenu du mail"
             outlined
-            v-model="mail.contenu"></v-textarea>
+            v-model="mail.contenue"></v-textarea>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -175,7 +175,7 @@
 </template>
 
 <script>
-import { getListUser, souscript } from '@/api/auth/index';
+import { getListUser, souscriptAdmin } from '@/api/auth/index';
 import { sendMultiMail } from '@/api/mail/index';
 import { listeChapitre } from '@/api/chapitres/index';
 import { BASE_HOST } from '@/api/config/config';
@@ -212,7 +212,7 @@ export default {
       modalEnvoiEmail: false,
       modalSouscription: false,
       mail: {
-        contenu: '',
+        contenue: '',
         sujet: '',
       },
       loading: false,
@@ -284,15 +284,18 @@ export default {
     async envoiMail() {
       this.loading = true;
       try {
-        if (this.mail.sujet && this.mail.contenu) {
+        if (this.mail.sujet && this.mail.contenue) {
           this.mail.mails = this.usersSelect.map(el => el.email);
           await sendMultiMail(this.mail);
           this.showSnackMsg({
             msg: 'Les mails ont bien été envoyé',
             color: 'success',
           });
-          this.modalEnvoiEmail = true;
+          this.modalEnvoiEmail = false;
           this.loading = false;
+          this.mail.mails = [];
+          this.mail.sujet = '';
+          this.mail.contenue = [];
           return '';
         }
         this.showSnackMsg({
@@ -327,7 +330,7 @@ export default {
         if (this.chapitreSelect) {
           const requetes = [];
           this.usersSelect.forEach((user) => {
-            requetes.push(souscript({
+            requetes.push(souscriptAdmin({
               chapitre: this.chapitreSelect,
               user: user.identifiant,
               admin: this.userAdmin.identifiant,
@@ -339,7 +342,7 @@ export default {
             color: 'success',
           });
           this.loading = false;
-          this.envoiSouscription = false;
+          this.modalSouscription = false;
           return '';
         }
         this.showSnackMsg({
@@ -347,6 +350,7 @@ export default {
           color: 'error',
         });
         this.loading = false;
+        this.modalSouscription = false;
         return '';
       } catch (error) {
         this.showSnackMsg({
@@ -354,6 +358,7 @@ export default {
           color: 'error',
         });
         this.loading = false;
+        this.modalSouscription = false;
         return '';
       }
     },

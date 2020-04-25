@@ -38,7 +38,7 @@
       show-select>
       <template v-slot:body.prepend="{  }">
         <tr>
-          <td :colspan="5">
+          <td :colspan="6">
             <v-text-field
               v-model="search"
               append-icon="search"
@@ -46,6 +46,17 @@
               single-line
               hide-details
             ></v-text-field>
+          </td>
+          <td>
+            <v-autocomplete
+              v-model="paysSelect"
+              :items="listePays"
+              label="Pays"
+              item-value="id"
+              item-text="nom"
+              hide-details
+              multiple
+            ></v-autocomplete>
           </td>
           <td>
             <v-select
@@ -61,8 +72,8 @@
           <td></td>
         </tr>
       </template>
-      <template v-slot:item.image="{ item }">
-        <v-img :src="`${base}${item.image}`" height="50" width="50"></v-img>
+      <template v-slot:item.pays="{ item }" v-if="liste.length">
+        {{ getPays(item.pays).nom }}
       </template>
       <template v-slot:item.status="{ item }">
         <v-chip
@@ -180,6 +191,7 @@ import { sendMultiMail } from '@/api/mail/index';
 import { listeChapitre } from '@/api/chapitres/index';
 import { BASE_HOST } from '@/api/config/config';
 import { mapGetters, mapActions } from 'vuex';
+import LISTE_PAYS from '@/services/pays';
 
 export default {
   components: {},
@@ -195,7 +207,9 @@ export default {
         { text: 'Nom', value: 'nom' },
         { text: 'Prenom', value: 'prenom' },
         { text: 'Email', value: 'email' },
+        { text: 'Numéro', value: 'phone', width: 100 },
         { text: 'Nbr de parrainage', value: 'downline', width: 100 },
+        { text: 'Pays', value: 'pays', width: 100 },
         { text: 'Status', value: 'status', width: 100 },
         { text: 'Lien parrai.', value: 'lien', width: 100 },
       ],
@@ -218,6 +232,8 @@ export default {
       loading: false,
       chapitres: [],
       chapitreSelect: null,
+      listePays: LISTE_PAYS,
+      paysSelect: [],
     };
   },
   computed: {
@@ -227,6 +243,7 @@ export default {
     liste() {
       let data = this.users;
       if (this.statusSelect.length) data = data.filter(el => this.statusSelect.includes(el.status));
+      if (this.paysSelect.length) data = data.filter(el => this.paysSelect.includes(el.pays));
       return data;
     },
   },
@@ -236,13 +253,16 @@ export default {
     ]),
     async getList() {
       this.isLoad = true;
+      this.loading = true;
       try {
         this.users = (await getListUser(this.userAdmin.identifiant)).data;
         this.users.sort((a, b) => b.id - a.id);
         await this.getListChap();
         this.isLoad = false;
+        this.loading = false;
       } catch (error) {
         this.isLoad = false;
+        this.loading = false;
       }
     },
     getStatus(status) {
@@ -319,6 +339,12 @@ export default {
       try {
         this.chapitres = (await listeChapitre()).data;
         this.chapitres.sort((a, b) => a.id - b.id);
+        this.chapitres.forEach((chap, index) => {
+          // eslint-disable-next-line no-param-reassign
+          chap.index = index + 1;
+          // eslint-disable-next-line no-param-reassign
+          chap.text = `CHAP-${index + 1}`;
+        });
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -361,6 +387,16 @@ export default {
         this.modalSouscription = false;
         return '';
       }
+    },
+    getPays(id) {
+      return this.listePays.find(el => el.id === id);
+    },
+    getChapByOrder(list) {
+      const tab = [];
+      list.forEach((el) => {
+        tab.push(this.chapitres.find(chap => chap.id === el.id).index);
+      });
+      return tab;
     },
   },
   async mounted() {

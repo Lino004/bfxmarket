@@ -198,7 +198,7 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
-        path: 'formation/:idFormation/module/:idModule/chapitre/:idChapitre',
+        path: 'chapitre/:idChapitre',
         name: 'bfx-chapitre',
         component: chapitre,
         meta: { requiresAuth: true },

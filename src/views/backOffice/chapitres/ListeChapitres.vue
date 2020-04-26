@@ -22,6 +22,9 @@
       :items="chapitres"
       :items-per-page="10"
       :loading="isLoad">
+      <template v-slot:item.price="{ item }">
+        {{item.price}} $
+      </template>
       <template v-slot:item.status="{ item }">
         <v-btn
           fab
@@ -84,6 +87,8 @@ export default {
       isLoad: false,
       headers: [
         { text: 'Titre', value: 'titre' },
+        { text: 'Nbr de pers. à parrainer', value: 'downline', width: 80 },
+        { text: 'Prix', value: 'price', width: 80 },
         { text: 'Status', value: 'status', width: 80 },
         { text: 'Modifier', value: 'modifier', width: 80 },
         { text: 'Supprimer', value: 'supprimer', width: 80 },

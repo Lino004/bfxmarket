@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-    <PageTitle :breadcrumbs="breadcrumbs" title="Guide débutant gratuit"/>
+    <PageTitle :breadcrumbs="breadcrumbs" title="Guide gratuit pour debutant"/>
     <v-container class="d-flex justify-center">
       <content-guide></content-guide>
     </v-container>

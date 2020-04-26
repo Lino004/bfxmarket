@@ -8,9 +8,10 @@
         <v-container>
           <v-list shaped class="pa-0">
             <v-subheader class="px-0">Nos chapitres: </v-subheader>
-            <v-list-item-group :color="'primary'">
+            <v-list-item-group :color="'primary'" v-if="chapitres.length">
+              <v-divider></v-divider>
               <v-list-item
-                v-for="(chap, i) in chapitres"
+                v-for="(chap, i) in listeChap()"
                 :key="i"
                 :disabled="!chap.is_lock"
                 class="px-0"
@@ -27,7 +28,17 @@
                 <v-list-item-content>
                   <v-list-item-title v-text="chap.titre"></v-list-item-title>
                 </v-list-item-content>
-                <v-list-item-action>
+                <v-list-item-content>
+                  <div class="my-5">
+                    <strong v-if="chap.downline">
+                      Parrainer
+                      {{chap.downline}} pers.
+                    </strong>
+                    {{chap.downline && chap.price ? 'ou' : ''}}
+                    <strong v-if="chap.price">Faire un don de {{chap.price}} $</strong>
+                  </div>
+                </v-list-item-content>
+                <v-list-item-action style="width: 100px">
                   <v-btn
                     v-text="'SOUSCRIRE'"
                     :disabled="!chap.is_lock"
@@ -43,6 +54,7 @@
                     v-else/>
                 </v-list-item-action>
               </v-list-item>
+              <v-divider></v-divider>
             </v-list-item-group>
           </v-list>
         </v-container>
@@ -58,6 +70,7 @@ import PageTitle from '@/components/site/general/PageTitle.vue';
 import { getModule } from '@/api/modules/index';
 import { listeChapitreByModule } from '@/api/chapitres/index';
 import { mapGetters } from 'vuex';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default {
   components: { PageTitle },
@@ -93,8 +106,6 @@ export default {
         this.$router.push({
           name: 'bfx-chapitre',
           params: {
-            idFormation: this.module.formation,
-            idModule: this.module.id,
             idChapitre: idChap,
           },
         });
@@ -112,10 +123,17 @@ export default {
           el.title = el.titre;
         });
         this.chapitres.sort((a, b) => a.id - b.id);
+        this.listeChap();
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
       }
+    },
+    listeChap() {
+      const tab = cloneDeep(this.chapitres);
+      const i = Math.max(...this.listeSouscript);
+      const y = tab.find(el => el.id > i).id;
+      return tab.filter(el => el.id <= y);
     },
   },
   async mounted() {

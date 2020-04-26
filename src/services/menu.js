@@ -12,7 +12,7 @@ export default [
     disabled: false,
   },
   {
-    text: 'Guide trading',
+    text: 'Guide gratuit pour debutant',
     to: { name: 'bfx-guide' },
     icon: 'mdi-book',
     disabled: false,

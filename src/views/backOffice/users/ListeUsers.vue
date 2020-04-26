@@ -48,6 +48,17 @@
             ></v-text-field>
           </td>
           <td>
+            <v-select
+              v-model="chapitreSelectUser"
+              :items="chapitres"
+              label="Chapitre"
+              item-value="id"
+              item-text="index"
+              hide-details
+              multiple
+            ></v-select>
+          </td>
+          <td>
             <v-autocomplete
               v-model="paysSelect"
               :items="listePays"
@@ -71,6 +82,9 @@
           </td>
           <td></td>
         </tr>
+      </template>
+      <template v-slot:item.subscribes="{ item }" v-if="liste.length">
+        {{ getChapByOrder(item.subscribes).map(el => el.index).join(', ') }}
       </template>
       <template v-slot:item.pays="{ item }" v-if="liste.length">
         {{ getPays(item.pays).nom }}
@@ -209,6 +223,7 @@ export default {
         { text: 'Email', value: 'email' },
         { text: 'Numéro', value: 'phone', width: 100 },
         { text: 'Nbr de parrainage', value: 'downline', width: 100 },
+        { text: 'Chap souscrit', value: 'subscribes', width: 100 },
         { text: 'Pays', value: 'pays', width: 100 },
         { text: 'Status', value: 'status', width: 100 },
         { text: 'Lien parrai.', value: 'lien', width: 100 },
@@ -232,6 +247,7 @@ export default {
       loading: false,
       chapitres: [],
       chapitreSelect: null,
+      chapitreSelectUser: [],
       listePays: LISTE_PAYS,
       paysSelect: [],
     };
@@ -244,6 +260,15 @@ export default {
       let data = this.users;
       if (this.statusSelect.length) data = data.filter(el => this.statusSelect.includes(el.status));
       if (this.paysSelect.length) data = data.filter(el => this.paysSelect.includes(el.pays));
+      if (this.chapitreSelectUser.length) {
+        data = data.filter((el) => {
+          const tab = [];
+          this.chapitreSelectUser.forEach((sub) => {
+            tab.push(el.subscribes.includes(sub));
+          });
+          return !tab.includes(false);
+        });
+      }
       return data;
     },
   },
@@ -394,9 +419,9 @@ export default {
     getChapByOrder(list) {
       const tab = [];
       list.forEach((el) => {
-        tab.push(this.chapitres.find(chap => chap.id === el.id).index);
+        tab.push(this.chapitres.find(chap => chap.id === el));
       });
-      return tab;
+      return tab.sort((a, b) => a.index - b.index);
     },
   },
   async mounted() {

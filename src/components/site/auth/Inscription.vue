@@ -258,7 +258,7 @@ export default {
         const infoUser = {
           nom: this.nom,
           prenom: this.prenom,
-          email: this.email,
+          email: this.email.toLowerCase().trim(),
           phone: this.numero,
           password: this.password,
           pays: this.selectPays.id,

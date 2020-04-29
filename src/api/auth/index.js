@@ -10,6 +10,7 @@ const URL_BASE_SOUSCRIPT = 'tasks/chapitre/subscribe';
 const URL_BASE_SOUSCRIPT_ADMIN = 'tasks/chapitre/admin/subscribe';
 const URL_BASE_CONFIRM_USER = 'tasks/user/confirm';
 const URL_BASE_LISTE_USER = 'tasks/user/list';
+const URL_BASE_ARCHIVE_USER = 'tasks/user/archive';
 
 export async function create(infoUser) {
   const response = await HTTP.put(URL_BASE_CREATE, infoUser);
@@ -58,5 +59,10 @@ export async function souscriptAdmin(data) {
 
 export async function addDownline(id) {
   const response = await HTTP.put(`${URL_BASE_PARRAINAGE}/${id}`);
+  return response;
+}
+
+export async function archiveUser(id, data) {
+  const response = await HTTP.put(`${URL_BASE_ARCHIVE_USER}/${id}`, data);
   return response;
 }

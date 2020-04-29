@@ -72,7 +72,7 @@ export default {
       try {
         this.loading = true;
         const infoUser = {
-          login: this.email.toLowerCase(),
+          login: this.email.toLowerCase().trim(),
           password: this.password,
         };
         const user = (await login(infoUser)).data;
@@ -87,6 +87,12 @@ export default {
         this.$emit('annuler');
       } catch (error) {
         if (error.response.status === 404) {
+          this.showSnackMsg({
+            msg: error.response.data.error,
+            color: 'error',
+          });
+        }
+        if (error.response.status === 400) {
           this.showSnackMsg({
             msg: error.response.data.error,
             color: 'error',

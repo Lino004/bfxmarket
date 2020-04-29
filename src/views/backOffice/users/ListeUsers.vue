@@ -22,6 +22,9 @@
             <v-list-item @click="modalEnvoiEmail = true">
               <v-list-item-title>Envoyer des e-mails</v-list-item-title>
             </v-list-item>
+            <v-list-item @click="archiveUsers">
+              <v-list-item-title>Archiver des utilisateurs</v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
       </v-col>
@@ -200,7 +203,7 @@
 </template>
 
 <script>
-import { getListUser, souscriptAdmin } from '@/api/auth/index';
+import { getListUser, souscriptAdmin, archiveUser } from '@/api/auth/index';
 import { sendMultiMail } from '@/api/mail/index';
 import { listeChapitre } from '@/api/chapitres/index';
 import { BASE_HOST } from '@/api/config/config';
@@ -422,6 +425,19 @@ export default {
         tab.push(this.chapitres.find(chap => chap.id === el));
       });
       return tab.sort((a, b) => a.index - b.index);
+    },
+    async archiveUsers() {
+      this.loading = true;
+      try {
+        if (this.usersSelect.length) {
+          const ids = this.usersSelect.map(el => el.identifiant);
+          await archiveUser(this.userAdmin.identifiant, ids);
+          this.loading = false;
+        }
+      } catch (error) {
+        this.loading = false;
+        throw error;
+      }
     },
   },
   async mounted() {

@@ -30,12 +30,13 @@
         >
           <v-card-text>
             <v-btn
-              v-for="(icon, i) in icons"
+              v-for="(link, i) in links"
               :key="i"
               class="mx-4 white--text"
               icon
+              :href="link.link"
             >
-              <v-icon size="24px">{{ icon }}</v-icon>
+              <v-icon size="24px">{{ link.icon }}</v-icon>
             </v-btn>
           </v-card-text>
 
@@ -55,10 +56,10 @@ import { mapActions } from 'vuex';
 
 export default {
   data: () => ({
-    icons: [
-      'mdi-telegram',
-      'mdi-facebook',
-      'mdi-youtube',
+    links: [
+      { icon: 'mdi-telegram', link: 'https://t.me/wfxschool' },
+      { icon: 'mdi-facebook', link: 'https://www.facebook.com/100881411604853/posts/103241474702180/?d=n' },
+      { icon: 'mdi-youtube', link: 'https://www.youtube.com/channel/UCeE5e8iDE_ZmI87AVYBrx6A' },
     ],
     showFooter: true,
   }),

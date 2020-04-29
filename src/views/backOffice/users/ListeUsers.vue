@@ -402,6 +402,7 @@ export default {
             msg: 'Souscriptions faites avec succès',
             color: 'success',
           });
+          await this.getList();
           this.loading = false;
           this.modalSouscription = false;
           return '';
@@ -414,6 +415,13 @@ export default {
         this.modalSouscription = false;
         return '';
       } catch (error) {
+        if (error.response && error.response.status) {
+          this.showSnackMsg({
+            msg: error.response.data.error,
+            color: 'error',
+          });
+          return '';
+        }
         this.showSnackMsg({
           msg: 'Problème lors de validation',
           color: 'error',

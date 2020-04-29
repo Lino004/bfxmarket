@@ -6,9 +6,9 @@
           <div v-html="module.contenu"></div>
         </v-container>
         <v-container>
-          <v-list shaped class="pa-0">
+          <v-list shaped class="pa-0" v-if="chapitres.length">
             <v-subheader class="px-0">Nos chapitres: </v-subheader>
-            <v-list-item-group :color="'primary'" v-if="chapitres.length">
+            <v-list-item-group :color="'primary'">
               <v-divider></v-divider>
               <v-list-item
                 v-for="(chap, i) in listeChap()"

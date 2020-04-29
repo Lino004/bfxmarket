@@ -29,6 +29,9 @@
           v-model="password"
         />
       </v-form>
+      <a @click="motDePasseOublie">
+        Mot de passe oublié?
+      </a>
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
@@ -100,6 +103,10 @@ export default {
         }
         this.loading = false;
       }
+    },
+    motDePasseOublie() {
+      this.$router.push({ name: 'bfx-init-reset-password' });
+      this.$emit('annuler');
     },
   },
 

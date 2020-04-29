@@ -235,6 +235,7 @@ export default {
         { type: 'Offline', libelle: 'Hors ligne' },
         { type: 'Online', libelle: 'En ligne' },
         { type: 'initial', libelle: 'Insc. en cours' },
+        { type: 'Archive', libelle: 'Archivé' },
       ],
       expanded: [],
       singleExpand: false,
@@ -304,6 +305,12 @@ export default {
         return {
           libelle: 'Insc. en cours',
           couleur: 'orange',
+        };
+      }
+      if (status === 'Archive') {
+        return {
+          libelle: 'Archivé',
+          couleur: 'grey',
         };
       }
       return {
@@ -430,8 +437,12 @@ export default {
       this.loading = true;
       try {
         if (this.usersSelect.length) {
-          const ids = this.usersSelect.map(el => el.identifiant);
-          await archiveUser(this.userAdmin.identifiant, ids);
+          const data = {
+            users: this.usersSelect.map(el => el.identifiant),
+          };
+          await archiveUser(this.userAdmin.identifiant, data);
+          this.usersSelect = [];
+          await this.getList();
           this.loading = false;
         }
       } catch (error) {

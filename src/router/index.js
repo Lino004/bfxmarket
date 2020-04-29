@@ -9,6 +9,8 @@ import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import Parrainage from '@/views/home/Parrainage.vue';
 import Souscription from '@/views/home/Souscription.vue';
 import AttentConfirmation from '@/views/home/AttentConfirmation.vue';
+import ResetPassword from '@/views/home/ResetPassword.vue';
+import InitResetPassword from '@/views/home/InitResetPassword.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
@@ -255,6 +257,36 @@ const routes = [
               msg: error.response.data.error,
             });
             next('/');
+          }
+        },
+      },
+      {
+        path: 'reset-password/:pass/:id',
+        name: 'bfx-reset-password',
+        component: ResetPassword,
+        beforeEnter: async (to, from, next) => {
+          const response = await store.dispatch('isConnect');
+          if (response) {
+            next({
+              path: '/',
+            });
+          } else {
+            next();
+          }
+        },
+      },
+      {
+        path: 'init-reset-password',
+        name: 'bfx-init-reset-password',
+        component: InitResetPassword,
+        beforeEnter: async (to, from, next) => {
+          const response = await store.dispatch('isConnect');
+          if (response) {
+            next({
+              path: '/',
+            });
+          } else {
+            next();
           }
         },
       },

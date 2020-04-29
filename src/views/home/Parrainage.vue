@@ -29,26 +29,11 @@ export default {
         disabled: true,
       },
     ],
-    tabMeta: [
-      {
-        property: 'og:description',
-        content: 'Gagner du temps et augmenter considérablement vos revenus grâce au trading. Prédire les quatre futurs mouvement des marchés financiers, c’est désormais possible grâce au programme de formation gratuite initié par WfxSchool. Rejoignez la formation en cliquant sur ce lien :',
-      },
-    ],
   }),
   methods: {
     ...mapMutations({
       setIdParrainage: 'SET_ID_PARRAINAGE',
     }),
-    addMeta() {
-      const htmlDoc = document.getElementsByTagName('head')[0];
-      this.tabMeta.forEach((el) => {
-        const meta = document.createElement('meta');
-        meta.setAttribute('property', el.property);
-        meta.setAttribute('content', el.content);
-        htmlDoc.appendChild(meta);
-      });
-    },
   },
   mounted() {
     const { id } = this.$route.params;

@@ -173,7 +173,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import db from '@/plugins/firebase';
 import listePays from '@/services/pays';
-import { create } from '@/api/auth/index';
+import { create, createByParraine } from '@/api/auth/index';
 
 export default {
   props: {
@@ -197,7 +197,11 @@ export default {
     numero: null,
     regleNumero: [
       v => !!v || 'Votre numéro est obligatoire',
-      v => v.length >= 8 || 'Au moins 8 chiffres svp',
+      (v) => {
+        let value = 'Au moins 8 chiffres';
+        if (v != null && v.length >= 8) value = true;
+        return value;
+      },
     ],
     email: null,
     regleEmail: [
@@ -264,13 +268,20 @@ export default {
           pays: this.selectPays.id,
           is_ad: false,
         };
-        const user = (await create(infoUser)).data;
+        let user = {};
+        const { id } = this.$route.params;
+        const { name } = this.$route;
+        if (name === 'bfx-parrainage' && id) {
+          user = (await createByParraine(id, infoUser)).data;
+        } else {
+          user = (await create(infoUser)).data;
+        }
         this.showSnackMsg({
           msg: 'Votre inscription a été prit en compte. Veuillez vérifier votre boite mail.',
           color: 'success',
         });
         user.password = '';
-        await this.actionParrainage();
+        // await this.actionParrainage();
         this.setUser(user);
         // window.location.reload();
         this.createLoading = false;
@@ -279,9 +290,9 @@ export default {
         return '';
       } catch (error) {
         this.createLoading = false;
-        if (error.response.status === 400) {
+        if (error.response && error.response.status) {
           this.showSnackMsg({
-            msg: 'Erreur: il est possible que vous ayez déjà fait une demande d\'inscription',
+            msg: error.response.data.error,
             color: 'error',
           });
           return '';

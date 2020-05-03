@@ -29,10 +29,10 @@
             </v-row>
           </v-card-title>
         </v-img>
-        <v-card-text
+        <!-- <v-card-text
           :class="data.active ? 'black--text' : 'grey--text'">
           <div v-html="data.content"></div>
-        </v-card-text>
+        </v-card-text> -->
         <v-card-actions>
           <v-layout justify-center class="ma-2">
             <ModalAuth v-if="userStatus !== 'Online'"

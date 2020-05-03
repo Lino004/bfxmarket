@@ -6,6 +6,7 @@ import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
+import NosFormations from '@/views/home/NosFormations.vue';
 import Parrainage from '@/views/home/Parrainage.vue';
 import Souscription from '@/views/home/Souscription.vue';
 import AttentConfirmation from '@/views/home/AttentConfirmation.vue';
@@ -188,13 +189,18 @@ const routes = [
         component: QueFaisonsNous,
       },
       {
+        path: 'nos-formations',
+        name: 'bfx-nos-formations',
+        component: NosFormations,
+      },
+      {
         path: 'formation/:idFormation',
         name: 'bfx-formation',
         component: formation,
         meta: { requiresAuth: true },
       },
       {
-        path: 'formation/:idFormation/module/:idModule',
+        path: 'formation/:idFormation/',
         name: 'bfx-module',
         component: modules,
         meta: { requiresAuth: true },

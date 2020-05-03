@@ -1,218 +1,107 @@
 <template>
-  <section class="white">
-    <Bande title="Plus d'information?"/>
-    <v-container grid-list-xl>
-      <v-layout row wrap justify-center>
-        <v-flex xs12 sm-4>
-          <v-row>
-            <v-col
-              cols="12"
-              sm="6"
-            >
-              <div class="text-center" v-animate-css="'fadeInDown'">
-                <h2 class="headline font-weight-bold">
-                  Ecrivez nous
-                </h2>
-              </div>
-              <v-card
-                class="pa-2"
-                outlined
-                tile
-                color="transparent"
-              >
-                <v-form
-                  ref="form"
-                >
-                  <v-text-field
-                    label="Nom complet"
-                    required
-                    outlined
-                    class="contact-form mb-2"
-                    dense
-                    append-icon="mdi-account"
-                    v-model="noms"
-                    hide-details
-                  ></v-text-field>
-
-                  <v-text-field
-                    label="E-mail"
-                    required
-                    outlined
-                    class="contact-form mb-2"
-                    dense
-                    append-icon="mdi-email"
-                    v-model="email"
-                    hide-details
-                  ></v-text-field>
-
-                  <v-text-field
-                    label="Sujet"
-                    required
-                    outlined
-                    class="contact-form mb-2"
-                    dense
-                    append-icon="mdi-text-subject"
-                    v-model="sujet"
-                    hide-details
-                  ></v-text-field>
-
-                  <v-textarea
-                    outlined
-                    label="Message"
-                    rows="3"
-                    class="contact-form mb-2"
-                    dense
-                    v-model="msg"
-                    hide-details
-                  ></v-textarea>
-                  <v-btn
-                    class="mr-4 bg-blue-grad"
-                    block
-                    @click="soumettre"
-                  >
-                    Soumettre
-                  </v-btn>
-                </v-form>
-              </v-card>
-            </v-col>
-            <v-col
-              cols="12"
-              sm="6"
-            >
-              <div class="text-center" v-animate-css="'fadeInDown'">
-                <h2 class="headline font-weight-bold">
-                  Contact Info
-                </h2>
-              </div>
-              <v-card
-                class="pa-2"
-                outlined
-                tile
-                color="transparent"
-              >
-                <div class="ml-6">
-                  {{info.intro}}
-                </div>
-                <v-list two-line>
-                  <v-list-item>
-                    <v-list-item-icon class="my-auto mr-3">
-                      <v-icon class="display-2" color="primary">mdi-map-marker</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>Adresse</v-list-item-title>
-                      <v-list-item-subtitle>{{info.adresse}}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-list-item-icon class="my-auto mr-3">
-                      <v-icon class="display-2" color="primary">mdi-phone</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>Contact</v-list-item-title>
-                      <v-list-item-subtitle>{{info.contact}}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-list-item-icon class="my-auto mr-3">
-                      <v-icon class="display-2" color="primary">mdi-map-marker</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>Email</v-list-item-title>
-                      <v-list-item-subtitle>{{info.email}}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-flex>
-      </v-layout>
-      <v-alert
-        close-text="Close Alert"
-        color="black" dark dismissible>
-        <h3 class="headline">Avertissement au risque</h3>
-        Le trading implique un risque élevé et ne convient
-        pas à tous les investisseurs. Le degré élevé d’effet de levier
-        peut opérer en votre faveur aussi bien que contre vous. Avant de
-        décider de trader, vous devez attentivement considérer vos objectifs
-        d’investissement, votre niveau d’expérience et votre appétit du risque.
-        Pour cela, nous vous invitons à ne pas négliger de vous former avant
-        d’investir des fonds. Il y a toujours une relation entre rémunération
-        élevée et risque élevé. Tous types de marché ou de spéculation en trading,
-        qui peut rapporter exceptionnellement un rendement élevé sur l’investissement,
-        est soumis à un risque élevé exceptionnel, et le forex ne fait pas exception.
-        Vous ne devez donc jamais investir des sommes d’argent dont vous pourriez avoir
-        besoin pour vivre. Notez toutefois que la plupart des brokers disposent de règles
-        de sécurité automatiques vous empêchant de perdre plus que les fonds investis.
-      </v-alert>
+  <section>
+    <v-container>
+      <div class="barre bg-blue-grad mb-5"></div>
+      <h1 class="text-center" v-animate-css="'fadeInDown'">Témoignages</h1>
+      <v-window
+        show-arrows
+      >
+        <v-window-item
+          v-for="(etu, i) in etudiants"
+          :key="i"
+        >
+          <v-card flat tile>
+            <h3 class="text-center"> {{etu.name}} </h3>
+            <v-card-text class="black--text text-justify">
+              <div v-html="etu.comment"></div>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
+      </v-window>
     </v-container>
   </section>
 </template>
 
 <script>
-import db from '@/plugins/firebase';
-import Bande from '@/components/site/general/Bande.vue';
-import { sendMail } from '@/api/mail/index';
-import { mapActions } from 'vuex';
-
+import { mapGetters } from 'vuex';
 
 export default {
-  components: { Bande },
+  components: { },
   data: () => ({
-    ref: 'info-contact/',
-    info: {
-      intro: '',
-      adresse: '',
-      contact: '',
-      email: '',
-    },
-    noms: '',
-    email: '',
-    sujet: '',
-    msg: '',
+    model: null,
+    etudiants: [
+      {
+        img: '',
+        name: 'Dieudonné S.',
+        status: 'Trader Maser',
+        comment: `Cher WfxSchool, <br/>
+          Un ENORME merci pour votre formation précieuse, de qualité et structurante pour la suite de ma vie. <br/>
+          Certains diront que j’y vais un peu fort, mais je le pense sincèrement ! <br/>
+          L’école m’a permis de découvrir la meilleure stratégie d'intervention sur les machés financiers
+          à travers  des vidéos très concrètes, des explications claires. <br/>
+          Quel que soit votre niveau actuel , si vous voulez atteindre l'excellence en trading,
+          je vous recommande vraiment d’investir dans une de ces formations proposées par WfxSchool,
+          vous gagnerez du temps et vous comprendrez en très peu de temps  les mécanismes des marchés financiers.`,
+      },
+      {
+        img: '',
+        name: 'Jean-Michael GBENONZAN',
+        status: 'Trader Maser',
+        comment: `Je me nomme Jean-Michael GBENONZAN'
+          l'un de des étudiant de WFxSchool. Bien avant de suivre la formation chez WFxSchool je vous note
+          que j'ai suivi beaucoup de formations  chez d'autres traders qui se disent expert en la matière mais
+          hélas je ne sors toujours gagnant de mes trades. Mes bilans étaient toujours négatifs.
+          J'ai entendu parler de WFxSchool. Je me suis intéressé à eux et surtout à travers leur
+          devise qui stipule que Personne n’évolue seule et nul n’a le droit d’être heureux tout seul et en plus
+          leur formation était complètement gratuite ce qui n'est pas pareille avec mes précédents soit disant formateur en trading.
+          Je me suis inscrit sur leur plateforme et j'ai suivi leur formation durant 3 mois.
+          Une période au cours de laquelle j'ai côtoyé beaucoup d'expert en trading tel que notre formateur Mr Alao Fari Khalid.
+          Un Mr très sympa, claire et très précis dans ses explications, un Mr qui prône le travail bien fait. En bref je peux
+          vous dire grâce à WFxSchool et à ses formateurs je suis devenu un trader très rentable.
+          Je vis maintenant et pleinement de trading. Je vous recommande WFxSchool`,
+      },
+      {
+        img: '',
+        name: 'The Light',
+        status: 'Trader Maser',
+        comment: `Ah la vie, qui pourrait croire qu'aujourd'hui, je pourrais parler de trading sans que mon coeur ne se mette à battre fort 😂. <br/>
+          Encore merci coach, sans cette formation, je ne sais pas dans quel état d'âme je serai aujourd'hui. <br/>
+          J'ai vu l'espoir sous Bluefx market.  Infiniment merci et que Dieu vous accorde la santé qu'il faut pour aider encore plus de personnes 😊`,
+      },
+    ],
+    isClick: false,
   }),
-  methods: {
-    ...mapActions([
-      'showSnackMsg',
+  computed: {
+    ...mapGetters([
+      'userStatus',
     ]),
-    update() {
-      if (!this.info.intro || !this.info.adresse || !this.info.contact || !this.info.email) return '';
-      db.ref(this.ref).update({ ...this.info });
-      this.dialog = false;
-      return '';
+    /* currentClient() {
+      if (this.model) return this.etudiants[this.model];
+      return {
+        img: '',
+        name: '',
+        status: '',
+        comment: '',
+      };
     },
-    async soumettre() {
-      if (this.noms && this.email && this.msg) {
-        const data = {
-          sujet: this.sujet,
-          contenue: `Nom complet: ${this.noms} Email:  ${this.email} Contenu du message: ${this.msg}`,
-        };
-        await sendMail(data);
-        this.noms = '';
-        this.email = '';
-        this.sujet = '';
-        this.msg = '';
-        this.showSnackMsg({
-          msg: 'Message envoyé avec succès',
-          color: 'success',
-        });
-      }
-    },
-    get() {
-      db.ref(this.ref).on('value', (snap) => {
-        if (snap.val()) {
-          this.info = snap.val();
+    s4Height() {
+      if (this.isClick) {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return '500px';
+          default: return '400px';
         }
-      });
-    },
+      }
+      return '400px';
+    }, */
   },
-  mounted() {
-    this.get();
-  },
-  destroyed() {
-    db.ref(this.ref).off();
+  methods: {
+    /* userAbb(name) {
+      if (name) {
+        const split = name.split(' ');
+        return split[0][0] + split[1][0];
+      }
+      return '';
+    }, */
   },
 };
 </script>

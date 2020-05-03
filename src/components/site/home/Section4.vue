@@ -1,7 +1,7 @@
 <template>
-  <section class="" >
-    <Bande position="right" title="Avis des étudiants"/>
-    <v-container class="is-scroll is-invisible-scroll my-5" :style="`max-height: ${s4Height};`">
+  <section>
+    <!-- <v-container class="is-scroll is-invisible-scroll my-5"
+    :style="`max-height: ${s4Height};`">
       <v-card flat v-for="(etu, index) in etudiants" :key="index">
         <v-card-text>
           <v-row class="mb-4" align="center">
@@ -25,15 +25,46 @@
 
         </v-card-text>
       </v-card>
+    </v-container> -->
+    <v-container>
+      <div class="barre bg-blue-grad mb-5"></div>
+      <h1 class="text-center" v-animate-css="'fadeInDown'">Pourquoi suivre nos formations ?</h1>
+      <v-row class="my-5">
+        <v-col cols="12" sm="6" md="4" v-for="(item, i) in items" :key="i">
+          <v-avatar class="cercle-info pa-9">
+            <div>
+              <h3> {{item.titre}} </h3>
+              {{item.contenu}}
+            </div>
+          </v-avatar>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="5">
+          <v-btn
+            class="my-2"
+            color="bg-blue-grad"
+            v-if="userStatus === 'Online'"
+            :to="{ name: 'bfx-nos-formations' }"
+            block>
+            Débutez dès maintenant vôtre formation
+          </v-btn>
+          <ModalAuth v-else
+            justify=""
+            custum-class="my-2 bg-blue-grad v-btn--block v-size--default"
+            :type="'inscription'"/>
+        </v-col>
+      </v-row>
     </v-container>
   </section>
 </template>
 
 <script>
-import Bande from '@/components/site/general/Bande.vue';
+import { mapGetters } from 'vuex';
+import ModalAuth from '@/components/site/auth/ModalAuth.vue';
 
 export default {
-  components: { Bande },
+  components: { ModalAuth },
   data: () => ({
     model: null,
     etudiants: [
@@ -76,10 +107,39 @@ export default {
           J'ai vu l'espoir sous Bluefx market.  Infiniment merci et que Dieu vous accorde la santé qu'il faut pour aider encore plus de personnes 😊`,
       },
     ],
+    items: [
+      {
+        titre: 'LA QUALITE',
+        contenu: 'Toute nos formations vous apprennent à rentabilisez sur le marché. Nous vous formons à utiliser les méthodes professionnelles complètes et efficaces. A la fin, vous aurez votre propre stratégie gagnante.',
+      },
+      {
+        titre: 'LE COACHING',
+        contenu: 'Tout au long de nos formations vous aurez un coach personnel pour vous assister et répondre à vos préoccupations. Il sera avec vous après votre formation aussi. La mentalité étant importante pour le trader, vous aurez un psychologue personnel pour vous aider à gérer le mental ; les émotions et le stress dans votre parcours de trading.',
+      },
+      {
+        titre: 'PERSONNEL',
+        contenu: 'Nos formations sont adaptées à chaque profil et style de Trade. Vous avancerez en fonction de votre rythme d’évolution et d’assimilation : Suivez la formation en fonction de votre disponibilité',
+      },
+      {
+        titre: 'Une communauté de traders',
+        contenu: 'Peu importe la formation à laquelle vous souscrivez, vous intégrez une communauté d’élèves où vous pourrez échanger, partager vos analyses et commenter celles des autres.',
+      },
+      {
+        titre: 'Accès illimité',
+        contenu: 'Ayez un accès h24 et à vie aux formation auxquelles vous souscrivez',
+      },
+      {
+        titre: 'Un Compte de trading réel',
+        contenu: 'A la fin de la formation, nous offrons aux cinq meilleurs étudiants un compte réel d’une valeur de 100 à 500$.',
+      },
+    ],
     isClick: false,
   }),
   computed: {
-    currentClient() {
+    ...mapGetters([
+      'userStatus',
+    ]),
+    /* currentClient() {
       if (this.model) return this.etudiants[this.model];
       return {
         img: '',
@@ -96,16 +156,16 @@ export default {
         }
       }
       return '400px';
-    },
+    }, */
   },
   methods: {
-    userAbb(name) {
+    /* userAbb(name) {
       if (name) {
         const split = name.split(' ');
         return split[0][0] + split[1][0];
       }
       return '';
-    },
+    }, */
   },
 };
 </script>

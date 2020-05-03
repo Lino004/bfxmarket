@@ -11,7 +11,7 @@
             <v-list-item-group :color="'primary'">
               <v-divider></v-divider>
               <v-list-item
-                v-for="(chap, i) in listeChap()"
+                v-for="(chap, i) in liste"
                 :key="i"
                 :disabled="!chap.is_lock"
                 class="px-0"
@@ -69,7 +69,7 @@
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import { getModule } from '@/api/modules/index';
 import { listeChapitreByModule } from '@/api/chapitres/index';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import cloneDeep from 'lodash/cloneDeep';
 
 export default {
@@ -93,14 +93,19 @@ export default {
     ],
     module: {},
     chapitres: [],
+    liste: [],
     isLoad: false,
   }),
   computed: {
     ...mapGetters([
       'listeSouscript',
+      'user',
     ]),
   },
   methods: {
+    ...mapActions([
+      'getUser',
+    ]),
     startChapitre(idChap) {
       if (this.listeSouscript.includes(idChap)) {
         this.$router.push({
@@ -115,6 +120,7 @@ export default {
       this.isLoad = true;
       try {
         const { idModule } = this.$route.params;
+        await this.getUser();
         this.module = (await getModule(idModule)).data;
         this.chapitres = (await listeChapitreByModule(this.module.id)).data;
         /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -123,16 +129,20 @@ export default {
           el.title = el.titre;
         });
         this.chapitres.sort((a, b) => a.id - b.id);
-        this.listeChap();
+        this.liste = this.listeChap();
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
+        throw error;
       }
     },
     listeChap() {
       const tab = cloneDeep(this.chapitres);
       const i = Math.max(...this.listeSouscript);
-      const y = tab.find(el => el.id > i).id;
+      const x = Math.max(...this.chapitres.map(el => el.id));
+      let y = 0;
+      if (i === x) y = tab.find(el => el.id >= i).id;
+      else y = tab.find(el => el.id > i).id;
       return tab.filter(el => el.id <= y);
     },
   },

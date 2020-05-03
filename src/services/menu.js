@@ -6,6 +6,12 @@ export default [
     disabled: false,
   },
   {
+    text: 'Nos formations',
+    to: { name: 'bfx-nos-formations' },
+    icon: 'mdi-book',
+    disabled: false,
+  },
+  {
     text: 'FAQ',
     to: { name: 'bfx-faq' },
     icon: 'mdi-help-circle-outline',

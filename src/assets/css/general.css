@@ -76,3 +76,25 @@ html{
   user-select: none;
   -o-user-select: none;
 }
+
+.card-info{
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 25px !important;
+}
+
+.barre{
+  height: 5px;
+  border-radius: 5px;
+}
+
+.border-cercle{
+  border: 1px solid;
+}
+.cercle-info{
+  border: 1px solid rgb(19, 199, 104);
+  width: 100% !important;
+  min-height: 350px;
+}

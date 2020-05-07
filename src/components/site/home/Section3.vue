@@ -35,6 +35,7 @@
               fonctionne le marché et devenez rentable en quatre semaines.
               L’une des meilleures formations par lesquelles débuter."
             libelle-btn="Débuter la formation"
+            :index="0"
             :is-lock="false"
             @action="$router.push({
               name: 'bfx-formation',
@@ -46,6 +47,7 @@
             titre="Formation Avancée"
             description="Prédire les quatre mouvements du marché"
             libelle-btn="Débuter la formation"
+            :index="1"
             :is-lock="true"
             @action="$router.push({
               name: 'bfx-formation',
@@ -57,6 +59,7 @@
             titre="A B C  Stratégie"
             description="En cours"
             libelle-btn="Débuter la formation"
+            :index="2"
             :is-lock="true"
             @action="$router.push({
               name: 'bfx-formation',

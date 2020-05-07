@@ -1,6 +1,7 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" title="Nos formations"/>
+    <v-img src="@/assets/img/nos-formations.jpg" height="400"></v-img>
+     <!-- <PageTitle :breadcrumbs="breadcrumbs" title="Nos formations"/> -->
      <section>
         <v-container fill-height>
           <div>
@@ -19,6 +20,7 @@
                   fonctionne le marché et devenez rentable en quatre semaines.
                   L’une des meilleures formations par lesquelles débuter."
                 libelle-btn="Débuter la formation"
+                :index="0"
                 :is-lock="false"
                 @action="$router.push({
                   name: 'bfx-formation',
@@ -30,6 +32,7 @@
                 titre="Formation Avancée"
                 description="Prédire les quatre mouvements du marché"
                 libelle-btn="Débuter la formation"
+                :index="1"
                 :is-lock="true"
                 @action="$router.push({
                   name: 'bfx-formation',
@@ -41,6 +44,7 @@
                 titre="A B C  Stratégie"
                 description="En cours"
                 libelle-btn="Débuter la formation"
+                :index="2"
                 :is-lock="true"
                 @action="$router.push({
                   name: 'bfx-formation',
@@ -54,14 +58,14 @@
 </template>
 
 <script>
-import PageTitle from '@/components/site/general/PageTitle.vue';
+// import PageTitle from '@/components/site/general/PageTitle.vue';
 import { mapGetters } from 'vuex';
 import CardAction from '@/components/site/general/CardAction.vue';
 import { listeFormation } from '@/api/formations/index';
 // import { BASE_HOST } from '@/api/config/config';
 
 export default {
-  components: { PageTitle, CardAction },
+  components: { /* PageTitle, */ CardAction },
   data: () => ({
     breadcrumbs: [
       {

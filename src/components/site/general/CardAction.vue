@@ -3,6 +3,10 @@
     class="pa-2 text-center card-info"
     outlined
     tile
+    v-animate-css="{
+      classes: 'zoomIn',
+      duration: 4000 + index * 2000,
+    }"
   >
     <h2 class="text-center">
       {{titre}}
@@ -40,6 +44,7 @@ export default {
     description: String,
     libelleBtn: String,
     isLock: Boolean,
+    index: Number,
   },
   computed: {
     ...mapGetters([

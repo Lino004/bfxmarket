@@ -97,4 +97,5 @@ html{
   border: 1px solid rgb(19, 199, 104);
   width: 100% !important;
   min-height: 350px;
+  max-width: 400px !important;
 }

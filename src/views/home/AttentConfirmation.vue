@@ -10,8 +10,9 @@
         <v-card-text v-if="user">
           <p class="body-1">
             Votre demande d'inscription a bien été pris en compte.
-          Veuillez consulter votre mail pour confirmation. <br>
-          Email de confirmation: <strong>{{user.email}}</strong>
+            Veuillez consulter votre mail pour confirmation. <br>
+            Email de confirmation: <strong>{{user.email}}</strong> <br>
+            <strong>NB :</strong> Si vous ne recevez pas de mail, vérifier dans vos spams.
           </p>
         </v-card-text>
       </v-card>

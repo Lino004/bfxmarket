@@ -35,6 +35,11 @@ export default {
       },
     };
   },
+  watch: {
+    currentRoute() {
+      this.onResize();
+    },
+  },
   computed: {
     ...mapGetters([
       'sizeTopBar',

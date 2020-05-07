@@ -1,6 +1,11 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"/>
+     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"
+       v-if="formation.titre != 'Débutant' || formation.titre != 'Avancé'"/>
+     <v-img src="@/assets/img/Débutant.jpg" height="400"
+       v-if="formation.titre === 'Débutant'"></v-img>
+     <v-img src="@/assets/img/Avancé.jpg" height="400"
+       v-if="formation.titre === 'Avancé'"></v-img>
      <section>
         <v-container fill-height>
           <div v-html="formation.contenu"></div>

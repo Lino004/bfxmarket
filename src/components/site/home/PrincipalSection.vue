@@ -6,7 +6,7 @@
       hide-delimiter-background
       cycle>
       <v-carousel-item
-        src="https://firebasestorage.googleapis.com/v0/b/wfxschool.appspot.com/o/Slide%2Fbanner%202.png?alt=media&token=857c67b2-2d5c-47a1-95ff-e879dfd39910"
+        src="@/assets/img/slide1.jpg"
       >
         <v-sheet
           color="#00000082"
@@ -50,7 +50,7 @@
         </v-sheet>
       </v-carousel-item>
       <v-carousel-item
-        src="https://firebasestorage.googleapis.com/v0/b/wfxschool.appspot.com/o/Slide%2Fbanner%201.png?alt=media&token=db3eeef0-3e3f-4232-b032-5836370829c9"
+        src="@/assets/img/slide2.jpg"
       >
         <v-sheet
           color="#00000082"

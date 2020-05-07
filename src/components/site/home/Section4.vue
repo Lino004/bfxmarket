@@ -30,13 +30,21 @@
       <div class="barre bg-blue-grad mb-5"></div>
       <h1 class="text-center" v-animate-css="'fadeInDown'">Pourquoi suivre nos formations ?</h1>
       <v-row class="my-5">
-        <v-col cols="12" sm="6" md="4" v-for="(item, i) in items" :key="i">
-          <v-avatar class="cercle-info pa-9">
-            <div>
-              <h3> {{item.titre}} </h3>
-              {{item.contenu}}
+        <v-col cols="12" sm="6" md="4" v-for="(item, i) in items" :key="i" class="has-text-center">
+          <v-row justify="center">
+            <div class="px-2"
+                v-animate-css="{
+                  classes: 'zoomIn',
+                  duration: 4000 + i * 2000,
+                }">
+              <v-avatar class="cercle-info pa-9">
+                <div>
+                  <h3> {{item.titre}} </h3>
+                  {{item.contenu}}
+                </div>
+              </v-avatar>
             </div>
-          </v-avatar>
+          </v-row>
         </v-col>
       </v-row>
       <v-row justify="center">

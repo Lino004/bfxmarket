@@ -42,7 +42,7 @@
       <h1 class="text-center" v-animate-css="'fadeInDown'">Nos Objectifs</h1>
       <v-row justify="center">
         <v-col cols="12" sm="4">
-          <v-img src="@/assets/img/default-img.gif" height="100%"></v-img>
+          <v-img src="@/assets/img/nos-objectifs.jpg" height="200"></v-img>
         </v-col>
         <v-col cols="12" sm="6" class="text-justify">
           <ul>

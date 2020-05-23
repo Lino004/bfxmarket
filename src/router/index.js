@@ -200,7 +200,7 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
-        path: 'formation/:idFormation/',
+        path: 'module/:idModule/',
         name: 'bfx-module',
         component: modules,
         meta: { requiresAuth: true },

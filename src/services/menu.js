@@ -12,21 +12,21 @@ export default [
     disabled: false,
   },
   {
-    text: 'FAQ',
-    to: { name: 'bfx-faq' },
-    icon: 'mdi-help-circle-outline',
-    disabled: false,
-  },
-  {
-    text: 'Guide gratuit pour debutant',
+    text: 'Lexique du trader',
     to: { name: 'bfx-guide' },
     icon: 'mdi-book',
     disabled: false,
   },
   {
-    text: 'Que Faisons-nous ?',
+    text: 'A propos',
     to: { name: 'bfx-faisons' },
     icon: 'mdi-information-outline',
+    disabled: false,
+  },
+  {
+    text: 'FAQ',
+    to: { name: 'bfx-faq' },
+    icon: 'mdi-help-circle-outline',
     disabled: false,
   },
   /* {

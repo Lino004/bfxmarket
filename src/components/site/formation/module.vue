@@ -70,7 +70,6 @@ import PageTitle from '@/components/site/general/PageTitle.vue';
 import { getModule } from '@/api/modules/index';
 import { listeChapitreByModule } from '@/api/chapitres/index';
 import { mapGetters, mapActions } from 'vuex';
-import cloneDeep from 'lodash/cloneDeep';
 
 export default {
   components: { PageTitle },
@@ -81,11 +80,6 @@ export default {
         disabled: false,
         to: '/',
       },
-      /* {
-        text: 'Formation',
-        disabled: false,
-        to: { name: 'bfx-formation', params: { idModule: 1 } },
-      }, */
       {
         text: 'Modules',
         disabled: true,
@@ -129,21 +123,22 @@ export default {
           el.title = el.titre;
         });
         this.chapitres.sort((a, b) => a.id - b.id);
-        this.liste = this.listeChap();
+        // this.liste = this.listeChap();
+        const lastIndexChapSouscrit = this.chapitres
+          .findIndex(el => !this.listeSouscript.includes(el.id));
+        if (lastIndexChapSouscrit === -1) this.liste = this.chapitres;
+        else {
+          let lastIndex = lastIndexChapSouscrit + 1;
+          if (lastIndex === this.chapitres.length + 1) {
+            lastIndex = lastIndexChapSouscrit;
+          }
+          this.liste = this.chapitres.slice(0, lastIndex);
+        }
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
         throw error;
       }
-    },
-    listeChap() {
-      const tab = cloneDeep(this.chapitres);
-      const i = Math.max(...this.listeSouscript);
-      const x = Math.max(...this.chapitres.map(el => el.id));
-      let y = 0;
-      if (i === x) y = tab.find(el => el.id >= i).id;
-      else y = tab.find(el => el.id > i).id;
-      return tab.filter(el => el.id <= y);
     },
   },
   async mounted() {

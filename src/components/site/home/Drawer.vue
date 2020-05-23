@@ -4,7 +4,7 @@
     fixed
     temporary
   >
-    <v-list-item class="bg-blue-grad" v-if="!user">
+    <v-list-item class="bg-blue-grad" v-if="userStatus !== 'Online'">
       <v-list-item-avatar>
         <v-img :src="require('@/assets/img/logo-white.png')"/>
       </v-list-item-avatar>
@@ -74,7 +74,7 @@
 
     <v-divider></v-divider>
 
-    <v-list dense v-if="!user">
+    <v-list dense v-if="userStatus !== 'Online'">
       <v-list-item link>
         <v-list-item-icon>
           <v-icon>mdi-login</v-icon>
@@ -135,6 +135,7 @@ export default {
     ...mapGetters([
       'drawer',
       'user',
+      'userStatus',
     ]),
     userName() {
       if (this.user) {

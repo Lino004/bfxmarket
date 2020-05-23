@@ -45,9 +45,9 @@
             <v-btn
               small
               v-else
-              :color="data.active ? 'bg-blue-grad' : 'grey'"
+              :color="data.active && data.to_continue ? 'bg-blue-grad' : 'grey'"
               @click="$emit('action')"
-              :disabled="!data.active">
+              :disabled="!(data.active && data.to_continue)">
               {{dataBtn}}
             </v-btn>
           </v-layout>

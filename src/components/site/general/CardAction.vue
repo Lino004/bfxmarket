@@ -15,18 +15,22 @@
       {{description}}
     </v-card-text>
     <span>
+      <ModalAuth v-if="userStatus !== 'Online'"
+        justify=""
+        custum-class="my-2 bg-blue-grad v-size--default"
+        :type="'inscription'"/>
+      <ModalAuth v-if="userStatus !== 'Online'"
+        justify=""
+        custum-class="my-2 bg-blue-grad v-size--default"
+        :type="'connexion'"/>
       <v-btn
         class="my-2"
         color="bg-blue-grad"
-        v-if="userStatus === 'Online'"
+        v-else
         :disabled="isLock"
         @click="$emit('action')">
         {{libelleBtn}}
       </v-btn>
-      <ModalAuth v-else
-        justify=""
-        custum-class="my-2 bg-blue-grad v-size--default"
-        :type="'inscription'"/>
     </span>
   </v-card>
 </template>

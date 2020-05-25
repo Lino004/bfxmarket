@@ -99,3 +99,9 @@ html{
   min-height: 350px;
   max-width: 400px !important;
 }
+
+.liste-article-blog{
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

@@ -45,10 +45,15 @@ export default {
       'sizeTopBar',
       'sizeFooter',
     ]),
-    minHeight() {
-      if (!this.sizeFooter) return 0;
-      if (!this.sizeTopBar) return 0;
-      return this.windowsSize.y - (this.sizeTopBar.y + this.sizeFooter.y);
+    minHeight: {
+      get() {
+        if (!this.sizeFooter) return 0;
+        if (!this.sizeTopBar) return 0;
+        return this.windowsSize.y - (this.sizeTopBar.y + this.sizeFooter.y);
+      },
+      set(val) {
+        this.setMinSize(val);
+      },
     },
     currentRoute() {
       return this.$route.name;
@@ -57,6 +62,7 @@ export default {
   methods: {
     ...mapMutations({
       setSizeWindows: 'SET_SIZE_WINDOWS',
+      setMinSize: 'SET_MIN_SIZE',
     }),
     ...mapActions([
       'isConnect',
@@ -70,6 +76,7 @@ export default {
         x: window.innerWidth,
         y: window.innerHeight,
       });
+      this.setMinSize(this.minHeight);
     },
   },
   async mounted() {

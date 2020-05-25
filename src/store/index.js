@@ -24,6 +24,7 @@ export default new Vuex.Store({
     msgSnack: '',
     idParrainage: '',
     listeSouscript: [],
+    minSize: null,
   },
   mutations: {
     SET_SIZE_WINDOWS(state, val) {
@@ -64,6 +65,9 @@ export default new Vuex.Store({
     },
     SET_LISTE_SOUSCRIPT(state, val) {
       state.listeSouscript = val;
+    },
+    SET_MIN_SIZE(state, val) {
+      state.minSize = val;
     },
   },
   actions: {

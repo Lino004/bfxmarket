@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 import Bfx from '@/views/home/index.vue';
 import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
+import Blog from '@/views/home/Blog.vue';
+import Article from '@/views/home/Article.vue';
 import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import NosFormations from '@/views/home/NosFormations.vue';
@@ -177,6 +179,16 @@ const routes = [
         path: 'faq',
         name: 'bfx-faq',
         component: Faq,
+      },
+      {
+        path: 'blog',
+        name: 'bfx-blog',
+        component: Blog,
+      },
+      {
+        path: 'article/:id',
+        name: 'bfx-article',
+        component: Article,
       },
       {
         path: 'guide-trading',

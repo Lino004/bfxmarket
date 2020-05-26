@@ -36,6 +36,7 @@ import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ListeUsers from '@/views/backOffice/users/ListeUsers.vue';
+import ListeArtilces from '@/views/backOffice/article/liste.vue';
 import ComingSoon from '@/views/ComingSoon.vue';
 import PrivateConnexion from '@/views/PrivateConnexion.vue';
 import { confirmeUser, get } from '@/api/auth/index';
@@ -72,89 +73,94 @@ const routes = [
         component: ConfigPageAccueil,
       },
       {
-        path: '/backffice/que-faisons-nous',
+        path: '/backoffice/que-faisons-nous',
         name: 'back-office-que-faisons-nous',
         component: QueFaisonsNousBackOffice,
       },
       {
-        path: '/backffice/politique-conf',
+        path: '/backoffice/politique-conf',
         name: 'back-office-politique-conf',
         component: PolitiqueEtConf,
       },
       {
-        path: '/backffice/termes-conditions',
+        path: '/backoffice/termes-conditions',
         name: 'back-office-termes-conditions',
         component: TermeEtCondition,
       },
       {
-        path: '/backffice/liste-chap-guide-trading',
+        path: '/backoffice/liste-chap-guide-trading',
         name: 'back-office-liste-chap-guide-trading',
         component: ListeGuide,
       },
       {
-        path: '/backffice/add-chap-guide-trading/',
+        path: '/backoffice/add-chap-guide-trading/',
         name: 'back-office-add-chap-guide-trading',
         component: AddChapGuide,
       },
       {
-        path: '/backffice/modif-chap-guide-trading/:id',
+        path: '/backoffice/modif-chap-guide-trading/:id',
         name: 'back-office-modif-chap-guide-trading',
         component: DetailChapGuide,
       },
       {
-        path: '/backffice/page-faq',
+        path: '/backoffice/page-faq',
         name: 'back-office-faq',
         component: FAQ,
       },
       {
-        path: '/backffice/liste-fromation',
+        path: '/backoffice/liste-fromation',
         name: 'back-office-liste-formation',
         component: ListeFormation,
       },
       {
-        path: '/backffice/ajout-formation',
+        path: '/backoffice/ajout-formation',
         name: 'back-office-ajout-formation',
         component: AjouterFormation,
       },
       {
-        path: '/backffice/modifier-formation/:id',
+        path: '/backoffice/modifier-formation/:id',
         name: 'back-office-modifier-formation',
         component: ModifierFormation,
       },
       {
-        path: '/backffice/liste-modules',
+        path: '/backoffice/liste-modules',
         name: 'back-office-liste-modules',
         component: ListeModules,
       },
       {
-        path: '/backffice/ajout-module/',
+        path: '/backoffice/ajout-module/',
         name: 'back-office-ajout-module',
         component: AjouterModule,
       },
       {
-        path: '/backffice/modifier-module/:id',
+        path: '/backoffice/modifier-module/:id',
         name: 'back-office-modifier-module',
         component: ModifierModule,
       },
       {
-        path: '/backffice/liste-chapitres',
+        path: '/backoffice/liste-chapitres',
         name: 'back-office-liste-chapitres',
         component: ListeChapitres,
       },
       {
-        path: '/backffice/ajout-chapitre/',
+        path: '/backoffice/ajout-chapitre/',
         name: 'back-office-ajout-chapitre',
         component: AjouterChapitre,
       },
       {
-        path: '/backffice/modifier-chapitre/:id',
+        path: '/backoffice/modifier-chapitre/:id',
         name: 'back-office-modifier-chapitre',
         component: ModifierChapitre,
       },
       {
-        path: '/backffice/liste-users',
+        path: '/backoffice/liste-users',
         name: 'back-office-liste-users',
         component: ListeUsers,
+      },
+      {
+        path: '/backoffice/liste-article',
+        name: 'back-office-liste-article',
+        component: ListeArtilces,
       },
     ],
     beforeEnter: async (to, from, next) => {

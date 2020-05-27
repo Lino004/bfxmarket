@@ -6,21 +6,33 @@ export default [
     disabled: false,
   },
   {
+    text: 'Nos formations',
+    to: { name: 'bfx-nos-formations' },
+    icon: 'mdi-book',
+    disabled: false,
+  },
+  {
+    text: 'Lexique du trader',
+    to: { name: 'bfx-guide' },
+    icon: 'mdi-book',
+    disabled: false,
+  },
+  {
+    text: 'A propos',
+    to: { name: 'bfx-faisons' },
+    icon: 'mdi-information-outline',
+    disabled: false,
+  },
+  {
     text: 'FAQ',
     to: { name: 'bfx-faq' },
     icon: 'mdi-help-circle-outline',
     disabled: false,
   },
   {
-    text: 'Guide trading',
-    to: { name: 'bfx-guide' },
-    icon: 'mdi-book',
-    disabled: false,
-  },
-  {
-    text: 'Que Faisons-nous ?',
-    to: { name: 'bfx-faisons' },
-    icon: 'mdi-information-outline',
+    text: 'Blog',
+    to: { name: 'bfx-blog' },
+    icon: 'mdi-help-circle-outline',
     disabled: false,
   },
   /* {

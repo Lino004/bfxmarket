@@ -110,7 +110,7 @@
         <v-divider></v-divider>
 
         <v-list>
-          <v-list-item @click="copieLienParainage">
+          <v-list-item @click="copieLien">
             <v-list-item-icon>
               <v-icon>mdi-link</v-icon>
             </v-list-item-icon>
@@ -182,13 +182,28 @@ export default {
       'setSizeTopBar',
       'setDrawer',
       'logout',
-      'copieLienParainage',
+      'showSnackMsg',
     ]),
     onResize() {
       this.setSizeTopBar({
         x: document.querySelector('.topbar .v-toolbar__content').clientWidth,
         y: document.querySelector('.topbar .v-toolbar__content').clientHeight,
       });
+    },
+    async copieLien() {
+      try {
+        const getUrl = window.location;
+        await this.$copyText(`${getUrl.protocol}//${getUrl.host}/home/parrainage/${this.user.identifiant_url}`);
+        this.showSnackMsg({
+          msg: 'Lien de parrainage copié',
+          color: 'success',
+        });
+      } catch (error) {
+        this.showSnackMsg({
+          msg: 'Problème lors de la copie',
+          color: 'error',
+        });
+      }
     },
     async deconnexion() {
       await this.logout();

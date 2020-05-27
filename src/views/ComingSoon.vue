@@ -12,7 +12,6 @@
           <v-col
             cols="12"
             sm="8"
-            md="6"
           >
             <div class="text-center">
               <strong
@@ -28,7 +27,7 @@
             </div>
             <div>
               <flip-countdown
-                deadline="2020-04-13 00:00:00"/>
+                deadline="2020-05-27 14:00:00"/>
             </div>
           </v-col>
         </v-row>
@@ -46,7 +45,7 @@ moment.locale('fr');
 export default {
   components: { FlipCountdown },
   data: () => ({
-    title: 'COMING-SOON',
+    title: 'SITE-EN-MAINTENANCE',
   }),
   computed: {
     time() {

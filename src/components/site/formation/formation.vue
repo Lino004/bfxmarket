@@ -1,6 +1,11 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"/>
+     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"
+       v-if="formation.titre === 'Waves'"/>
+     <v-img src="@/assets/img/Débutant.jpg" height="400"
+       v-if="formation.titre === 'Débutant'"></v-img>
+     <v-img src="@/assets/img/Avancé.jpg" height="400"
+       v-if="formation.titre === 'Avancé'"></v-img>
      <section>
         <v-container fill-height>
           <div v-html="formation.contenu"></div>
@@ -25,7 +30,9 @@ import PageTitle from '@/components/site/general/PageTitle.vue';
 import CardImg from '@/components/site/general/CardImg.vue';
 import { getFormation } from '@/api/formations/index';
 import { listeModuleByFormation } from '@/api/modules/index';
+import { listeChapitreByModule } from '@/api/chapitres/index';
 import { BASE_HOST } from '@/api/config/config';
+import { mapGetters } from 'vuex';
 
 export default {
   components: { PageTitle, CardImg },
@@ -44,6 +51,11 @@ export default {
     formation: {},
     modules: [],
   }),
+  computed: {
+    ...mapGetters([
+      'listeSouscript',
+    ]),
+  },
   methods: {
     startModule(id) {
       this.$router.push({ name: 'bfx-module', params: { idModule: id } });
@@ -54,6 +66,10 @@ export default {
         const { idFormation } = this.$route.params;
         this.formation = (await getFormation(idFormation)).data;
         this.modules = (await listeModuleByFormation(this.formation.id)).data;
+        const reqs = [];
+        this.modules.forEach((el) => {
+          reqs.push(listeChapitreByModule(el.id));
+        });
         /* eslint no-param-reassign: ["error", { "props": false }] */
         this.modules.forEach((el) => {
           el.active = el.is_lock;
@@ -61,7 +77,25 @@ export default {
           el.content = el.description;
           el.title = el.titre;
         });
+        const resps = await Promise.all(reqs);
+        for (let index = 0; index < resps.length; index += 1) {
+          this.modules[index].chaps = resps[index].data;
+        }
+        this.modules.forEach((m) => {
+          const tab = [];
+          m.chaps.forEach((chap) => {
+            tab.push(this.listeSouscript.includes(chap.id));
+          });
+          m.is_finish = tab.every(el => el === true);
+        });
         this.modules.sort((a, b) => a.id - b.id);
+        for (let index = 0; index < this.modules.length; index += 1) {
+          if (index === 0) this.modules[index].to_continue = true;
+          if (index) {
+            const presIndex = index - 1;
+            this.modules[index].to_continue = this.modules[presIndex].is_finish;
+          }
+        }
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

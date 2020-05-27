@@ -4,10 +4,16 @@ import VueRouter from 'vue-router';
 import Bfx from '@/views/home/index.vue';
 import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
+import Blog from '@/views/home/Blog.vue';
+import Article from '@/views/home/Article.vue';
 import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
+import NosFormations from '@/views/home/NosFormations.vue';
 import Parrainage from '@/views/home/Parrainage.vue';
 import Souscription from '@/views/home/Souscription.vue';
+import AttentConfirmation from '@/views/home/AttentConfirmation.vue';
+import ResetPassword from '@/views/home/ResetPassword.vue';
+import InitResetPassword from '@/views/home/InitResetPassword.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
 import chapitre from '@/components/site/formation/chapitre.vue';
@@ -29,8 +35,12 @@ import AjouterModule from '@/views/backOffice/modules/AjouterModule.vue';
 import ListeChapitres from '@/views/backOffice/chapitres/ListeChapitres.vue';
 import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue';
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
-import ComingSoon from '@/views/ComingSoon.vue';
+import ListeUsers from '@/views/backOffice/users/ListeUsers.vue';
+import ListeArtilces from '@/views/backOffice/article/liste.vue';
+import AjoutArtilces from '@/views/backOffice/article/ajout.vue';
+import PrivateConnexion from '@/views/PrivateConnexion.vue';
 import { confirmeUser, get } from '@/api/auth/index';
+// import ComingSoon from '@/views/ComingSoon.vue';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -44,10 +54,15 @@ const routes = [
     path: '/',
     redirect: '/home',
   },
-  {
+  /* {
     path: '/coming-song',
     name: 'comming-song',
     component: ComingSoon,
+  }, */
+  {
+    path: '/private-connexion',
+    name: 'private-connexion',
+    component: PrivateConnexion,
   },
   {
     path: '/backoffice',
@@ -59,86 +74,113 @@ const routes = [
         component: ConfigPageAccueil,
       },
       {
-        path: '/backffice/que-faisons-nous',
+        path: '/backoffice/que-faisons-nous',
         name: 'back-office-que-faisons-nous',
         component: QueFaisonsNousBackOffice,
       },
       {
-        path: '/backffice/politique-conf',
+        path: '/backoffice/politique-conf',
         name: 'back-office-politique-conf',
         component: PolitiqueEtConf,
       },
       {
-        path: '/backffice/termes-conditions',
+        path: '/backoffice/termes-conditions',
         name: 'back-office-termes-conditions',
         component: TermeEtCondition,
       },
       {
-        path: '/backffice/liste-chap-guide-trading',
+        path: '/backoffice/liste-chap-guide-trading',
         name: 'back-office-liste-chap-guide-trading',
         component: ListeGuide,
       },
       {
-        path: '/backffice/add-chap-guide-trading/',
+        path: '/backoffice/add-chap-guide-trading/',
         name: 'back-office-add-chap-guide-trading',
         component: AddChapGuide,
       },
       {
-        path: '/backffice/modif-chap-guide-trading/:id',
+        path: '/backoffice/modif-chap-guide-trading/:id',
         name: 'back-office-modif-chap-guide-trading',
         component: DetailChapGuide,
       },
       {
-        path: '/backffice/page-faq',
+        path: '/backoffice/page-faq',
         name: 'back-office-faq',
         component: FAQ,
       },
       {
-        path: '/backffice/liste-fromation',
+        path: '/backoffice/liste-fromation',
         name: 'back-office-liste-formation',
         component: ListeFormation,
       },
       {
-        path: '/backffice/ajout-formation',
+        path: '/backoffice/ajout-formation',
         name: 'back-office-ajout-formation',
         component: AjouterFormation,
       },
       {
-        path: '/backffice/modifier-formation/:id',
+        path: '/backoffice/modifier-formation/:id',
         name: 'back-office-modifier-formation',
         component: ModifierFormation,
       },
       {
-        path: '/backffice/liste-modules',
+        path: '/backoffice/liste-modules',
         name: 'back-office-liste-modules',
         component: ListeModules,
       },
       {
-        path: '/backffice/ajout-module/',
+        path: '/backoffice/ajout-module/',
         name: 'back-office-ajout-module',
         component: AjouterModule,
       },
       {
-        path: '/backffice/modifier-module/:id',
+        path: '/backoffice/modifier-module/:id',
         name: 'back-office-modifier-module',
         component: ModifierModule,
       },
       {
-        path: '/backffice/liste-chapitres',
+        path: '/backoffice/liste-chapitres',
         name: 'back-office-liste-chapitres',
         component: ListeChapitres,
       },
       {
-        path: '/backffice/ajout-chapitre/',
+        path: '/backoffice/ajout-chapitre/',
         name: 'back-office-ajout-chapitre',
         component: AjouterChapitre,
       },
       {
-        path: '/backffice/modifier-chapitre/:id',
+        path: '/backoffice/modifier-chapitre/:id',
         name: 'back-office-modifier-chapitre',
         component: ModifierChapitre,
       },
+      {
+        path: '/backoffice/liste-users',
+        name: 'back-office-liste-users',
+        component: ListeUsers,
+      },
+      {
+        path: '/backoffice/liste-article',
+        name: 'back-office-liste-article',
+        component: ListeArtilces,
+      },
+      {
+        path: '/backoffice/ajout-article',
+        name: 'back-office-ajout-article',
+        component: AjoutArtilces,
+      },
+      {
+        path: '/backoffice/modifier-article/:id',
+        name: 'back-office-modifier-article',
+        component: AjoutArtilces,
+      },
     ],
+    beforeEnter: async (to, from, next) => {
+      if (!store.getters.userAdmin || !store.getters.userAdmin.is_ad) {
+        next({ name: 'private-connexion' });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: '/home',
@@ -156,6 +198,16 @@ const routes = [
         component: Faq,
       },
       {
+        path: 'blog',
+        name: 'bfx-blog',
+        component: Blog,
+      },
+      {
+        path: 'article/:id',
+        name: 'bfx-article',
+        component: Article,
+      },
+      {
         path: 'guide-trading',
         name: 'bfx-guide',
         component: Guide,
@@ -166,19 +218,24 @@ const routes = [
         component: QueFaisonsNous,
       },
       {
+        path: 'nos-formations',
+        name: 'bfx-nos-formations',
+        component: NosFormations,
+      },
+      {
         path: 'formation/:idFormation',
         name: 'bfx-formation',
         component: formation,
         meta: { requiresAuth: true },
       },
       {
-        path: 'formation/:idFormation/module/:idModule',
+        path: 'module/:idModule/',
         name: 'bfx-module',
         component: modules,
         meta: { requiresAuth: true },
       },
       {
-        path: 'formation/:idFormation/module/:idModule/chapitre/:idChapitre',
+        path: 'chapitre/:idChapitre',
         name: 'bfx-chapitre',
         component: chapitre,
         meta: { requiresAuth: true },
@@ -212,6 +269,11 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
+        path: 'en-attente-confirmation',
+        name: 'bfx-en-attente-confirmation',
+        component: AttentConfirmation,
+      },
+      {
         path: 'confirmation-inscription/:id',
         name: 'bfx-confirmation-inscription',
         beforeEnter: async (to, from, next) => {
@@ -230,6 +292,36 @@ const routes = [
               msg: error.response.data.error,
             });
             next('/');
+          }
+        },
+      },
+      {
+        path: 'reset-password/:pass/:id',
+        name: 'bfx-reset-password',
+        component: ResetPassword,
+        beforeEnter: async (to, from, next) => {
+          const response = await store.dispatch('isConnect');
+          if (response) {
+            next({
+              path: '/',
+            });
+          } else {
+            next();
+          }
+        },
+      },
+      {
+        path: 'init-reset-password',
+        name: 'bfx-init-reset-password',
+        component: InitResetPassword,
+        beforeEnter: async (to, from, next) => {
+          const response = await store.dispatch('isConnect');
+          if (response) {
+            next({
+              path: '/',
+            });
+          } else {
+            next();
           }
         },
       },

@@ -53,7 +53,8 @@
                 required
                 type="number"
                 hint="Numéro sans l'indicatif"
-                v-model="numero"/>
+                v-model="numero"
+                :rules="regleNumero"/>
             </v-col>
             <v-col cols="12">
               <v-text-field
@@ -172,7 +173,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import db from '@/plugins/firebase';
 import listePays from '@/services/pays';
-import { create } from '@/api/auth/index';
+import { create, createByParraine } from '@/api/auth/index';
 
 export default {
   props: {
@@ -194,6 +195,14 @@ export default {
       v => !!v || 'Votre pays est obligatoire',
     ],
     numero: null,
+    regleNumero: [
+      v => !!v || 'Votre numéro est obligatoire',
+      (v) => {
+        let value = 'Au moins 8 chiffres';
+        if (v != null && v.length >= 8) value = true;
+        return value;
+      },
+    ],
     email: null,
     regleEmail: [
       v => !!v || 'Votre email est obligatoire',
@@ -253,28 +262,46 @@ export default {
         const infoUser = {
           nom: this.nom,
           prenom: this.prenom,
-          email: this.email,
+          email: this.email.toLowerCase().trim(),
           phone: this.numero,
           password: this.password,
           pays: this.selectPays.id,
+          is_ad: false,
         };
-        const user = (await create(infoUser)).data;
+        let user = {};
+        const { id } = this.$route.params;
+        const { name } = this.$route;
+        if (name === 'bfx-parrainage' && id) {
+          user = (await createByParraine(id, infoUser)).data;
+        } else {
+          user = (await create(infoUser)).data;
+        }
         this.showSnackMsg({
           msg: 'Votre inscription a été prit en compte. Veuillez vérifier votre boite mail.',
           color: 'success',
         });
         user.password = '';
-        await this.actionParrainage();
+        // await this.actionParrainage();
         this.setUser(user);
         // window.location.reload();
         this.createLoading = false;
+        this.$router.push({ name: 'bfx-en-attente-confirmation' });
         this.$emit('annuler');
+        return '';
       } catch (error) {
+        this.createLoading = false;
+        if (error.response && error.response.status) {
+          this.showSnackMsg({
+            msg: error.response.data.error,
+            color: 'error',
+          });
+          return '';
+        }
         this.showSnackMsg({
-          msg: 'Error serveur',
+          msg: 'Ooooups, quelque c\'est mal passé réessayer',
           color: 'error',
         });
-        this.createLoading = false;
+        return '';
       }
     },
     getPolitiqueEtConf() {

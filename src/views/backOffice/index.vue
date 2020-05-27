@@ -42,15 +42,18 @@
     >
       <span class="white--text">&copy; 2019</span>
     </v-footer>
+    <SnackComp/>
   </v-app>
 </template>
 
 <script>
 import Drawer from '@/components/backOffice/Drawer.vue';
+import SnackComp from '@/components/site/general/SnackComp.vue';
 
 export default {
   components: {
     Drawer,
+    SnackComp,
   },
   data: () => ({
     drawer: null,

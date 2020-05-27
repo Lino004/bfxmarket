@@ -29,6 +29,9 @@
           v-model="password"
         />
       </v-form>
+      <a @click="motDePasseOublie">
+        Mot de passe oublié?
+      </a>
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
@@ -72,7 +75,7 @@ export default {
       try {
         this.loading = true;
         const infoUser = {
-          login: this.email.toLowerCase(),
+          login: this.email.toLowerCase().trim(),
           password: this.password,
         };
         const user = (await login(infoUser)).data;
@@ -92,8 +95,18 @@ export default {
             color: 'error',
           });
         }
+        if (error.response.status === 400) {
+          this.showSnackMsg({
+            msg: error.response.data.error,
+            color: 'error',
+          });
+        }
         this.loading = false;
       }
+    },
+    motDePasseOublie() {
+      this.$router.push({ name: 'bfx-init-reset-password' });
+      this.$emit('annuler');
     },
   },
 

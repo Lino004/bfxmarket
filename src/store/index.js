@@ -18,11 +18,13 @@ export default new Vuex.Store({
     valueScroll: null,
     drawer: false,
     user: null,
+    userAdmin: null,
     valueSnack: false,
     colorSnack: '',
     msgSnack: '',
     idParrainage: '',
     listeSouscript: [],
+    minSize: null,
   },
   mutations: {
     SET_SIZE_WINDOWS(state, val) {
@@ -46,6 +48,9 @@ export default new Vuex.Store({
     SET_USER(state, val) {
       state.user = val;
     },
+    SET_USER_ADMIN(state, val) {
+      state.userAdmin = val;
+    },
     SET_VALUE_SNACK(state, val) {
       state.valueSnack = val;
     },
@@ -60,6 +65,9 @@ export default new Vuex.Store({
     },
     SET_LISTE_SOUSCRIPT(state, val) {
       state.listeSouscript = val;
+    },
+    SET_MIN_SIZE(state, val) {
+      state.minSize = val;
     },
   },
   actions: {
@@ -114,32 +122,6 @@ export default new Vuex.Store({
       }
       return false;
     },
-    copieLienParainage(context) {
-      const domCreate = document.createElement('input');
-      document.body.appendChild(domCreate);
-      const getUrl = window.location;
-      domCreate.setAttribute('value', `${getUrl.protocol}//${getUrl.host}/home/parrainage/${context.getters.user.identifiant_url}`);
-      domCreate.select();
-      try {
-        const isCopied = document.execCommand('copy');
-        if (isCopied) {
-          context.dispatch('showSnackMsg', {
-            msg: 'Lien de parrainage copié',
-            color: 'success',
-          });
-        } else {
-          context.dispatch('showSnackMsg', {
-            msg: 'Problème lors de la copie',
-            color: 'error',
-          });
-        }
-      } catch (e) {
-        context.dispatch('showSnackMsg', {
-          msg: 'Problème lors de la copie',
-          color: 'error',
-        });
-      }
-    },
   },
   getters: {
     valueSnack: state => state.valueSnack,
@@ -152,6 +134,7 @@ export default new Vuex.Store({
     valueScroll: state => state.valueScroll,
     drawer: state => state.drawer,
     user: state => state.user,
+    userAdmin: state => state.userAdmin,
     userStatus: (state) => {
       if (state.user) return state.user.status;
       return 'Offline';

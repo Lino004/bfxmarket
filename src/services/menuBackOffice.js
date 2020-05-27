@@ -65,4 +65,22 @@ export default [
       },
     ],
   },
+  {
+    text: 'Utilisateurs',
+    icon: 'mdi-account-multiple',
+    child: [
+      {
+        text: 'Liste des Utilisateurs',
+        to: { name: 'back-office-liste-users' },
+        icon: 'mdi-account-group',
+        disabled: false,
+      },
+    ],
+  },
+  {
+    text: 'Blog',
+    to: { name: 'back-office-liste-article' },
+    icon: 'mdi-post',
+    disabled: false,
+  },
 ];

@@ -11,7 +11,7 @@
         ></v-text-field>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="liste.length">
       <v-col
         v-for="article in liste"
         :key="article.id"
@@ -44,6 +44,9 @@
           </v-img>
         </v-card>
       </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-col class="text-center">Aucun article pour le moment</v-col>
     </v-row>
   </div>
 </template>

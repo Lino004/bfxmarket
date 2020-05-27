@@ -1,6 +1,6 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" :title="article.titre"/>
+     <PageTitle :breadcrumbs="breadcrumbs" :title="article.titre" :image="article.image.src"/>
      <section>
       <v-container fill-height>
         <div
@@ -10,7 +10,7 @@
           @contextmenu.prevent="noContextMenu"></div>
       </v-container>
      </section>
-     <v-overlay :value="isLoad">
+     <v-overlay :value="loading">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
   </div>
@@ -18,15 +18,24 @@
 
 <script>
 import PageTitle from '@/components/site/general/PageTitle.vue';
+import { getArticle } from '@/api/blog/index';
+import { BASE_HOST } from '@/api/config/config';
 
 export default {
   components: { PageTitle },
   data: () => ({
     article: {
-      titre: 'Titre article',
-      contenu: 'Contenu de l\'article',
+      titre: '',
+      description: '',
+      image: {
+        code: '',
+        ext: '',
+      },
+      contenu: '',
+      is_lock: false,
     },
-    isLoad: false,
+    base: BASE_HOST,
+    loading: false,
   }),
   computed: {
     breadcrumbs() {
@@ -49,22 +58,22 @@ export default {
     },
   },
   methods: {
-    /* async getChapitre() {
-      this.isLoad = true;
-      try {
-        const { idChapitre } = this.$route.params;
-        this.chapitre = (await getChapitre(idChapitre)).data;
-        this.isLoad = false;
-      } catch (error) {
-        this.isLoad = false;
-      }
-    }, */
+    async getArticle() {
+      this.loading = true;
+      this.article = (await getArticle(this.$route.params.id)).data;
+      this.article.image = {
+        code: '',
+        ext: '',
+        src: `${this.base}${this.article.image}`,
+      };
+      this.loading = false;
+    },
     noContextMenu() {
       return false;
     },
   },
   async mounted() {
-    // await this.getChapitre();
+    await this.getArticle();
   },
 };
 </script>

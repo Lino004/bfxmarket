@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import goTo from 'vuetify/es5/services/goto';
 import VueRouter from 'vue-router';
-/* import Bfx from '@/views/home/index.vue';
+import Bfx from '@/views/home/index.vue';
 import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Blog from '@/views/home/Blog.vue';
@@ -37,9 +37,10 @@ import ModifierChapitre from '@/views/backOffice/chapitres/ModifierChapitre.vue'
 import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ListeUsers from '@/views/backOffice/users/ListeUsers.vue';
 import ListeArtilces from '@/views/backOffice/article/liste.vue';
+import AjoutArtilces from '@/views/backOffice/article/ajout.vue';
 import PrivateConnexion from '@/views/PrivateConnexion.vue';
-import { confirmeUser, get } from '@/api/auth/index'; */
-import ComingSoon from '@/views/ComingSoon.vue';
+import { confirmeUser, get } from '@/api/auth/index';
+// import ComingSoon from '@/views/ComingSoon.vue';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -47,18 +48,18 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '*',
-    redirect: '/coming-song',
+    redirect: '/',
   },
   {
     path: '/',
-    redirect: '/coming-song',
+    redirect: '/home',
   },
-  {
+  /* {
     path: '/coming-song',
     name: 'comming-song',
     component: ComingSoon,
-  },
-  /* {
+  }, */
+  {
     path: '/private-connexion',
     name: 'private-connexion',
     component: PrivateConnexion,
@@ -161,6 +162,16 @@ const routes = [
         path: '/backoffice/liste-article',
         name: 'back-office-liste-article',
         component: ListeArtilces,
+      },
+      {
+        path: '/backoffice/ajout-article',
+        name: 'back-office-ajout-article',
+        component: AjoutArtilces,
+      },
+      {
+        path: '/backoffice/modifier-article/:id',
+        name: 'back-office-modifier-article',
+        component: AjoutArtilces,
       },
     ],
     beforeEnter: async (to, from, next) => {
@@ -315,7 +326,7 @@ const routes = [
         },
       },
     ],
-  }, */
+  },
 ];
 
 const router = new VueRouter({

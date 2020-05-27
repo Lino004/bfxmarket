@@ -9,7 +9,7 @@
       justify="center"
       class="fill-height px-3"
       v-if="value.src">
-      <v-img :src="value.src" height="100%"></v-img>
+      <v-img :src="value.src" height="200"></v-img>
     </v-row>
     <v-row
       align="center"

@@ -77,4 +77,10 @@ export default [
       },
     ],
   },
+  {
+    text: 'Blog',
+    to: { name: 'back-office-liste-article' },
+    icon: 'mdi-post',
+    disabled: false,
+  },
 ];

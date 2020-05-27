@@ -83,4 +83,10 @@ export default [
     icon: 'mdi-post',
     disabled: false,
   },
+  {
+    text: 'Témoignage',
+    to: { name: 'back-office-comment' },
+    icon: 'mdi-comment-text',
+    disabled: false,
+  },
 ];

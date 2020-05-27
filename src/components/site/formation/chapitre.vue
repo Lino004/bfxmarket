@@ -10,6 +10,13 @@
           @contextmenu.prevent="noContextMenu"></div>
       </v-container>
      </section>
+     <v-divider></v-divider>
+     <section>
+       <v-container>
+         <Comment
+           :id-chap="chapitre.id"/>
+       </v-container>
+     </section>
      <v-overlay :value="isLoad">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
@@ -19,32 +26,22 @@
 <script>
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import { getChapitre } from '@/api/chapitres/index';
+import Comment from '@/components/site/general/Comment.vue';
 
 export default {
-  components: { PageTitle },
+  components: { PageTitle, Comment },
   data: () => ({
     chapitre: {},
     isLoad: false,
   }),
   computed: {
     breadcrumbs() {
-      // const { idModule, idFormation } = this.$route.params;
       return [
         {
           text: 'Accueil',
           disabled: false,
           to: '/',
         },
-        /* {
-          text: 'Formation',
-          disabled: false,
-          to: `/home/formation/${idFormation}`,
-        },
-        {
-          text: 'Module',
-          disabled: false,
-          to: `/home/formation/${idFormation}/module/${idModule}`,
-        }, */
         {
           text: 'Chapitre',
           disabled: true,

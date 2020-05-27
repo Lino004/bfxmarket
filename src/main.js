@@ -34,6 +34,7 @@ Vue.use(YimoVueEditor, {
     printLog: false, // disabled console.log
   }, // wagnEditor config
   uploadHandler: (type, resTxt) => { // Upload processing hook
+    // eslint-disable-next-line no-console
     console.log(type, resTxt);
     /* if (type === 'success') {
       const res = JSON.parse(resTxt);

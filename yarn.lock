@@ -8630,10 +8630,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-avatar@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/vue-avatar/-/vue-avatar-2.2.0.tgz#cf2328f007943d754fea8aa9c5999b4f40a22bec"
-  integrity sha512-z83MuCvawCz+bfb8y5JctDFGdUj5TUw0rc/xCIKuhnt8KdzDXt8QeuytJfqyPiHO0ZEI3dqlB1ftiOWrNDgQsQ==
+vue-avatar@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/vue-avatar/-/vue-avatar-2.3.0.tgz#6cd434575a803e5c4c52ef24b1382b14a24c6336"
+  integrity sha512-/zeMhHV0OWp4ESvcX3OIVXUCT1IwCS/18StQh6Q2hqUJwhN3knWG8ktKzJt45rVp9whMXDGg8qDNZKzz3LfRmw==
 
 vue-cli-plugin-vuetify@^2.0.3:
   version "2.0.3"

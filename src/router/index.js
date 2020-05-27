@@ -38,6 +38,7 @@ import AjouterChapitre from '@/views/backOffice/chapitres/AjouterChapitre.vue';
 import ListeUsers from '@/views/backOffice/users/ListeUsers.vue';
 import ListeArtilces from '@/views/backOffice/article/liste.vue';
 import AjoutArtilces from '@/views/backOffice/article/ajout.vue';
+import CommentUser from '@/views/backOffice/Comment.vue';
 import PrivateConnexion from '@/views/PrivateConnexion.vue';
 import { confirmeUser, get } from '@/api/auth/index';
 // import ComingSoon from '@/views/ComingSoon.vue';
@@ -172,6 +173,11 @@ const routes = [
         path: '/backoffice/modifier-article/:id',
         name: 'back-office-modifier-article',
         component: AjoutArtilces,
+      },
+      {
+        path: '/backoffice/comment',
+        name: 'back-office-comment',
+        component: CommentUser,
       },
     ],
     beforeEnter: async (to, from, next) => {

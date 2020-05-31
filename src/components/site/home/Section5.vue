@@ -24,6 +24,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+// import { listeComment } from '@/api/comment/index';
 
 export default {
   components: { },

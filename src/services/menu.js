@@ -17,12 +17,12 @@ export default [
     icon: 'mdi-book',
     disabled: false,
   },
-  {
+  /* {
     text: 'A propos',
     to: { name: 'bfx-faisons' },
     icon: 'mdi-information-outline',
     disabled: false,
-  },
+  }, */
   {
     text: 'FAQ',
     to: { name: 'bfx-faq' },

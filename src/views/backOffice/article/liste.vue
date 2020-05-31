@@ -17,7 +17,8 @@
             <v-btn
               small
               color="primary"
-              v-on="on">
+              v-on="on"
+              disabled>
               Actions
             </v-btn>
           </template>

@@ -27,7 +27,7 @@
             </div>
             <div>
               <flip-countdown
-                deadline="2020-05-27 14:00:00"/>
+                deadline="2020-06-01 8:00:00"/>
             </div>
           </v-col>
         </v-row>

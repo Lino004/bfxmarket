@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import goTo from 'vuetify/es5/services/goto';
 import VueRouter from 'vue-router';
-import Bfx from '@/views/home/index.vue';
+/* import Bfx from '@/views/home/index.vue';
 import Home from '@/views/home/Home.vue';
 import Faq from '@/views/home/Faq.vue';
 import Blog from '@/views/home/Blog.vue';
@@ -40,8 +40,8 @@ import ListeArtilces from '@/views/backOffice/article/liste.vue';
 import AjoutArtilces from '@/views/backOffice/article/ajout.vue';
 import CommentUser from '@/views/backOffice/Comment.vue';
 import PrivateConnexion from '@/views/PrivateConnexion.vue';
-import { confirmeUser, get } from '@/api/auth/index';
-// import ComingSoon from '@/views/ComingSoon.vue';
+import { confirmeUser, get } from '@/api/auth/index'; */
+import ComingSoon from '@/views/ComingSoon.vue';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -53,14 +53,14 @@ const routes = [
   },
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/comming-song',
   },
-  /* {
-    path: '/coming-song',
+  {
+    path: '/comming-song',
     name: 'comming-song',
     component: ComingSoon,
-  }, */
-  {
+  },
+  /* {
     path: '/private-connexion',
     name: 'private-connexion',
     component: PrivateConnexion,
@@ -332,7 +332,7 @@ const routes = [
         },
       },
     ],
-  },
+  }, */
 ];
 
 const router = new VueRouter({

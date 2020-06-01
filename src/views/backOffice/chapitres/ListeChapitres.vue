@@ -50,7 +50,7 @@
           <v-icon dark>mdi-pencil</v-icon>
         </v-btn>
       </template>
-      <template v-slot:item.supprimer="{ item }">
+      <!-- <template v-slot:item.supprimer="{ item }">
         <v-btn
           fab
           dark
@@ -59,7 +59,7 @@
           @click="supp(item.id)">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
-      </template>
+      </template> -->
     </v-data-table>
     <SnackComp
       :value="valueSnack"
@@ -91,7 +91,7 @@ export default {
         { text: 'Prix', value: 'price', width: 80 },
         { text: 'Status', value: 'status', width: 80 },
         { text: 'Modifier', value: 'modifier', width: 80 },
-        { text: 'Supprimer', value: 'supprimer', width: 80 },
+        // { text: 'Supprimer', value: 'supprimer', width: 80 },
       ],
       expanded: [],
       singleExpand: false,

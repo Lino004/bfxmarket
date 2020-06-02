@@ -2,7 +2,7 @@
   <div style="height: 100%">
     <PageTitle :breadcrumbs="breadcrumbs" title="Souscription"/>
     <v-container class="d-flex justify-center">
-      <v-card width="100%" max-width="800px" flat v-if="chapitres.length" class="pt-4">
+      <!-- <v-card width="100%" max-width="800px" flat v-if="chapitres.length" class="pt-4">
         <v-select
           v-model="chapSelect"
           :items="chapitres"
@@ -46,7 +46,30 @@
       <v-card width="100%" max-width="800px" flat v-else>
         Vous avez déjà souscrit aux différents chapitres actifs.
         Veuillez patienter l'activation du prochain chapitre ou contacter notre support en ligne.
-      </v-card>
+      </v-card> -->
+      <!-- <v-card width="100%" max-width="800px" flat>
+        <h2>Nouvelle souscription:</h2>
+        <v-card max-width="300" flat>
+          <v-card-title class="font-weight-bold">
+            Titre: {{ chapitre.titre }}
+          </v-card-title>
+
+          <v-divider></v-divider>
+
+          <v-list dense>
+            <v-list-item>
+              <v-list-item-content>Prix:</v-list-item-content>
+              <v-list-item-content class="align-end">{{ chapitre.price }}$</v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>Parrainage:</v-list-item-content>
+              <v-list-item-content class="align-end">{{ chapitre.downline }}</v-list-item-content>
+            </v-list-item>
+
+          </v-list>
+        </v-card>
+      </v-card> -->
     </v-container>
     <v-overlay :value="isLoad">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
@@ -58,9 +81,13 @@
 import PageTitle from '@/components/site/general/PageTitle.vue';
 // import Parrainage from '@/components/site/souscription/Parrainage.vue';
 // import FaireUnDon from '@/components/site/souscription/FaireUnDon.vue';
-import { listeChapitre } from '@/api/chapitres/index';
+import { getChapitre } from '@/api/chapitres/index';
 import { souscript } from '@/api/auth/index';
-import { mapGetters, mapActions } from 'vuex';
+import {
+  mapGetters,
+  mapActions,
+  mapMutations,
+} from 'vuex';
 
 export default {
   components: { PageTitle/* , Parrainage, FaireUnDon */ },
@@ -76,7 +103,6 @@ export default {
         disabled: true,
       },
     ],
-    tab: null,
     opSelect: null,
     chapitres: [],
     isLoad: false,
@@ -85,6 +111,9 @@ export default {
     ],
     paiementSelect: 'Paiement manuel',
     chapSelect: null,
+    chapitre: {},
+    module: {},
+    formation: {},
   }),
   computed: {
     ...mapGetters([
@@ -104,24 +133,13 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      actionSetIdChapSouscrip: 'SET_ID_CHAP_SOUSCRIP',
+    }),
     ...mapActions([
       'showSnackMsg',
       'getUser',
     ]),
-    async getList() {
-      this.isLoad = true;
-      try {
-        const liste = (await listeChapitre()).data;
-        liste.sort((a, b) => a.id - b.id);
-        await this.getUser();
-        this.chapitres = liste.filter(el => !this.listeSouscript.includes(el.id) && el.is_lock);
-        [this.chapSelect] = this.chapitres;
-        this.opSelect = this.options[0].value;
-        this.isLoad = false;
-      } catch (error) {
-        this.isLoad = false;
-      }
-    },
     async souscrire() {
       this.isLoad = true;
       try {
@@ -172,9 +190,28 @@ export default {
         return '';
       }
     },
+    async getChapitre() {
+      this.isLoad = true;
+      try {
+        if (!this.$route.params.id) {
+          this.isLoad = false;
+          return;
+        }
+        this.chapitre = (await getChapitre(this.$route.params.id)).data;
+        this.chapitre.contenu = null;
+        this.module = this.chapitre.module;
+        this.module.contenu = null;
+        this.formation = this.chapitre.module.formation;
+        this.formation.contenu = null;
+        this.chapitre.module = null;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+      }
+    },
   },
   async mounted() {
-    await this.getList();
+    await this.getChapitre();
   },
 };
 </script>

@@ -16,8 +16,11 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item>
-              <v-list-item-title @click="suppMultiple">Supprimer</v-list-item-title>
+            <v-list-item @click="suppMultiple">
+              <v-list-item-title>Supprimer</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="validateComment">
+              <v-list-item-title>Valider</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -39,28 +42,25 @@
           <template v-slot:item.contenu="{ item }">
             <div
               class="d-inline-block text-truncate"
-              style="width: 300px">
+              style="width: 250px">
               {{item.contenu}}
             </div>
           </template>
+          <template v-slot:item.is_validate="{ item }">
+            <v-chip
+              class="ma-2"
+              dark
+              :color="item.is_validate ? 'success' : 'red'">
+              {{item.is_validate ? 'Valider' : 'Non valider'}}
+            </v-chip>
+          </template>
           <template v-slot:item.actions="{ item }">
-            <v-btn
-              fab
-              dark
-              small
-              color="primary"
-              class="mr-2"
-              @click="itemSelect = item">
-              <v-icon dark>mdi-eye</v-icon>
-            </v-btn>
-            <v-btn
-              fab
-              dark
-              small
-              color="red"
-              @click="supp(item.id)">
-              <v-icon dark>mdi-delete</v-icon>
-            </v-btn>
+            <v-icon
+              @click="itemSelect = item"
+              color="primary">mdi-eye</v-icon>
+            <v-icon
+              @click="supp(item.id)"
+              color="red">mdi-delete</v-icon>
           </template>
         </v-data-table>
       </v-col>
@@ -85,7 +85,8 @@
 <script>
 // import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
-import { listeComment, deleteComment } from '@/api/comment/index';
+import { mapActions } from 'vuex';
+import { listeComment, deleteComment, validateComment } from '@/api/comment/index';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import { BASE_HOST } from '@/api/config/config';
 
@@ -110,6 +111,7 @@ export default {
         },
         { text: 'Contenu', value: 'contenu' },
         { text: 'Date de publication', value: 'created_date', width: 200 },
+        { text: 'Status', value: 'is_validate' },
         { text: 'Actions', value: 'actions', align: 'end' },
       ],
       itemSelect: {},
@@ -118,11 +120,14 @@ export default {
   },
   conputed: {},
   methods: {
-    showSnackComp(msg, color) {
+    ...mapActions([
+      'showSnackMsg',
+    ]),
+    /* showSnackComp(msg, color) {
       this.colorSnack = color;
       this.message = msg;
       this.valueSnack = true;
-    },
+    }, */
     async getList() {
       this.isLoad = true;
       try {
@@ -148,6 +153,23 @@ export default {
       });
       await Promise.all(req);
       await this.getList();
+      this.showSnackMsg({
+        msg: 'Suppression réussi',
+        color: 'success',
+      });
+    },
+    async validateComment() {
+      const req = [];
+      this.selected.forEach((el) => {
+        req.push(validateComment(el.id));
+      });
+      await Promise.all(req);
+      this.selected = [];
+      await this.getList();
+      this.showSnackMsg({
+        msg: 'Oppération éffectué',
+        color: 'success',
+      });
     },
     formatDate(date) {
       return moment(date).format('L');

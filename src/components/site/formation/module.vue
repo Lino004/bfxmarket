@@ -5,17 +5,16 @@
         <v-container fill-height>
           <div v-html="module.contenu"></div>
         </v-container>
-        <v-container>
-          <v-list shaped class="pa-0" v-if="chapitres.length">
+        <v-container class="pb-5">
+          <v-list class="pa-0" v-if="chapitres.length">
             <v-subheader class="px-0">Nos chapitres: </v-subheader>
-            <v-list-item-group :color="'primary'">
+            <v-list-item-group>
               <v-divider></v-divider>
               <v-list-item
                 v-for="(chap, i) in liste"
                 :key="i"
                 :disabled="!chap.is_lock"
                 class="px-0"
-                inactive
               >
                 <v-list-item-icon>
                   <v-avatar
@@ -27,24 +26,22 @@
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title v-text="chap.titre"></v-list-item-title>
+                  <v-list-item-subtitle>
+                    <div>
+                      <strong v-if="chap.downline">
+                        Parrainer
+                        {{chap.downline}} pers.
+                      </strong>
+                      {{chap.downline && chap.price ? 'ou' : ''}}
+                      <strong v-if="chap.price">{{text}} {{chap.price}} $</strong>
+                    </div>
+                  </v-list-item-subtitle>
                 </v-list-item-content>
-                <v-list-item-content>
-                  <div class="my-5">
-                    <strong v-if="chap.downline">
-                      Parrainer
-                      {{chap.downline}} pers.
-                    </strong>
-                    {{chap.downline && chap.price ? 'ou' : ''}}
-                    <strong v-if="chap.price">Faire un don de {{chap.price}} $</strong>
-                  </div>
-                </v-list-item-content>
-                <v-list-item-action style="width: 100px">
-                  <v-btn
-                    v-text="'SOUSCRIRE'"
-                    :disabled="!chap.is_lock"
-                    color="primary"
-                    :to="{ name: 'bfx-souscription' }"
-                    v-if="!listeSouscript.includes(chap.id)"/>
+                <v-list-item-action>
+                  <ModalSouscription
+                    v-if="!listeSouscript.includes(chap.id)"
+                    :chap="chap"
+                    :id-module="module.id"/>
                   <v-btn
                     v-text="'OUVRIR'"
                     color="green"
@@ -70,9 +67,13 @@ import PageTitle from '@/components/site/general/PageTitle.vue';
 import { getModule } from '@/api/modules/index';
 import { listeChapitreByModule } from '@/api/chapitres/index';
 import { mapGetters, mapActions } from 'vuex';
+import ModalSouscription from '@/components/site/formation/souscription.vue';
 
 export default {
-  components: { PageTitle },
+  components: {
+    PageTitle,
+    ModalSouscription,
+  },
   data: () => ({
     breadcrumbs: [
       {
@@ -95,6 +96,10 @@ export default {
       'listeSouscript',
       'user',
     ]),
+    text() {
+      if (this.module.formation.id === 10) return 'Payer';
+      return 'Faire un don de';
+    },
   },
   methods: {
     ...mapActions([
@@ -121,6 +126,9 @@ export default {
         this.chapitres.forEach((el) => {
           el.active = el.is_lock;
           el.title = el.titre;
+          el.contenu = null;
+          el.idFormation = el.module.formation.id;
+          el.module = null;
         });
         this.chapitres.sort((a, b) => a.id - b.id);
         // this.liste = this.listeChap();

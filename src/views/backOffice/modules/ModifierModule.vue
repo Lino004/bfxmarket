@@ -105,6 +105,7 @@ export default {
           const dataClone = cloneDeep(this.module);
           const { id } = dataClone;
           delete dataClone.id;
+          dataClone.formation = dataClone.formation.id;
           if (dataClone.image.src.includes(this.base)) delete dataClone.image;
           await updateModule(id, dataClone);
           this.showSnackComp('Enregistrement réussi', 'success');

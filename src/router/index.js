@@ -10,7 +10,7 @@ import Guide from '@/views/home/Guide.vue';
 import QueFaisonsNous from '@/views/home/QueFaisonsNous.vue';
 import NosFormations from '@/views/home/NosFormations.vue';
 import Parrainage from '@/views/home/Parrainage.vue';
-import Souscription from '@/views/home/Souscription.vue';
+import ResponseTransaction from '@/views/home/ResponseTransaction.vue';
 import AttentConfirmation from '@/views/home/AttentConfirmation.vue';
 import ResetPassword from '@/views/home/ResetPassword.vue';
 import InitResetPassword from '@/views/home/InitResetPassword.vue';
@@ -269,9 +269,9 @@ const routes = [
         },
       },
       {
-        path: 'souscription',
-        name: 'bfx-souscription',
-        component: Souscription,
+        path: 'transaction-response/:id/:idModule/:idChap',
+        name: 'bfx-transaction-response',
+        component: ResponseTransaction,
         meta: { requiresAuth: true },
       },
       {

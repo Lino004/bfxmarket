@@ -122,6 +122,7 @@ export default {
     async uploadIsLock(data) {
       const dataClone = cloneDeep(data);
       const { id } = dataClone;
+      dataClone.module = dataClone.module.id;
       await updateChapitre(id, {
         ...dataClone,
         is_lock: !dataClone.is_lock,

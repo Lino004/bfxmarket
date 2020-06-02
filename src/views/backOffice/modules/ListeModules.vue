@@ -124,6 +124,7 @@ export default {
       const dataClone = cloneDeep(data);
       const { id } = dataClone;
       delete dataClone.image;
+      dataClone.formation = dataClone.formation.id;
       await updateModule(id, {
         ...dataClone,
         is_lock: !dataClone.is_lock,

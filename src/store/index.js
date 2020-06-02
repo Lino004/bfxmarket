@@ -25,6 +25,7 @@ export default new Vuex.Store({
     idParrainage: '',
     listeSouscript: [],
     minSize: null,
+    idChapSouscrip: null,
   },
   mutations: {
     SET_SIZE_WINDOWS(state, val) {
@@ -68,6 +69,9 @@ export default new Vuex.Store({
     },
     SET_MIN_SIZE(state, val) {
       state.minSize = val;
+    },
+    SET_ID_CHAP_SOUSCRIP(state, val) {
+      state.idChapSouscrip = val;
     },
   },
   actions: {

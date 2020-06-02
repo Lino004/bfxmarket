@@ -148,6 +148,7 @@ export default {
           const dataClone = cloneDeep(this.chapitre);
           const { id } = dataClone;
           delete dataClone.id;
+          dataClone.module = dataClone.module.id;
           if (dataClone.image.src.includes(this.base)) delete dataClone.image;
           await updateChapitre(id, dataClone);
           this.showSnackComp('Enregistrement réussi', 'success');

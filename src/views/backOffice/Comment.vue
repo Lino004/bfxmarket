@@ -19,7 +19,7 @@
             <v-list-item @click="suppMultiple">
               <v-list-item-title>Supprimer</v-list-item-title>
             </v-list-item>
-            <v-list-item @click="validateComment">
+            <v-list-item @click="validateComments">
               <v-list-item-title>Valider</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -50,7 +50,8 @@
             <v-chip
               class="ma-2"
               dark
-              :color="item.is_validate ? 'success' : 'red'">
+              :color="item.is_validate ? 'success' : 'red'"
+              @click="validateComment(item)">
               {{item.is_validate ? 'Valider' : 'Non valider'}}
             </v-chip>
           </template>
@@ -158,13 +159,21 @@ export default {
         color: 'success',
       });
     },
-    async validateComment() {
+    async validateComments() {
       const req = [];
       this.selected.forEach((el) => {
-        req.push(validateComment(el.id));
+        req.push(validateComment(el.id, { status: !el.is_validate }));
       });
       await Promise.all(req);
       this.selected = [];
+      await this.getList();
+      this.showSnackMsg({
+        msg: 'Oppération éffectué',
+        color: 'success',
+      });
+    },
+    async validateComment(el) {
+      await validateComment(el.id, { status: !el.is_validate });
       await this.getList();
       this.showSnackMsg({
         msg: 'Oppération éffectué',

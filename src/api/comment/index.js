@@ -20,7 +20,7 @@ export async function getComment(id) {
   return response;
 }
 
-export async function validateComment(id) {
-  const response = await HTTP.put(`tasks/comment/validate/${id}`);
+export async function validateComment(id, data) {
+  const response = await HTTP.put(`tasks/comment/validate/${id}`, data);
   return response;
 }

@@ -45,7 +45,7 @@
             Choisissez le mode de votre choix:
           </div>
           <v-row justify="center">
-            <v-col cols="4" v-if="chap.downline">
+            <v-col cols="4" v-if="chap.downline && this.chap.idFormation !== 10">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -164,9 +164,9 @@ export default {
               user: this.user.identifiant,
             });
             const { data } = response1;
-            // data.callback_url =
-            // `${data.callback_url}/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
-            data.callback_url = `http://localhost:8080/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
+            data.callback_url = `${data.callback_url}/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
+            // data.callback_url = `https://preprod.wfxschool.com/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
+            // data.callback_url = `http://localhost:8080/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
             const id = data.id_transaction;
             delete data.id_transaction;
             const response2 = await initPayement(id, data);

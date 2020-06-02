@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const CONFIG = {
-  baseURL: 'http://backend.wfxschool.com/payment/api',
+  baseURL: 'https://backend.wfxschool.com/payment/api',
   headers: {
     'Content-Type': 'application/json',
     // 'Access-Control-Allow-Origin': '*',

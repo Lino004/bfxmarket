@@ -63,7 +63,7 @@
                 </v-img>
               </v-card>
             </v-col>
-            <v-col cols="4" v-if="!chap.downline">
+            <v-col cols="4" v-if="chap.price">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -76,7 +76,7 @@
                 ></v-img>
               </v-card>
             </v-col>
-            <v-col cols="4" v-if="!chap.downline">
+            <v-col cols="4" v-if="chap.price">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -89,7 +89,7 @@
                 ></v-img>
               </v-card>
             </v-col>
-            <v-col cols="4" v-if="!chap.downline">
+            <v-col cols="4" v-if="chap.price">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -164,9 +164,7 @@ export default {
               user: this.user.identifiant,
             });
             const { data } = response1;
-            data.callback_url = `${data.callback_url}/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
-            // data.callback_url = `https://preprod.wfxschool.com/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
-            // data.callback_url = `http://localhost:8080/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
+            data.callback_url = `${window.location.origin}/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}/${data.parrainage}`;
             const id = data.id_transaction;
             delete data.id_transaction;
             const response2 = await initPayement(id, data);

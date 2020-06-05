@@ -33,7 +33,7 @@
                 description="Prédire les quatre mouvements du marché"
                 libelle-btn="Débuter la formation"
                 :index="1"
-                :is-lock="false"
+                :is-lock="true"
                 @action="$router.push({
                   name: 'bfx-formation',
                   params: { idFormation: 10 }

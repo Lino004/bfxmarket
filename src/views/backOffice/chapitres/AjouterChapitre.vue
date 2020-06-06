@@ -106,7 +106,7 @@ export default {
   computed: {
     getModule() {
       if (!this.modules.length) return [];
-      return this.modules.filter(el => el.formation === this.formationSelect);
+      return this.modules.filter(el => el.formation.id === this.formationSelect);
     },
   },
   methods: {

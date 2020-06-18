@@ -45,7 +45,7 @@
             <v-btn
               small
               v-else
-              :color="data.active && data.to_continue ? 'bg-blue-grad' : 'grey'"
+              :color="colorBtn"
               @click="$emit('action')"
               :disabled="!(data.active && data.to_continue)">
               {{dataBtn}}
@@ -81,6 +81,10 @@ export default {
     img() {
       if (this.defaultImg) return this.defaultImg;
       return this.data.img;
+    },
+    colorBtn() {
+      if (this.data.active && this.data.to_continue) return 'bg-blue-grad';
+      return 'grey';
     },
   },
   methods: {

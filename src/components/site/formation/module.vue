@@ -7,7 +7,7 @@
         </v-container>
         <v-container class="pb-5">
           <v-list class="pa-0" v-if="chapitres.length">
-            <v-subheader class="px-0">Nos chapitres: </v-subheader>
+            <v-subheader class="px-0">Nos chapitres:</v-subheader>
             <v-list-item-group>
               <v-divider></v-divider>
               <v-list-item

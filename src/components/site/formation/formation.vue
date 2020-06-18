@@ -65,13 +65,13 @@ export default {
       try {
         const { idFormation } = this.$route.params;
         this.formation = (await getFormation(idFormation)).data;
-        this.modules = (await listeModuleByFormation(this.formation.id)).data;
+        const modulesRes = (await listeModuleByFormation(this.formation.id)).data;
         const reqs = [];
-        this.modules.forEach((el) => {
+        modulesRes.forEach((el) => {
           reqs.push(listeChapitreByModule(el.id));
         });
         /* eslint no-param-reassign: ["error", { "props": false }] */
-        this.modules.forEach((el) => {
+        modulesRes.forEach((el) => {
           el.active = el.is_lock;
           el.img = `${BASE_HOST}${el.image}`;
           el.content = el.description;
@@ -79,23 +79,24 @@ export default {
         });
         const resps = await Promise.all(reqs);
         for (let index = 0; index < resps.length; index += 1) {
-          this.modules[index].chaps = resps[index].data;
+          modulesRes[index].chaps = resps[index].data;
         }
-        this.modules.forEach((m) => {
+        modulesRes.forEach((m) => {
           const tab = [];
           m.chaps.forEach((chap) => {
             tab.push(this.listeSouscript.includes(chap.id));
           });
           m.is_finish = tab.every(el => el === true);
         });
-        this.modules.sort((a, b) => a.id - b.id);
-        for (let index = 0; index < this.modules.length; index += 1) {
-          if (index === 0) this.modules[index].to_continue = true;
+        modulesRes.sort((a, b) => a.id - b.id);
+        for (let index = 0; index < modulesRes.length; index += 1) {
+          if (index === 0) modulesRes[index].to_continue = true;
           if (index) {
             const presIndex = index - 1;
-            this.modules[index].to_continue = this.modules[presIndex].is_finish;
+            modulesRes[index].to_continue = modulesRes[presIndex].is_finish;
           }
         }
+        this.modules = modulesRes;
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

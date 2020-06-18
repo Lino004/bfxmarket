@@ -57,7 +57,7 @@
       </v-col>
     </v-row>
     <h3>Contenu detaillé du chapitre</h3>
-    <yimo-vue-editor v-model="chapitre.contenu"></yimo-vue-editor>
+    <!-- <yimo-vue-editor v-model="chapitre.contenu"></yimo-vue-editor> -->
     <vue-editor v-model="chapitre.contenu"></vue-editor>
     <SnackComp
       :value="valueSnack"
@@ -69,7 +69,7 @@
 
 <script>
 import { VueEditor } from 'vue2-editor';
-import YimoVueEditor from 'yimo-vue-editor';
+// import YimoVueEditor from 'yimo-vue-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import { createChapitre } from '@/api/chapitres/index';
 import { listeFormation } from '@/api/formations/index';
@@ -79,7 +79,7 @@ export default {
   components: {
     SnackComp,
     VueEditor,
-    YimoVueEditor,
+    // YimoVueEditor,
   },
   data() {
     return {
@@ -88,7 +88,6 @@ export default {
       message: '',
       chapitre: {
         titre: '',
-        niveau: 'test',
         contenu: '',
         is_lock: false,
       },
@@ -106,7 +105,7 @@ export default {
   computed: {
     getModule() {
       if (!this.modules.length) return [];
-      return this.modules.filter(el => el.formation === this.formationSelect);
+      return this.modules.filter(el => el.formation.id === this.formationSelect);
     },
   },
   methods: {
@@ -119,7 +118,7 @@ export default {
       this.isLoad = true;
       try {
         if (this.chapitre.titre && this.chapitre.contenu) {
-          this.chapitre.formation = this.formationSelect;
+          // this.chapitre.formation = this.formationSelect;
           this.chapitre.module = this.moduleSelect;
           await createChapitre(this.chapitre);
           this.showSnackComp('Enregistrement réussi', 'success');
@@ -135,13 +134,7 @@ export default {
     async getListFormation() {
       this.isLoad = true;
       try {
-        this.formations = (await listeFormation()).data.map((el) => {
-          const data = {
-            id: el.id,
-            titre: el.titre,
-          };
-          return data;
-        });
+        this.formations = (await listeFormation()).data;
         /* eslint no-param-reassign: ["error", { "props": false }] */
         this.formations.sort((a, b) => a.id - b.id);
         this.isLoad = false;
@@ -152,14 +145,7 @@ export default {
     async getListModule() {
       this.isLoad = true;
       try {
-        this.modules = (await listeModule()).data.map((el) => {
-          const data = {
-            id: el.id,
-            titre: el.titre,
-            formation: el.formation,
-          };
-          return data;
-        });
+        this.modules = (await listeModule()).data;
         /* eslint no-param-reassign: ["error", { "props": false }] */
         this.modules.sort((a, b) => a.id - b.id);
         this.isLoad = false;

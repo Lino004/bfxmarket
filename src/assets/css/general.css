@@ -18,6 +18,12 @@ html{
   background: linear-gradient(to right, rgb(38, 141, 251) 0%, rgb(19, 199, 104) 100%);
   color: white !important;
 }
+.dat-dash-bg {
+  background-image: linear-gradient(to bottom, #2079B7, #55E8AA);
+}
+.dat-bg-cyan{
+  background-color: #2079B7 !important;
+}
 .bg-blue-grad-5{
   background: linear-gradient(to right, rgb(38, 141, 251, 0.5) 0%, rgb(19, 199, 104, 0.5) 100%);
 }

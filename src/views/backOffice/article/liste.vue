@@ -2,7 +2,7 @@
   <div style="width: 100%" class="ma-3">
     <v-row>
       <v-col>
-        <h2>Liste des utilisateurs</h2>
+        <h2>Liste des articles</h2>
       </v-col>
       <v-col class="text-end">
         <v-btn

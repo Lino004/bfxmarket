@@ -3,14 +3,15 @@
     <v-navigation-drawer
       v-model="drawer"
       app
+      color="dat-dash-bg"
     >
-      <v-list-item>
+      <v-list-item :style="`height: ${$vuetify.application.top}px`">
         <v-list-item-avatar  class="bg-blue-grad">
           <v-img :src="require('@/assets/img/logo-white.png')"/>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Wfx School</v-list-item-title>
+          <v-list-item-title class="white--text">Wfx School</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -20,15 +21,15 @@
 
     <v-app-bar
       app
-      class="bg-blue-grad topbar px-4"
+      class="dat-bg-cyan topbar px-4 white--text"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Tableau de bord</v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
+    <v-content class="bg-blue-grad">
       <v-container
-        class="fill-height"
+        class="fill-height bg-black-5"
         fluid
         style="align-items: start;"
       >
@@ -36,12 +37,12 @@
       </v-container>
     </v-content>
 
-    <v-footer
+    <!-- <v-footer
       class="bg-blue-grad topbar px-4"
       app
     >
       <span class="white--text">&copy; 2019</span>
-    </v-footer>
+    </v-footer> -->
     <SnackComp/>
   </v-app>
 </template>
@@ -58,5 +59,8 @@ export default {
   data: () => ({
     drawer: null,
   }),
+  mounted() {
+    console.log(this.$vuetify.application.top);
+  },
 };
 </script>

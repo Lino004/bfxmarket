@@ -6,18 +6,19 @@
       <v-list-group
         v-if="item.hasOwnProperty('child')"
         :prepend-icon="item.icon"
-        no-action>
+        no-action
+        class="test">
         <template v-slot:activator>
-          <v-list-item-title v-text="item.text"/>
+          <v-list-item-title class="white--text" v-text="item.text"/>
         </template>
         <v-list-item
           v-for="(child, index) in item.child"
           :key="index"
           :to="child.to"
           :disabled="child.disabled">
-          <v-list-item-title v-text="child.text"/>
+          <v-list-item-title class="white--text" v-text="child.text"/>
           <v-list-item-icon>
-            <v-icon> {{child.icon}} </v-icon>
+            <v-icon color="white"> {{child.icon}} </v-icon>
           </v-list-item-icon>
         </v-list-item>
       </v-list-group>
@@ -26,9 +27,9 @@
         :to="item.to"
         :disabled="item.disabled">
         <v-list-item-icon>
-          <v-icon>{{item.icon}}</v-icon>
+          <v-icon color="white">{{item.icon}}</v-icon>
         </v-list-item-icon>
-        <v-list-item-title v-text="item.text"/>
+        <v-list-item-title class="white--text" v-text="item.text"/>
       </v-list-item>
     </div>
   </v-list>
@@ -47,5 +48,7 @@ export default {
 </script>
 
 <style>
-
+.test > .v-list-item > .v-list-group__header__prepend-icon > i{
+  color: white !important;
+}
 </style>

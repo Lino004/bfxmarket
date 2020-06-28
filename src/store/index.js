@@ -6,6 +6,7 @@ import {
   addDownline,
   getSouscript,
 } from '@/api/auth/index';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -27,6 +28,11 @@ export default new Vuex.Store({
     minSize: null,
     idChapSouscrip: null,
   },
+  plugins: [
+    createPersistedState({
+      paths: ['userAdmin'],
+    }),
+  ],
   mutations: {
     SET_SIZE_WINDOWS(state, val) {
       state.sizeWindows = val;

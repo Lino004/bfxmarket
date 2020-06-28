@@ -41,7 +41,7 @@
       show-select>
       <template v-slot:body.prepend="{  }">
         <tr>
-          <td :colspan="6">
+          <td :colspan="5">
             <v-text-field
               v-model="search"
               append-icon="search"
@@ -49,17 +49,6 @@
               single-line
               hide-details
             ></v-text-field>
-          </td>
-          <td>
-            <v-select
-              v-model="chapitreSelectUser"
-              :items="chapitres"
-              label="Chapitre"
-              item-value="id"
-              item-text="index"
-              hide-details
-              multiple
-            ></v-select>
           </td>
           <td>
             <v-autocomplete
@@ -86,9 +75,6 @@
           <td></td>
         </tr>
       </template>
-      <template v-slot:item.subscribes="{ item }" v-if="liste.length">
-        {{ getChapByOrder(item.subscribes).map(el => el.index).join(', ') }}
-      </template>
       <template v-slot:item.pays="{ item }" v-if="liste.length">
         {{ getPays(item.pays).nom }}
       </template>
@@ -99,19 +85,15 @@
           {{ getStatus(item.status).libelle }}
         </v-chip>
       </template>
-      <template v-slot:item.lien="{ item }">
-        <v-chip
-          color="green"
-          dark style="width: 100%"
-          @click.prevent="copieLien(item.identifiant_url)">
-          Copier le lien
-        </v-chip>
+      <template v-slot:item.detail="{ item }">
+        <v-btn small rounded color="green" @click="showDetail(item)">
+          <v-icon color="white">mdi-eye</v-icon>
+        </v-btn>
       </template>
     </v-data-table>
 
-    <v-dialog
-      width="500"
-      v-model="modalEnvoiEmail">
+    <!-- Modal d'envoi de mail -->
+    <v-dialog width="500" v-model="modalEnvoiEmail">
       <v-card>
         <v-card-title
           class="headline bg-blue-grad"
@@ -153,9 +135,8 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog
-      width="500"
-      v-model="modalSouscription">
+    <!-- Modal de validation des souscriptions -->
+    <v-dialog width="500" v-model="modalSouscription">
       <v-card>
         <v-card-title
           class="headline bg-blue-grad"
@@ -196,6 +177,111 @@
       </v-card>
     </v-dialog>
 
+    <!-- Modal détail utilisateur -->
+    <v-dialog width="700" v-model="modalDetailUtilisateur">
+      <v-card>
+        <v-card-title
+          class="headline bg-blue-grad"
+          primary-title
+        >
+          Détail utilisateur
+        </v-card-title>
+
+        <v-card-text class="pa-5">
+          <v-list dense>
+            <v-list-item>
+              <v-list-item-content>Noms:</v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                {{ userSelect.nom + ' ' + userSelect.prenom }}
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>Email:</v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                <div style="width: 100%">
+                  {{ userSelect.email }}
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>Téléphone:</v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                {{ userSelect.phone }}
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>Pays:</v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                {{ getPays(userSelect.pays).nom }}
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>Status:</v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                <div>
+                  <v-chip
+                    :color="getStatus(userSelect.status).couleur"
+                    dark>
+                    {{ getStatus(userSelect.status).libelle }}
+                  </v-chip>
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>Nombre de parrainage:</v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                {{ userSelect.downline }}
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>Lien de parrainage:</v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                <div>
+                  <v-chip
+                    color="green" dark
+                    @click.prevent="copieLien(userSelect.identifiant_url)">
+                    Copier le lien
+                  </v-chip>
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content style="align-self: start;">
+                Liste des souscriptions
+              </v-list-item-content>
+              <v-list-item-content class="align-end" style="flex: 2">
+                <div>
+                  <div v-for="(chap, i) in getChapSousUser(userSelect.subscribes)" :key="i">
+                    <span>{{chap.formation + ': ' + chap.chap}}</span> <br>
+                  </div>
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="modalDetailUtilisateur = false"
+          >
+            Fermer
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-overlay :value="loading">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
@@ -209,6 +295,7 @@ import { listeChapitre } from '@/api/chapitres/index';
 import { BASE_HOST } from '@/api/config/config';
 import { mapGetters, mapActions } from 'vuex';
 import LISTE_PAYS from '@/services/pays';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default {
   components: {},
@@ -225,17 +312,15 @@ export default {
         { text: 'Prenom', value: 'prenom' },
         { text: 'Email', value: 'email' },
         { text: 'Numéro', value: 'phone', width: 100 },
-        { text: 'Nbr de parrainage', value: 'downline', width: 100 },
-        { text: 'Chap souscrit', value: 'subscribes', width: 100 },
         { text: 'Pays', value: 'pays', width: 100 },
         { text: 'Status', value: 'status', width: 100 },
-        { text: 'Lien parrai.', value: 'lien', width: 100 },
+        { text: 'Détail', value: 'detail', width: 100 },
       ],
       tabStatus: [
-        { type: 'Offline', libelle: 'Hors ligne' },
-        { type: 'Online', libelle: 'En ligne' },
-        { type: 'initial', libelle: 'Insc. en cours' },
-        { type: 'Archive', libelle: 'Archivé' },
+        { type: 'Offline', libelle: 'Hors ligne', couleur: 'red' },
+        { type: 'Online', libelle: 'En ligne', couleur: 'green' },
+        { type: 'initial', libelle: 'Insc. en cours', couleur: 'orange' },
+        { type: 'Archive', libelle: 'Archivé', couleur: 'grey' },
       ],
       expanded: [],
       singleExpand: false,
@@ -254,6 +339,8 @@ export default {
       chapitreSelectUser: [],
       listePays: LISTE_PAYS,
       paysSelect: [],
+      userSelect: {},
+      modalDetailUtilisateur: false,
     };
   },
   computed: {
@@ -264,15 +351,6 @@ export default {
       let data = this.users;
       if (this.statusSelect.length) data = data.filter(el => this.statusSelect.includes(el.status));
       if (this.paysSelect.length) data = data.filter(el => this.paysSelect.includes(el.pays));
-      if (this.chapitreSelectUser.length) {
-        data = data.filter((el) => {
-          const tab = [];
-          this.chapitreSelectUser.forEach((sub) => {
-            tab.push(el.subscribes.includes(sub));
-          });
-          return !tab.includes(false);
-        });
-      }
       return data;
     },
   },
@@ -295,28 +373,8 @@ export default {
       }
     },
     getStatus(status) {
-      if (status === 'Online') {
-        return {
-          libelle: 'En ligne',
-          couleur: 'green',
-        };
-      }
-      if (status === 'initial') {
-        return {
-          libelle: 'Insc. en cours',
-          couleur: 'orange',
-        };
-      }
-      if (status === 'Archive') {
-        return {
-          libelle: 'Archivé',
-          couleur: 'grey',
-        };
-      }
-      return {
-        libelle: 'Hors ligne',
-        couleur: 'red',
-      };
+      if (!status) return { libelle: '', couleur: '' };
+      return this.tabStatus.find(el => el.type === status);
     },
     async copieLien(id) {
       this.loading = true;
@@ -432,14 +490,8 @@ export default {
       }
     },
     getPays(id) {
+      if (!id) return { nom: '' };
       return this.listePays.find(el => el.id === id);
-    },
-    getChapByOrder(list) {
-      const tab = [];
-      list.forEach((el) => {
-        tab.push(this.chapitres.find(chap => chap.id === el));
-      });
-      return tab.sort((a, b) => a.index - b.index);
     },
     async archiveUsers() {
       this.loading = true;
@@ -457,6 +509,24 @@ export default {
         this.loading = false;
         throw error;
       }
+    },
+    getChapSousUser(listeSous) {
+      if (!listeSous) return [];
+      const data = this.chapitres.filter(el => listeSous.includes(el.id));
+      const result = cloneDeep(data.map(el => ({
+        formation: el.module.titre,
+        chap: el.titre,
+        id: el.id,
+      })));
+      return result.sort((a, b) => {
+        if (a.id > b.id) return 1;
+        if (a.id < b.id) return -1;
+        return 0;
+      });
+    },
+    showDetail(val) {
+      this.userSelect = val;
+      this.modalDetailUtilisateur = true;
     },
   },
   async mounted() {

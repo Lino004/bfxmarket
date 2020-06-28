@@ -36,13 +36,6 @@
         <router-view/>
       </v-container>
     </v-content>
-
-    <!-- <v-footer
-      class="bg-blue-grad topbar px-4"
-      app
-    >
-      <span class="white--text">&copy; 2019</span>
-    </v-footer> -->
     <SnackComp/>
   </v-app>
 </template>
@@ -59,8 +52,6 @@ export default {
   data: () => ({
     drawer: null,
   }),
-  mounted() {
-    console.log(this.$vuetify.application.top);
-  },
+  mounted() {},
 };
 </script>

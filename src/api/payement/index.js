@@ -10,7 +10,12 @@ const CONFIG = {
 const HTTP = axios.create(CONFIG);
 
 export async function initPayement(id, info) {
-  const response = await HTTP.put(`transaction/${id}`, info);
+  const response = await HTTP.put(`fedapay/transaction/${id}`, info);
+  return response;
+}
+
+export async function createCharge(id, info) {
+  const response = await HTTP.put(`coinbase/charg/${id}`, info);
   return response;
 }
 

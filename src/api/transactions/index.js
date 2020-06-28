@@ -5,7 +5,7 @@ export async function createTransaction(info) {
   return response;
 }
 
-export async function updateStatusTransaction(id, status, nbr) {
-  const response = await HTTP.put(`tasks/transaction/update/satus/${id}/${status}/${nbr}`);
+export async function updateStatusTransaction(id, status) {
+  const response = await HTTP.put(`tasks/transaction/update/satus/${id}/${status}`);
   return response;
 }

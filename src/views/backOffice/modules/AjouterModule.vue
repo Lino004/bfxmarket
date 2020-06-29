@@ -31,25 +31,44 @@
         <UploadImg v-model="module.image"/>
       </v-col>
       <v-col>
-      <v-select
-        v-model="formationSelect"
-        :items="formations"
-        item-text="titre"
-        item-value="id"
-        hide-details
-        outlined
-        expanded
-        label="Choisissez une formation"
-        class="mb-2"
-      ></v-select>
-      <v-text-field
-        label="Titre du module"
-        outlined
-        append-icon="card-text"
-        v-model="module.titre"
-        hide-details
-        class="mb-2"/>
-      <vue-editor v-model="module.description" :editor-toolbar="customToolbar"></vue-editor>
+        <v-row>
+          <v-col cols="5">
+            <v-select
+              v-model="formationSelect"
+              :items="formations"
+              item-text="titre"
+              item-value="id"
+              hide-details
+              outlined
+              expanded
+              label="Choisissez une formation"
+              class="mb-2"
+              dark
+            ></v-select>
+          </v-col>
+          <v-col cols="5">
+            <v-text-field
+              label="Titre de la module"
+              outlined
+              append-icon="card-text"
+              v-model="module.titre"
+              hide-details
+              class="mb-2"
+              dark/>
+          </v-col>
+          <v-col>
+            <v-text-field
+              label="Cout du module en $"
+              outlined
+              append-icon="card-text"
+              v-model="module.price"
+              hide-details
+              type="number"
+              class="mb-2"
+              dark/>
+          </v-col>
+        </v-row>
+        <vue-editor v-model="module.description" :editor-toolbar="customToolbar"/>
       </v-col>
     </v-row>
     <h3>Contenu detaillé du module</h3>
@@ -89,6 +108,7 @@ export default {
           ext: '',
         },
         contenu: '',
+        price: 0,
         is_lock: false,
       },
       isLoad: false,

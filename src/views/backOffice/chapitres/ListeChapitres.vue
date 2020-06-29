@@ -21,7 +21,10 @@
       :headers="headers"
       :items="chapitres"
       :items-per-page="10"
-      :loading="isLoad">
+      :loading="isLoad"
+      :options="{
+        sortBy: ['module.id', 'id']
+      }">
       <template v-slot:item.price="{ item }">
         {{item.price}} $
       </template>
@@ -86,11 +89,12 @@ export default {
       chapitres: [],
       isLoad: false,
       headers: [
+        { text: 'Formation', value: 'module.titre' },
         { text: 'Titre', value: 'titre' },
-        { text: 'Nbr de pers. à parrainer', value: 'downline', width: 80 },
+        { text: 'Parrainage', value: 'downline', width: 120 },
         { text: 'Prix', value: 'price', width: 80 },
-        { text: 'Status', value: 'status', width: 80 },
-        { text: 'Modifier', value: 'modifier', width: 80 },
+        { text: 'Status', value: 'status', width: 100 },
+        { text: 'Modifier', value: 'modifier', width: 100 },
         // { text: 'Supprimer', value: 'supprimer', width: 80 },
       ],
       expanded: [],

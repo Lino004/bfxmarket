@@ -35,6 +35,7 @@
           expanded
           label="Choisissez une formation"
           class="mb-2"
+          dark
         ></v-select>
         <v-select
           v-model="moduleSelect"
@@ -46,6 +47,7 @@
           expanded
           label="Choisissez une module"
           class="mb-2"
+          dark
         ></v-select>
         <v-text-field
           label="Titre du chapitre"
@@ -53,7 +55,8 @@
           append-icon="card-text"
           v-model="chapitre.titre"
           hide-details
-          class="mb-2"/>
+          class="mb-2"
+          dark/>
       </v-col>
     </v-row>
     <h3>Contenu detaillé du chapitre</h3>

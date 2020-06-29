@@ -7,7 +7,7 @@ export default [
   },
   {
     text: 'Nos formations',
-    to: { name: 'bfx-nos-formations' },
+    to: { name: 'bfx-formation', params: { idFormation: 9 } },
     icon: 'mdi-book',
     disabled: false,
   },

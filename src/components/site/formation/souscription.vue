@@ -4,7 +4,7 @@
       v-model="dialog"
       width="500"
     >
-      <template v-slot:activator="{ on }">
+      <template v-slot:activator="{ on }" v-if="showBtn">
         <v-btn
           dark
           color="primary"
@@ -124,6 +124,10 @@ export default {
   props: {
     chap: Object,
     idModule: Number,
+    showBtn: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {

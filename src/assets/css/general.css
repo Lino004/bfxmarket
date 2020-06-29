@@ -111,3 +111,11 @@ html{
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.ql-toolbar.ql-snow {
+  background-color: white;
+}
+
+.p-absolute{
+  position: absolute;
+}

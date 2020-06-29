@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%" class="ma-3" v-if="module">
+  <div style="width: 100%" class="pa-3" v-if="module">
     <v-row >
       <v-col>
         <h2>Modifier une module</h2>
@@ -31,20 +31,30 @@
         <UploadImg v-model="module.image"/>
       </v-col>
       <v-col>
-      <v-text-field
-        label="Titre de la module"
-        outlined
-        append-icon="card-text"
-        v-model="module.titre"
-        hide-details
-        class="mb-2"/>
-      <!-- <v-textarea
-        label="Description de la module"
-        outlined
-        v-model="module.description"
-        hide-details
-      ></v-textarea> -->
-      <vue-editor v-model="module.description" :editor-toolbar="customToolbar"></vue-editor>
+        <v-row>
+          <v-col cols="10">
+            <v-text-field
+              label="Titre de la module"
+              outlined
+              append-icon="card-text"
+              v-model="module.titre"
+              hide-details
+              class="mb-2"
+              dark/>
+          </v-col>
+          <v-col>
+            <v-text-field
+              label="Cout du module en $"
+              outlined
+              append-icon="card-text"
+              v-model="module.price"
+              hide-details
+              type="number"
+              class="mb-2"
+              dark/>
+          </v-col>
+        </v-row>
+        <vue-editor v-model="module.description" :editor-toolbar="customToolbar"/>
       </v-col>
     </v-row>
     <h3>Contenu detaillé de la module</h3>

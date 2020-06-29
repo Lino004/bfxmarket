@@ -8,6 +8,15 @@
           classes: 'zoomIn',
           duration: 4000 + index * 2000,
         }">
+        <div
+          class="p-absolute btn-souscription"
+          v-if="userStatus == 'Online' && !(data.active && data.to_continue)">
+          <v-btn color="red accent-2">
+            <p class="mb-0 white--text">
+              {{data.price}} $ <span class="caption text-lowercase">le tout</span>
+            </p>
+          </v-btn>
+        </div>
         <v-img
           class="align-end"
           :class="data.active ? 'white--text card-bg-img-black'
@@ -29,10 +38,6 @@
             </v-row>
           </v-card-title>
         </v-img>
-        <!-- <v-card-text
-          :class="data.active ? 'black--text' : 'grey--text'">
-          <div v-html="data.content"></div>
-        </v-card-text> -->
         <v-card-actions>
           <v-layout justify-center class="ma-2">
             <ModalAuth v-if="userStatus !== 'Online'"
@@ -54,16 +59,21 @@
         </v-card-actions>
       </v-card>
     </v-hover>
+    <ModalSouscription
+      :chap="chap"
+      :id-module="module.id"/>
   </v-layout>
 </template>
 
 <script>
 import ModalAuth from '@/components/site/auth/ModalAuth.vue';
+import ModalSouscription from '@/components/site/formation/souscription.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     ModalAuth,
+    ModalSouscription,
   },
   props: {
     data: Object,
@@ -94,3 +104,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.btn-souscription{
+  z-index: 100;
+}
+</style>

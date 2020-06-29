@@ -53,7 +53,6 @@ export default {
       if (this.$route.query.status === 'canceled') {
         if (this.$route.params.idTypeService === this.config.TYPE_SERVICE_CHAPITRE) {
           const { data } = (await getChapitre(this.$route.params.idService));
-          console.log(data);
           this.$router.push({ name: 'bfx-module', params: { idModule: data.module.id } });
         }
         if (this.$route.params.idTypeService === this.config.TYPE_SERVICE_MODULE) this.$router.push({ name: 'bfx-formation', params: { idFormation: 9 } });

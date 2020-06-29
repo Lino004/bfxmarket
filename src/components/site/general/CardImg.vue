@@ -7,11 +7,12 @@
         v-animate-css="{
           classes: 'zoomIn',
           duration: 4000 + index * 2000,
-        }">
+        }"
+        @click="showModal">
         <div
           class="p-absolute btn-souscription"
-          v-if="userStatus == 'Online' && !(data.active && data.to_continue)">
-          <v-btn color="red accent-2" @click="modal = true">
+          v-if="canSouscrip">
+          <v-btn color="red accent-2" @click="showModal">
             <p class="mb-0 white--text">
               {{data.price}} $ <span class="caption text-lowercase">le tout</span>
             </p>
@@ -51,7 +52,7 @@
               small
               v-else
               :color="colorBtn"
-              @click="$emit('action')"
+              @click.prevent="$emit('action')"
               :disabled="!(data.active && data.to_continue)">
               {{dataBtn}}
             </v-btn>
@@ -104,10 +105,16 @@ export default {
       if (this.data.active && this.data.to_continue) return 'bg-blue-grad';
       return 'grey';
     },
+    canSouscrip() {
+      return this.userStatus === 'Online' && !(this.data.active && this.data.to_continue) && this.data.price;
+    },
   },
   methods: {
     imgError() {
       this.defaultImg = 'https://firebasestorage.googleapis.com/v0/b/wfxschool.appspot.com/o/Slide%2Fpexels-photo-186464.jpeg?alt=media&token=f68b8056-330b-4eaf-99f6-e9eec8f54018';
+    },
+    showModal() {
+      if (this.canSouscrip) this.modal = true;
     },
   },
 };

@@ -58,7 +58,7 @@
           </v-col>
           <v-col>
             <v-text-field
-              label="Cout du module en $"
+              label="Coût du module en $"
               outlined
               append-icon="card-text"
               v-model="module.price"

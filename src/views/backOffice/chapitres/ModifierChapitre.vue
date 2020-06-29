@@ -36,7 +36,7 @@
       </v-col>
       <v-col>
         <v-text-field
-          label="Cout du chapitre en $"
+          label="Coût du chapitre en $"
           outlined
           append-icon="card-text"
           v-model="chapitre.price"

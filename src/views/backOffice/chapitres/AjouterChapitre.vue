@@ -37,6 +37,8 @@
           class="mb-2"
           dark
         ></v-select>
+      </v-col>
+      <v-col>
         <v-select
           v-model="moduleSelect"
           :items="getModule"
@@ -49,12 +51,36 @@
           class="mb-2"
           dark
         ></v-select>
+      </v-col>
+      <v-col>
         <v-text-field
           label="Titre du chapitre"
           outlined
           append-icon="card-text"
           v-model="chapitre.titre"
           hide-details
+          class="mb-2"
+          dark/>
+      </v-col>
+      <v-col cols="2">
+        <v-text-field
+          label="Coût du chapitre en $"
+          outlined
+          append-icon="card-text"
+          v-model="chapitre.price"
+          hide-details
+          type="number"
+          class="mb-2"
+          dark/>
+      </v-col>
+      <v-col cols="2">
+        <v-text-field
+          label="Nbr de pers à parrainer"
+          outlined
+          append-icon="card-text"
+          v-model="chapitre.downline"
+          hide-details
+          type="number"
           class="mb-2"
           dark/>
       </v-col>

@@ -31,7 +31,7 @@
                   <v-btn large
                   class="my-2"
                   color="bg-blue-grad"
-                  :to="{ name: 'bfx-nos-formations'}">
+                  :to="{ name: 'bfx-formation', params: { idFormation: 9 }}">
                   Apprendre à trader
                 </v-btn>
                 </v-col>

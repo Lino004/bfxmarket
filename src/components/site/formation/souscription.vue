@@ -18,7 +18,7 @@
           class="bg-blue-grad"
           primary-title
         >
-          Souscription
+          {{titre}}
         </v-card-title>
 
         <v-card-text class="pa-6">
@@ -157,6 +157,10 @@ export default {
       set(val) {
         this.$emit('input', val);
       },
+    },
+    titre() {
+      if (this.typeService === this.config.TYPE_SERVICE_CHAPITRE) return 'Souscription à un chapitre';
+      return 'Souscription à une formation complète';
     },
   },
   methods: {

@@ -182,7 +182,7 @@ export default {
               methode: typePayement,
             });
             const { data } = response1;
-            if (typePayement === 'fedapay') data.callback_url = `${window.location.origin}/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.service.id}`;
+            if (typePayement === 'fedapay') data.callback_url = `${window.location.origin}/home/transaction-response/${data.id_transaction}/${this.service.id}/${this.typeService}`;
             const id = data.id_transaction;
             delete data.id_transaction;
             let response2;

@@ -40,7 +40,8 @@
                 <v-list-item-action>
                   <ModalSouscription
                     v-if="!listeSouscript.includes(chap.id)"
-                    :chap="chap"
+                    :service="chap"
+                    :type-service="typeServiceChapitre"
                     :id-module="module.id"/>
                   <v-btn
                     v-text="'OUVRIR'"
@@ -68,6 +69,9 @@ import { getModule } from '@/api/modules/index';
 import { listeChapitreByModule } from '@/api/chapitres/index';
 import { mapGetters, mapActions } from 'vuex';
 import ModalSouscription from '@/components/site/formation/souscription.vue';
+import {
+  TYPE_SERVICE_CHAPITRE,
+} from '@/configuration/souscription';
 
 export default {
   components: {
@@ -90,6 +94,7 @@ export default {
     chapitres: [],
     liste: [],
     isLoad: false,
+    typeServiceChapitre: TYPE_SERVICE_CHAPITRE,
   }),
   computed: {
     ...mapGetters([

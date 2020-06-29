@@ -11,7 +11,7 @@
         <div
           class="p-absolute btn-souscription"
           v-if="userStatus == 'Online' && !(data.active && data.to_continue)">
-          <v-btn color="red accent-2">
+          <v-btn color="red accent-2" @click="modal = true">
             <p class="mb-0 white--text">
               {{data.price}} $ <span class="caption text-lowercase">le tout</span>
             </p>
@@ -60,8 +60,11 @@
       </v-card>
     </v-hover>
     <ModalSouscription
-      :chap="chap"
-      :id-module="module.id"/>
+      v-model="modal"
+      :service="data"
+      :type-service="typeServiceModule"
+      :id-module="data.id"
+      :show-btn="false"/>
   </v-layout>
 </template>
 
@@ -69,6 +72,9 @@
 import ModalAuth from '@/components/site/auth/ModalAuth.vue';
 import ModalSouscription from '@/components/site/formation/souscription.vue';
 import { mapGetters } from 'vuex';
+import {
+  TYPE_SERVICE_MODULE,
+} from '@/configuration/souscription';
 
 export default {
   components: {
@@ -83,6 +89,8 @@ export default {
   data: () => ({
     defaultImg: '',
     user: JSON.parse(localStorage.getItem('user')),
+    typeServiceModule: TYPE_SERVICE_MODULE,
+    modal: false,
   }),
   computed: {
     ...mapGetters([

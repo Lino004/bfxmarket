@@ -147,6 +147,9 @@ export default {
         this.isLoad = false;
       }
     },
+    startModule(id) {
+      this.$router.push({ name: 'bfx-module', params: { idModule: id } });
+    },
   },
   async mounted() {
     await this.getData();

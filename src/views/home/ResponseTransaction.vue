@@ -38,7 +38,6 @@ export default {
       await updateStatusTransaction(
         this.$route.params.id,
         this.$route.query.status,
-        this.$route.params.parrainage,
       );
       if (this.$route.query.status === 'approved') {
         this.$router.push({ name: 'bfx-chapitre', params: { idChapitre: this.$route.params.idChap } });

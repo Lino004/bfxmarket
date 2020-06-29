@@ -67,7 +67,7 @@
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
-                @click="souscrire('transaction')">
+                @click="souscrire('transaction', 'fedapay')">
                 <v-img
                   class="white--text align-end"
                   width="100%"
@@ -80,7 +80,7 @@
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
-                @click="souscrire('transaction')">
+                @click="souscrire('transaction', 'fedapay')">
                 <v-img
                   class="white--text align-end"
                   width="100%"
@@ -90,6 +90,19 @@
               </v-card>
             </v-col>
             <v-col cols="4" v-if="chap.price">
+              <v-card
+                class="border-20 curcor-pointer"
+                elevation="7"
+                @click="souscrire('transaction', 'coinbase')">
+                <v-img
+                  class="white--text align-end"
+                  width="100%"
+                  height="100"
+                  src="@/assets/img/crypto.png"
+                ></v-img>
+              </v-card>
+            </v-col>
+            <!-- <v-col cols="4" v-if="chap.price">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -103,7 +116,7 @@
                   <h2>Autre...</h2>
                 </v-img>
               </v-card>
-            </v-col>
+            </v-col> -->
           </v-row>
         </v-card-text>
       </v-card>
@@ -117,7 +130,7 @@
 <script>
 import { souscript } from '@/api/auth/index';
 import { createTransaction } from '@/api/transactions/index';
-import { initPayement } from '@/api/payement/index';
+import { initPayement, createCharge } from '@/api/payement/index';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -152,7 +165,7 @@ export default {
       'showSnackMsg',
       'getUser',
     ]),
-    async souscrire(type) {
+    async souscrire(type, typePayement) {
       this.isLoad = true;
       try {
         if (this.chap && type) {
@@ -164,14 +177,18 @@ export default {
           }
           if (type === 'transaction') {
             const response1 = await createTransaction({
-              chapitre: this.chap.id,
+              id_offre: this.chap.id,
               user: this.user.identifiant,
+              offre: 'chapitre',
+              methode: typePayement,
             });
             const { data } = response1;
-            data.callback_url = `${window.location.origin}/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}/${data.parrainage}`;
+            if (typePayement === 'fedapay') data.callback_url = `${window.location.origin}/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
             const id = data.id_transaction;
             delete data.id_transaction;
-            const response2 = await initPayement(id, data);
+            let response2;
+            if (typePayement === 'fedapay') response2 = await initPayement(id, data);
+            if (typePayement === 'coinbase') response2 = await createCharge(id, data);
             const el = document.createElement('a');
             el.href = response2.data.url;
             el.click();

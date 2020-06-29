@@ -269,7 +269,7 @@ const routes = [
         },
       },
       {
-        path: 'transaction-response/:id/:idModule/:idChap/',
+        path: 'transaction-response/:id/:idService/:idTypeService',
         name: 'bfx-transaction-response',
         component: ResponseTransaction,
         meta: { requiresAuth: true },

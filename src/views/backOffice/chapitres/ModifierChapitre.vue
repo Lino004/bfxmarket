@@ -31,17 +31,19 @@
           append-icon="card-text"
           v-model="chapitre.titre"
           hide-details
-          class="mb-2"/>
+          class="mb-2"
+          dark/>
       </v-col>
       <v-col>
         <v-text-field
-          label="Cout du chapitre en $"
+          label="Coût du chapitre en $"
           outlined
           append-icon="card-text"
           v-model="chapitre.price"
           hide-details
           type="number"
-          class="mb-2"/>
+          class="mb-2"
+          dark/>
       </v-col>
       <v-col>
         <v-text-field
@@ -51,13 +53,14 @@
           v-model="chapitre.downline"
           hide-details
           type="number"
-          class="mb-2"/>
+          class="mb-2"
+          dark/>
       </v-col>
     </v-row>
     <h3>Contenu detaillé de la chapitre</h3>
-    <v-editor-app v-model="chapitre.contenu" :config="editorConfig"></v-editor-app>
+    <!-- <v-editor-app v-model="chapitre.contenu" :config="editorConfig"></v-editor-app> -->
     <!-- <yimo-vue-editor v-model="chapitre.contenu" :config="editorConfig"></yimo-vue-editor> -->
-    <!-- <vue-editor v-model="chapitre.contenu"></vue-editor> -->
+    <vue-editor v-model="chapitre.contenu"></vue-editor>
     <SnackComp
       :value="valueSnack"
       @change="valueSnack = $event"
@@ -67,7 +70,7 @@
 </template>
 
 <script>
-/* import { VueEditor } from 'vue2-editor'; */
+import { VueEditor } from 'vue2-editor';
 // import YimoVueEditor from 'yimo-vue-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import { updateChapitre, getChapitre } from '@/api/chapitres/index';
@@ -77,7 +80,7 @@ import cloneDeep from 'lodash/cloneDeep';
 export default {
   components: {
     SnackComp,
-    /* VueEditor, */
+    VueEditor,
     /* YimoVueEditor, */
   },
   data() {

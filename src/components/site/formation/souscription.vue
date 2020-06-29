@@ -4,12 +4,12 @@
       v-model="dialog"
       width="500"
     >
-      <template v-slot:activator="{ on }">
+      <template v-slot:activator="{ on }" v-if="showBtn">
         <v-btn
           dark
           color="primary"
           v-on="on"
-          :disabled="!chap.is_lock"
+          :disabled="!service.is_lock"
           v-text="'SOUSCRIRE'"/>
       </template>
 
@@ -18,11 +18,11 @@
           class="bg-blue-grad"
           primary-title
         >
-          Souscription
+          {{titre}}
         </v-card-title>
 
         <v-card-text class="pa-6">
-          <div v-if="this.chap.idFormation === 10">
+          <!-- <div v-if="this.service.idFormation === 10">
             <v-alert
               dense
               type="info"
@@ -31,21 +31,21 @@
               icon="mdi-alert-decagram">
               NOUVEAU: Vous avez droit à <strong>40%</strong> de réduction pour 2 parrainages
             </v-alert>
-          </div>
+          </div> -->
           <div class="black--text">
             Pour effectuer votre souscription vous devez
-            <strong v-if="chap.downline">
+            <strong v-if="service.downline">
               utiliser
-              {{chap.downline > 1 ? chap.downline + ' parrainages' : 'un (1) parrainage'}}
+              {{service.downline > 1 ? service.downline + ' parrainages' : 'un (1) parrainage'}}
             </strong>
-            {{chap.downline && chap.price ? 'ou' : ''}}
-            <strong v-if="chap.price">{{text}} {{chap.price}} $</strong>
+            {{service.downline && service.price ? 'ou' : ''}}
+            <strong v-if="service.price">{{text}} {{service.price}} $</strong>
           </div>
           <div class="black--text py-2">
             Choisissez le mode de votre choix:
           </div>
           <v-row justify="center">
-            <v-col cols="4" v-if="chap.downline && this.chap.idFormation !== 10">
+            <v-col cols="4" v-if="service.downline && this.service.idFormation !== 10">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -63,7 +63,7 @@
                 </v-img>
               </v-card>
             </v-col>
-            <v-col cols="4" v-if="chap.price">
+            <v-col cols="4" v-if="service.price">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -76,7 +76,7 @@
                 ></v-img>
               </v-card>
             </v-col>
-            <v-col cols="4" v-if="chap.price">
+            <v-col cols="4" v-if="service.price">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -89,7 +89,7 @@
                 ></v-img>
               </v-card>
             </v-col>
-            <v-col cols="4" v-if="chap.price">
+            <v-col cols="4" v-if="service.price">
               <v-card
                 class="border-20 curcor-pointer"
                 elevation="7"
@@ -102,21 +102,6 @@
                 ></v-img>
               </v-card>
             </v-col>
-            <!-- <v-col cols="4" v-if="chap.price">
-              <v-card
-                class="border-20 curcor-pointer"
-                elevation="7"
-                :href="href">
-                <v-img
-                  class="white--text primary align-center text-center"
-                  width="100%"
-                  height="100"
-                  src=""
-                >
-                  <h2>Autre...</h2>
-                </v-img>
-              </v-card>
-            </v-col> -->
           </v-row>
         </v-card-text>
       </v-card>
@@ -132,16 +117,26 @@ import { souscript } from '@/api/auth/index';
 import { createTransaction } from '@/api/transactions/index';
 import { initPayement, createCharge } from '@/api/payement/index';
 import { mapActions, mapGetters } from 'vuex';
+import * as config from '@/configuration/souscription';
 
 export default {
   props: {
-    chap: Object,
+    service: Object,
+    typeService: String,
     idModule: Number,
+    showBtn: {
+      type: Boolean,
+      default: true,
+    },
+    value: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      dialog: false,
       isLoad: false,
+      config,
     };
   },
   computed: {
@@ -149,11 +144,23 @@ export default {
       'user',
     ]),
     href() {
-      return `https://wa.me/22967328981?text=Je voudrais faire un don de ${this.chap.price}$ pour chapitre intitulé : ${this.chap.titre}`;
+      return `https://wa.me/22967328981?text=Je voudrais faire un don de ${this.service.price}$ pour chapitre intitulé : ${this.service.titre}`;
     },
     text() {
-      if (this.chap.idFormation === 10) return 'payer';
+      if (this.service.idFormation === 10) return 'payer';
       return 'faire un don de';
+    },
+    dialog: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      },
+    },
+    titre() {
+      if (this.typeService === this.config.TYPE_SERVICE_CHAPITRE) return 'Souscription à un chapitre';
+      return 'Souscription à une formation complète';
     },
   },
   methods: {
@@ -164,22 +171,22 @@ export default {
     async souscrire(type, typePayement) {
       this.isLoad = true;
       try {
-        if (this.chap && type) {
+        if (this.service && type) {
           if (type === 'parrainage') {
             await souscript({
-              chapitre: this.chap.id,
+              chapitre: this.service.id,
               user: this.user.identifiant,
             });
           }
           if (type === 'transaction') {
             const response1 = await createTransaction({
-              id_offre: this.chap.id,
+              id_offre: this.service.id,
               user: this.user.identifiant,
-              offre: 'chapitre',
+              offre: this.typeService,
               methode: typePayement,
             });
             const { data } = response1;
-            if (typePayement === 'fedapay') data.callback_url = `${window.location.origin}/home/transaction-response/${data.id_transaction}/${this.idModule}/${this.chap.id}`;
+            if (typePayement === 'fedapay') data.callback_url = `${window.location.origin}/home/transaction-response/${data.id_transaction}/${this.service.id}/${this.typeService}`;
             const id = data.id_transaction;
             delete data.id_transaction;
             let response2;
@@ -192,12 +199,12 @@ export default {
           await this.getUser();
           this.showSnackMsg({
             color: 'success',
-            msg: 'Souscription réussie',
+            msg: 'Souscription en cours ...',
           });
           this.$router.push({
             name: 'bfx-chapitre',
             params: {
-              idChapitre: this.chap.id,
+              idChapitre: this.service.id,
             },
           });
         }

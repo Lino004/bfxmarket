@@ -12,6 +12,8 @@
 import PageTitle from '@/components/site/general/PageTitle.vue';
 import { updateStatusTransaction } from '@/api/transactions/index';
 import { mapActions } from 'vuex';
+import * as config from '@/configuration/souscription';
+import { getChapitre } from '@/api/chapitres/index';
 
 export default {
   components: { PageTitle },
@@ -28,6 +30,7 @@ export default {
       },
     ],
     isLoad: false,
+    config,
   }),
   computed: {},
   methods: {
@@ -40,14 +43,19 @@ export default {
         this.$route.query.status,
       );
       if (this.$route.query.status === 'approved') {
-        this.$router.push({ name: 'bfx-chapitre', params: { idChapitre: this.$route.params.idChap } });
+        if (this.$route.params.idTypeService === this.config.TYPE_SERVICE_CHAPITRE) this.$router.push({ name: 'bfx-chapitre', params: { idChapitre: this.$route.params.idService } });
+        if (this.$route.params.idTypeService === this.config.TYPE_SERVICE_MODULE) this.$router.push({ name: 'bfx-module', params: { idModule: this.$route.params.idService } });
         this.showSnackMsg({
           color: 'success',
           msg: 'Souscription réussie',
         });
       }
       if (this.$route.query.status === 'canceled') {
-        this.$router.push({ name: 'bfx-module', params: { idModule: this.$route.params.idModule } });
+        if (this.$route.params.idTypeService === this.config.TYPE_SERVICE_CHAPITRE) {
+          const { data } = (await getChapitre(this.$route.params.idService));
+          this.$router.push({ name: 'bfx-module', params: { idModule: data.module.id } });
+        }
+        if (this.$route.params.idTypeService === this.config.TYPE_SERVICE_MODULE) this.$router.push({ name: 'bfx-formation', params: { idFormation: 9 } });
         this.showSnackMsg({
           color: 'error',
           msg: 'Erreur: la souscription n\'a pas aboutie',

@@ -1,11 +1,8 @@
 <template>
   <div>
-     <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"
-       v-if="formation.titre === 'Waves'"/>
-     <v-img src="@/assets/img/Débutant.jpg" height="400"
-       v-if="formation.titre === 'Débutant'"></v-img>
-     <v-img src="@/assets/img/Avancé.jpg" height="400"
-       v-if="formation.titre === 'Avancé'"></v-img>
+     <!-- <PageTitle :breadcrumbs="breadcrumbs" :title="formation.titre"
+       v-if="formation.titre === 'Waves'"/> -->
+     <v-img :src="formation.image" height="400"/>
      <section>
         <v-container fill-height>
           <div v-html="formation.contenu"></div>
@@ -15,7 +12,7 @@
             <v-col md="4" class="mb-3" v-for="(m, i) in modules" :key="i">
               <CardImg
                 :data="m"
-                dataBtn="Démarrer le module"
+                dataBtn="Débuter la formation"
                 :index="i"
                 @action="startModule(m.id)"/>
             </v-col>
@@ -26,7 +23,7 @@
 </template>
 
 <script>
-import PageTitle from '@/components/site/general/PageTitle.vue';
+// import PageTitle from '@/components/site/general/PageTitle.vue';
 import CardImg from '@/components/site/general/CardImg.vue';
 import { getFormation } from '@/api/formations/index';
 import { listeModuleByFormation } from '@/api/modules/index';
@@ -35,7 +32,7 @@ import { BASE_HOST } from '@/api/config/config';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { PageTitle, CardImg },
+  components: { /* PageTitle, */ CardImg },
   data: () => ({
     breadcrumbs: [
       {
@@ -65,6 +62,7 @@ export default {
       try {
         const { idFormation } = this.$route.params;
         this.formation = (await getFormation(idFormation)).data;
+        this.formation.image = `${BASE_HOST}${this.formation.image}`;
         const modulesRes = (await listeModuleByFormation(this.formation.id)).data;
         const reqs = [];
         modulesRes.forEach((el) => {

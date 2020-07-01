@@ -147,7 +147,7 @@ export default {
       return `https://wa.me/22967328981?text=Je voudrais faire un don de ${this.service.price}$ pour chapitre intitulé : ${this.service.titre}`;
     },
     text() {
-      if (this.service.idFormation === 10) return 'payer';
+      if (this.service.id === 4 && this.typeService === this.config.TYPE_SERVICE_MODULE) return 'payer';
       return 'faire un don de';
     },
     dialog: {

@@ -140,6 +140,7 @@ export default {
             const presIndex = index - 1;
             modulesRes[index].to_continue = modulesRes[presIndex].is_finish;
           }
+          if (index === 2) modulesRes[index].to_continue = modulesRes[index].is_finish;
         }
         this.modules = modulesRes;
         this.isLoad = false;

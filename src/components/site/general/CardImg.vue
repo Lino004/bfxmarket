@@ -13,7 +13,11 @@
           class="p-absolute btn-souscription"
           v-if="canSouscrip">
           <v-btn color="red accent-2" @click="showModal">
-            <p class="mb-0 white--text">
+            <p class="mb-0 white--text" v-if="data.id === 4">
+              100 $ <span class="caption text-lowercase">et</span> 75%
+              <span class="caption text-lowercase">de reduction</span>
+            </p>
+            <p class="mb-0 white--text" v-else>
               {{data.price}} $ <span class="caption text-lowercase">le tout</span>
             </p>
           </v-btn>

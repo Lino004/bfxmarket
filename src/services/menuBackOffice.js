@@ -45,12 +45,12 @@ export default [
     text: 'Formations',
     icon: 'mdi-school',
     child: [
-      /* {
-        text: 'Liste des formations',
+      {
+        text: 'Liste des services',
         to: { name: 'back-office-liste-formation' },
         icon: 'mdi-format-list-bulleted',
         disabled: false,
-      }, */
+      },
       {
         text: 'Liste des formations',
         to: { name: 'back-office-liste-modules' },

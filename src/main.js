@@ -32,6 +32,38 @@ Vue.use(YimoVueEditor, {
   config: {
     uploadImgUrl: '/api/upload', // upload api
     printLog: false, // disabled console.log
+    /* menus: [
+      'source',
+      '|',
+      'bold',
+      'underline',
+      'italic',
+      'strikethrough',
+      'eraser',
+      'forecolor',
+      'bgcolor',
+      '|',
+      'quote',
+      'fontfamily',
+      'fontsize',
+      'head',
+      'unorderlist',
+      'orderlist',
+      'alignleft',
+      'aligncenter',
+      'alignright',
+      '|',
+      'table',
+      '|',
+      'img',
+      'video',
+      'location',
+      'insertcode',
+      '|',
+      'undo',
+      'redo',
+      'fullscreen',
+    ], */
   }, // wagnEditor config
   uploadHandler: (type, resTxt) => { // Upload processing hook
     // eslint-disable-next-line no-console

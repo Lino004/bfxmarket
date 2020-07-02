@@ -115,6 +115,9 @@ html{
 .ql-toolbar.ql-snow {
   background-color: white;
 }
+.wangEditor-container{
+  background-color: transparent;
+}
 
 .p-absolute{
   position: absolute;

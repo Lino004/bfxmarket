@@ -85,9 +85,19 @@
           dark/>
       </v-col>
     </v-row>
-    <h3>Contenu detaillé du chapitre</h3>
-    <!-- <yimo-vue-editor v-model="chapitre.contenu"></yimo-vue-editor> -->
-    <vue-editor v-model="chapitre.contenu"></vue-editor>
+    <v-row>
+      <v-col><h3>Contenu detaillé du chapitre</h3></v-col>
+      <v-col class="text-end">
+        <v-btn
+          small
+          :color="showEditor ? 'green' : 'primary'"
+          @click="showEditor = !showEditor">
+          {{showEditor ? 'Editeur 2' : 'Editeur 1'}}
+        </v-btn>
+      </v-col>
+    </v-row>
+    <yimo-vue-editor v-show="showEditor" v-model="chapitre.contenu"></yimo-vue-editor>
+    <vue-editor v-show="!showEditor" v-model="chapitre.contenu"></vue-editor>
     <SnackComp
       :value="valueSnack"
       @change="valueSnack = $event"
@@ -98,7 +108,7 @@
 
 <script>
 import { VueEditor } from 'vue2-editor';
-// import YimoVueEditor from 'yimo-vue-editor';
+import YimoVueEditor from 'yimo-vue-editor';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import { createChapitre } from '@/api/chapitres/index';
 import { listeFormation } from '@/api/formations/index';
@@ -108,7 +118,7 @@ export default {
   components: {
     SnackComp,
     VueEditor,
-    // YimoVueEditor,
+    YimoVueEditor,
   },
   data() {
     return {
@@ -129,6 +139,7 @@ export default {
       formationSelect: 3,
       modules: [],
       moduleSelect: 1,
+      showEditor: false,
     };
   },
   computed: {

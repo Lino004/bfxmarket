@@ -116,7 +116,7 @@ html{
   background-color: white;
 }
 .wangEditor-container{
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .p-absolute{

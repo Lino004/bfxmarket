@@ -13,6 +13,7 @@ const URL_BASE_LISTE_USER = 'tasks/user/list';
 const URL_BASE_ARCHIVE_USER = 'tasks/user/archive';
 const URL_BASE_RESET_PASSWORD_INIT = 'auth/reset/password/init';
 const URL_BASE_RESET_PASSWORD = 'auth/reset/password';
+const URL_BASE_ADD_TO_GROUP = 'tasks/user/update/role';
 
 export async function create(infoUser) {
   const response = await HTTP.put(URL_BASE_CREATE, infoUser);
@@ -39,8 +40,10 @@ export async function get(id) {
   return response;
 }
 
-export async function getListUser(id) {
-  const response = await HTTP.get(`${URL_BASE_LISTE_USER}/${id}`);
+export async function getListUser(id, page, perPage, data) {
+  let search = {};
+  if (data) search = data;
+  const response = await HTTP.put(`${URL_BASE_LISTE_USER}/${id}/${page}/${perPage}`, search);
   return response;
 }
 
@@ -79,8 +82,12 @@ export async function initResetPassword(data) {
   return response;
 }
 
-
 export async function resetPassword(data) {
   const response = await HTTP.put(`${URL_BASE_RESET_PASSWORD}`, data);
+  return response;
+}
+
+export async function addToGroup(id, data) {
+  const response = await HTTP.put(`${URL_BASE_ADD_TO_GROUP}/${id}`, data);
   return response;
 }

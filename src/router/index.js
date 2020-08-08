@@ -182,7 +182,7 @@ const routes = [
     ],
     beforeEnter: async (to, from, next) => {
       if (!store.getters.userAdmin || !store.getters.userAdmin.is_ad) {
-        next({ name: 'private-connexion' });
+        next({ name: 'bfx-home' });
       } else {
         next();
       }

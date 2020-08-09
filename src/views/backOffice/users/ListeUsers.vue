@@ -262,10 +262,10 @@ export default {
     },
     listeActions() {
       return [
-        { component: 'Souscription', libelle: 'Valider des souscriptions', show: true },
+        { component: 'Souscription', libelle: 'Valider des souscriptions', show: config.ADMIN === this.userAdmin.role },
         { component: 'EnvoiEmail', libelle: 'Envoyer des e-mails', show: true },
-        { component: 'ArchiveUser', libelle: 'Archiver des utilisateurs', show: true },
-        { component: 'AddToGroup', libelle: 'Ajouter à un groupe', show: true },
+        { component: 'ArchiveUser', libelle: 'Archiver des utilisateurs', show: config.ADMIN === this.userAdmin.role },
+        { component: 'AddToGroup', libelle: 'Ajouter à un groupe', show: config.ADMIN === this.userAdmin.role },
       ];
     },
     headers() {

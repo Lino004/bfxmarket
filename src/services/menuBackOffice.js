@@ -45,12 +45,12 @@ export default [
     text: 'Formations',
     icon: 'mdi-school',
     child: [
-      {
+      /* {
         text: 'Liste des services',
         to: { name: 'back-office-liste-formation' },
         icon: 'mdi-format-list-bulleted',
         disabled: false,
-      },
+      }, */
       {
         text: 'Liste des formations',
         to: { name: 'back-office-liste-modules' },
@@ -66,16 +66,10 @@ export default [
     ],
   },
   {
-    text: 'Utilisateurs',
-    icon: 'mdi-account-multiple',
-    child: [
-      {
-        text: 'Liste des Utilisateurs',
-        to: { name: 'back-office-liste-users' },
-        icon: 'mdi-account-group',
-        disabled: false,
-      },
-    ],
+    text: 'Liste des Utilisateurs',
+    to: { name: 'back-office-liste-users' },
+    icon: 'mdi-account-group',
+    disabled: false,
   },
   {
     text: 'Blog',

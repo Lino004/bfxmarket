@@ -8,7 +8,7 @@
         outlined>
 
         <v-card-text v-if="user">
-          <p class="body-1">
+          <p class="body-1 black--text">
             Votre demande d'inscription a bien été pris en compte.
             Veuillez consulter votre mail pour confirmation. <br>
             Email de confirmation: <strong>{{user.email}}</strong> <br>

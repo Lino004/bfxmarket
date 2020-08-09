@@ -29,12 +29,12 @@ export default [
     icon: 'mdi-help-circle-outline',
     disabled: false,
   },
-  {
+  /* {
     text: 'Blog',
     to: { name: 'bfx-blog' },
     icon: 'mdi-help-circle-outline',
     disabled: false,
-  },
+  }, */
   /* {
     text: 'Formation',
     icon: 'mdi-book',

@@ -1,7 +1,13 @@
-export const ADMIN_PRINCIPAL = 'ADMIN_PRINCIPAL';
-export const FORMATEUR = 'FORMATEUR';
-export const MARKETEUR = 'MARKETEUR';
+export const ADMIN = 'ADMIN_PRINCIPAL';
+export const FORMA = 'FORMATEUR';
+export const MARK = 'MARKETEUR';
+export const DEV = 'DEVELOPPEUR';
+export const PART = 'PARTENAIRE';
 
-export const LISTE_ROLES = [];
-
-export const NOTHING = '';
+export const LISTE = [
+  { libelle: 'Administrateur', role: ADMIN },
+  { libelle: 'Formateur', role: FORMA },
+  { libelle: 'Marketeur', role: MARK },
+  { libelle: 'Partenaire', role: PART },
+  { libelle: 'Developpeur', role: DEV },
+];

@@ -69,21 +69,13 @@
       <div class="d-flex justify-center align-center">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-avatar color="grey" class="cursor" v-on="on">
-              <span class="white--text headline">
-                {{ userAbb }}
-              </span>
-            </v-avatar>
+            <div v-on="on"><AvatarUser/></div>
           </template>
           <v-card>
         <v-list>
           <v-list-item>
             <v-list-item-avatar>
-              <v-avatar color="black">
-                <span class="white--text headline">
-                  {{ userAbb }}
-                </span>
-              </v-avatar>
+              <AvatarUser/>
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -109,12 +101,18 @@
 
         <v-divider></v-divider>
 
-        <v-list>
+        <v-list dense>
           <v-list-item @click="copieLien">
             <v-list-item-icon>
               <v-icon>mdi-link</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Copier le lien de parrainage</v-list-item-title>
+          </v-list-item>
+          <v-list-item :to="{ name: 'private-connexion' }" v-if="user.is_ad">
+            <v-list-item-icon>
+              <v-icon>mdi-vector-union</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>BackOffice</v-list-item-title>
           </v-list-item>
           <v-list-item @click="deconnexion">
             <v-list-item-icon>
@@ -141,8 +139,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import menu from '@/services/menu';
 import ModalAuth from '@/components/site/auth/ModalAuth.vue';
+import AvatarUser from '@/components/site/general/AvatarUser.vue';
 
 export default {
+  components: {
+    ModalAuth,
+    AvatarUser,
+  },
   data() {
     return {
       links: menu,
@@ -153,9 +156,6 @@ export default {
         { title: 'Click Me 2' },
       ],
     };
-  },
-  components: {
-    ModalAuth,
   },
   computed: {
     ...mapGetters([

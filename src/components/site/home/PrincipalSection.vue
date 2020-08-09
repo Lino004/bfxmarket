@@ -64,10 +64,6 @@
               <p class="display-1 font-italic">
                 ‘’Personne n'évolue seul et nul n'a le droit d'être heureux tout seul.’’
               </p>
-              <p class="text-end">
-                Khalid ALAO-FARI <br>
-                <span>Fondateur</span>
-              </p>
             </div>
           </v-row>
 

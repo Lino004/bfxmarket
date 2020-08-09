@@ -332,6 +332,10 @@ const routes = [
         },
       },
     ],
+    beforeEnter: async (to, from, next) => {
+      store.commit('SET_USER_ADMIN', {});
+      next();
+    },
   },
 ];
 

@@ -5,7 +5,9 @@
       app
       color="dat-dash-bg"
     >
-      <v-list-item :style="`height: ${$vuetify.application.top}px`">
+      <v-list-item
+        :to="{ name: 'bfx-home' }"
+        :style="`height: ${$vuetify.application.top}px`">
         <v-list-item-avatar  class="bg-blue-grad">
           <v-img :src="require('@/assets/img/logo-white.png')"/>
         </v-list-item-avatar>

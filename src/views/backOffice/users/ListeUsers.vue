@@ -10,7 +10,8 @@
             <v-btn
               small
               :color="employer ? 'primary' : 'gray'"
-              @click="swithToEmployer">
+              @click="swithToEmployer"
+              v-if="accesActions('employer')">
               <v-icon left> {{employer ? 'mdi-eye' : 'mdi-eye-off'}}</v-icon> Liste des Employer
             </v-btn>
           </v-col>
@@ -262,37 +263,74 @@ export default {
     },
     listeActions() {
       return [
-        { component: 'Souscription', libelle: 'Valider des souscriptions', show: true },
-        { component: 'EnvoiEmail', libelle: 'Envoyer des e-mails', show: true },
-        { component: 'ArchiveUser', libelle: 'Archiver des utilisateurs', show: true },
-        { component: 'AddToGroup', libelle: 'Ajouter à un groupe', show: true },
+        {
+          component: 'Souscription',
+          libelle: 'Valider des souscriptions',
+          show: config.accesActions('souscription'),
+        },
+        {
+          component: 'EnvoiEmail',
+          libelle: 'Envoyer des e-mails',
+          show: config.accesActions('envoi_email'),
+        },
+        {
+          component: 'ArchiveUser',
+          libelle: 'Archiver des utilisateurs',
+          show: config.accesActions('archiver_user'),
+        },
+        {
+          component: 'AddToGroup',
+          libelle: 'Ajouter à un groupe',
+          show: config.accesActions('add_to_group'),
+        },
       ];
     },
     headers() {
       return [
         {
-          text: 'Nom', value: 'nom', show: true,
+          text: 'Nom',
+          value: 'nom',
+          show: true,
         },
         {
-          text: 'Prenom', value: 'prenom', show: true,
+          text: 'Prenom',
+          value: 'prenom',
+          show: true,
         },
         {
-          text: 'Email', value: 'email', show: true,
+          text: 'Email',
+          value: 'email',
+          show: true,
         },
         {
-          text: 'Numéro', value: 'phone', width: 100, show: true,
+          text: 'Numéro',
+          value: 'phone',
+          width: 100,
+          show: true,
         },
         {
-          text: 'Pays', value: 'pays', width: 100, show: !this.employer,
+          text: 'Pays',
+          value: 'pays',
+          width: 100,
+          show: !this.employer,
         },
         {
-          text: 'Rôle', value: 'role', width: 150, show: this.employer,
+          text: 'Rôle',
+          value: 'role',
+          width: 150,
+          show: this.employer,
         },
         {
-          text: 'Status', value: 'status', width: 100, show: true,
+          text: 'Status',
+          value: 'status',
+          width: 100,
+          show: true,
         },
         {
-          text: 'Détail', value: 'detail', width: 100, show: true,
+          text: 'Détail',
+          value: 'detail',
+          width: 100,
+          show: true,
         },
       ].filter(el => el.show);
     },
@@ -370,6 +408,7 @@ export default {
       this.search.is_ad = this.employer;
       this.getList('search');
     },
+    accesActions: name => config.accesActions(name),
   },
   async mounted() {
     await this.getList();

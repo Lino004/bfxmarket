@@ -76,15 +76,28 @@
           <v-list-item-content style="align-self: start;">
             Liste des souscriptions
           </v-list-item-content>
-          <v-list-item-content class="align-end" style="flex: 2">
-            <div>
-              <div v-for="(chap, i) in getChapSousUser(userSelect.subscribes)" :key="i">
-                <span>{{chap.formation + ': ' + chap.chap}}</span> <br>
-              </div>
-            </div>
-          </v-list-item-content>
         </v-list-item>
       </v-list>
+      <v-simple-table
+        dense
+        fixed-header
+        :height="200"
+      >
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">Formation</th>
+              <th class="text-left">Titre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(chap, i) in getChapSousUser(userSelect.subscribes)" :key="i">
+              <td>{{ chap.formation }}</td>
+              <td>{{ chap.chap }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
     </v-card-text>
 
     <v-divider></v-divider>

@@ -10,7 +10,8 @@
           color="primary"
           :to="{
             name: 'back-office-ajout-module',
-          }">
+          }"
+          v-if="accesActions('a_module')">
           Ajouter
         </v-btn>
       </v-col>
@@ -74,6 +75,7 @@ import SnackComp from '@/components/site/general/SnackComp.vue';
 import { listeModule, deleteModule, updateModule } from '@/api/modules/index';
 import cloneDeep from 'lodash/cloneDeep';
 import { BASE_HOST } from '@/api/config/config';
+import { accesActions } from '@/configuration/user';
 
 export default {
   components: {
@@ -87,19 +89,41 @@ export default {
       message: '',
       modules: [],
       isLoad: false,
-      headers: [
-        { text: 'Image', value: 'image', width: 100 },
-        { text: 'Titre', value: 'titre' },
-        { text: 'Status', value: 'status', width: 80 },
-        { text: 'Modifier', value: 'modifier', width: 80 },
-        // { text: 'Supprimer', value: 'supprimer', width: 80 },
-      ],
       expanded: [],
       singleExpand: false,
       formations: [],
     };
   },
-  conputed: {},
+  computed: {
+    headers() {
+      return [
+        {
+          text: 'Image',
+          value: 'image',
+          width: 100,
+          show: true,
+        },
+        {
+          text: 'Titre',
+          value: 'titre',
+          show: true,
+        },
+        {
+          text: 'Status',
+          value: 'status',
+          width: 80,
+          show: accesActions('m_status_module'),
+        },
+        {
+          text: 'Modifier',
+          value: 'modifier',
+          width: 80,
+          show: accesActions('m_module'),
+        },
+        // { text: 'Supprimer', value: 'supprimer', width: 80 },
+      ].filter(el => el.show);
+    },
+  },
   methods: {
     showSnackComp(msg, color) {
       this.colorSnack = color;
@@ -131,6 +155,7 @@ export default {
       });
       await this.getList();
     },
+    accesActions: name => accesActions(name),
   },
   async mounted() {
     await this.getList();

@@ -9,7 +9,8 @@
           class="mx-2"
           fab dark
           color="green"
-          @click="dialog = true">
+          @click="dialog = true"
+          v-if="accesActions('m_info_contact')">
           <v-icon dark>mdi-pencil</v-icon>
         </v-btn>
       </v-col>
@@ -97,6 +98,7 @@
 <script>
 import db from '@/plugins/firebase';
 import SnackComp from '@/components/site/general/SnackComp.vue';
+import { accesActions } from '@/configuration/user';
 
 export default {
   components: {
@@ -136,6 +138,7 @@ export default {
         }
       });
     },
+    accesActions: name => accesActions(name),
   },
   mounted() {
     this.get();

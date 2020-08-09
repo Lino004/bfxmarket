@@ -42,6 +42,7 @@ import CommentUser from '@/views/backOffice/Comment.vue';
 import PrivateConnexion from '@/views/PrivateConnexion.vue';
 import { confirmeUser, get } from '@/api/auth/index';
 // import ComingSoon from '@/views/ComingSoon.vue';
+import { accesRoute } from '@/configuration/user';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -73,6 +74,15 @@ const routes = [
         path: '',
         name: 'back-office-config-home',
         component: ConfigPageAccueil,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/que-faisons-nous',
@@ -83,101 +93,281 @@ const routes = [
         path: '/backoffice/politique-conf',
         name: 'back-office-politique-conf',
         component: PolitiqueEtConf,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/termes-conditions',
         name: 'back-office-termes-conditions',
         component: TermeEtCondition,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/liste-chap-guide-trading',
         name: 'back-office-liste-chap-guide-trading',
         component: ListeGuide,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/add-chap-guide-trading/',
         name: 'back-office-add-chap-guide-trading',
         component: AddChapGuide,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/modif-chap-guide-trading/:id',
         name: 'back-office-modif-chap-guide-trading',
         component: DetailChapGuide,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/page-faq',
         name: 'back-office-faq',
         component: FAQ,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/liste-fromation',
         name: 'back-office-liste-formation',
         component: ListeFormation,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/ajout-formation',
         name: 'back-office-ajout-formation',
         component: AjouterFormation,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/modifier-formation/:id',
         name: 'back-office-modifier-formation',
         component: ModifierFormation,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/liste-modules',
         name: 'back-office-liste-modules',
         component: ListeModules,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/ajout-module/',
         name: 'back-office-ajout-module',
         component: AjouterModule,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/modifier-module/:id',
         name: 'back-office-modifier-module',
         component: ModifierModule,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/liste-chapitres',
         name: 'back-office-liste-chapitres',
         component: ListeChapitres,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/ajout-chapitre/',
         name: 'back-office-ajout-chapitre',
         component: AjouterChapitre,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/modifier-chapitre/:id',
         name: 'back-office-modifier-chapitre',
         component: ModifierChapitre,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/liste-users',
         name: 'back-office-liste-users',
         component: ListeUsers,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/liste-article',
         name: 'back-office-liste-article',
         component: ListeArtilces,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/ajout-article',
         name: 'back-office-ajout-article',
         component: AjoutArtilces,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/modifier-article/:id',
         name: 'back-office-modifier-article',
         component: AjoutArtilces,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/backoffice/comment',
         name: 'back-office-comment',
         component: CommentUser,
+        beforeEnter: async (to, from, next) => {
+          if ((!store.getters.userAdmin
+              || !store.getters.userAdmin.is_ad)
+              && !accesRoute(to.name)) {
+            next({ name: from.name });
+          } else {
+            next();
+          }
+        },
       },
     ],
     beforeEnter: async (to, from, next) => {

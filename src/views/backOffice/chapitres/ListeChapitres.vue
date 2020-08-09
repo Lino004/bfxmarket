@@ -10,7 +10,8 @@
           color="primary"
           :to="{
             name: 'back-office-ajout-chapitre',
-          }">
+          }"
+          v-if="accesActions('a_chap')">
           Ajouter
         </v-btn>
       </v-col>
@@ -74,8 +75,9 @@
 
 <script>
 import SnackComp from '@/components/site/general/SnackComp.vue';
-import { listeChapitre, deleteChapitre, updateChapitre } from '@/api/chapitres/index';
 import cloneDeep from 'lodash/cloneDeep';
+import { listeChapitre, deleteChapitre, updateChapitre } from '@/api/chapitres/index';
+import { accesActions } from '@/configuration/user';
 
 export default {
   components: {
@@ -88,21 +90,52 @@ export default {
       message: '',
       chapitres: [],
       isLoad: false,
-      headers: [
-        { text: 'Formation', value: 'module.titre' },
-        { text: 'Titre', value: 'titre' },
-        { text: 'Parrainage', value: 'downline', width: 120 },
-        { text: 'Prix', value: 'price', width: 80 },
-        { text: 'Status', value: 'status', width: 100 },
-        { text: 'Modifier', value: 'modifier', width: 100 },
-        // { text: 'Supprimer', value: 'supprimer', width: 80 },
-      ],
       expanded: [],
       singleExpand: false,
       formations: [],
     };
   },
-  conputed: {},
+  computed: {
+    headers() {
+      return [
+        {
+          text: 'Formation',
+          value: 'module.titre',
+          show: true,
+        },
+        {
+          text: 'Titre',
+          value: 'titre',
+          show: true,
+        },
+        {
+          text: 'Parrainage',
+          value: 'downline',
+          width: 120,
+          show: true,
+        },
+        {
+          text: 'Prix',
+          value: 'price',
+          width: 80,
+          show: true,
+        },
+        {
+          text: 'Status',
+          value: 'status',
+          width: 100,
+          show: accesActions('m_status_chap'),
+        },
+        {
+          text: 'Modifier',
+          value: 'modifier',
+          width: 100,
+          show: accesActions('m_chap'),
+        },
+        // { text: 'Supprimer', value: 'supprimer', width: 80 },
+      ].filter(el => el.show);
+    },
+  },
   methods: {
     showSnackComp(msg, color) {
       this.colorSnack = color;
@@ -133,6 +166,7 @@ export default {
       });
       await this.getList();
     },
+    accesActions: name => accesActions(name),
   },
   async mounted() {
     await this.getList();

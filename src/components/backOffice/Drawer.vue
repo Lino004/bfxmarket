@@ -4,7 +4,7 @@
       v-for="item in links"
       :key="item.title">
       <v-list-group
-        v-if="item.hasOwnProperty('child')"
+        v-if="item.hasOwnProperty('child') && item.show"
         :prepend-icon="item.icon"
         no-action
         class="test">
@@ -12,7 +12,7 @@
           <v-list-item-title class="white--text" v-text="item.text"/>
         </template>
         <v-list-item
-          v-for="(child, index) in item.child"
+          v-for="(child, index) in item.child.filter(el => el.show)"
           :key="index"
           :to="child.to"
           :disabled="child.disabled">
@@ -23,7 +23,7 @@
         </v-list-item>
       </v-list-group>
       <v-list-item
-        v-else
+        v-if="!item.hasOwnProperty('child') && item.show"
         :to="item.to"
         :disabled="item.disabled">
         <v-list-item-icon>

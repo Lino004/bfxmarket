@@ -4,7 +4,7 @@
       <v-col>
         <h2>Liste des témoignage</h2>
       </v-col>
-      <v-col class="text-end">
+      <v-col class="text-end" v-if="accesActions('acts_comment')">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn
@@ -61,6 +61,7 @@
               color="primary">mdi-eye</v-icon>
             <v-icon
               @click="supp(item.id)"
+              v-if="accesActions('d_comment')"
               color="red">mdi-delete</v-icon>
           </template>
         </v-data-table>
@@ -90,6 +91,7 @@ import { mapActions } from 'vuex';
 import { listeComment, deleteComment, validateComment } from '@/api/comment/index';
 import SnackComp from '@/components/site/general/SnackComp.vue';
 import { BASE_HOST } from '@/api/config/config';
+import { accesActions } from '@/configuration/user';
 
 export default {
   components: {
@@ -103,23 +105,45 @@ export default {
       message: '',
       selected: [],
       data: [],
-      headers: [
+      itemSelect: {},
+      alert: false,
+    };
+  },
+  computed: {
+    headers() {
+      return [
         {
           text: 'Utilisateur',
           align: 'start',
           sortable: false,
           value: 'user_name',
+          show: true,
         },
-        { text: 'Contenu', value: 'contenu' },
-        { text: 'Date de publication', value: 'created_date', width: 200 },
-        { text: 'Status', value: 'is_validate' },
-        { text: 'Actions', value: 'actions', align: 'end' },
-      ],
-      itemSelect: {},
-      alert: false,
-    };
+        {
+          text: 'Contenu',
+          value: 'contenu',
+          show: true,
+        },
+        {
+          text: 'Date de publication',
+          value: 'created_date',
+          width: 200,
+          show: true,
+        },
+        {
+          text: 'Status',
+          value: 'is_validate',
+          show: accesActions('m_status_comment'),
+        },
+        {
+          text: 'Actions',
+          value: 'actions',
+          align: 'end',
+          show: true,
+        },
+      ].filter(el => el.show);
+    },
   },
-  conputed: {},
   methods: {
     ...mapActions([
       'showSnackMsg',
@@ -183,6 +207,7 @@ export default {
     formatDate(date) {
       return moment(date).format('L');
     },
+    accesActions: name => accesActions(name),
   },
   async mounted() {
     await this.getList();

@@ -33,12 +33,12 @@
       </v-flex>
     </v-layout> -->
     <v-container class="my-5">
-      <v-content class="text-justify">
+      <v-main class="text-justify">
         <strong>WFxSchool</strong> est une école de trading. Elle est fondée par des traders
         professionnels prêt à mettre à votre disposition des notions et
         connaissances de trading appris après des années de rentabilité
         sur les marchés.
-      </v-content>
+      </v-main>
       <h1 class="text-center" v-animate-css="'fadeInDown'">Nos Objectifs</h1>
       <v-row justify="center">
         <v-col cols="12" sm="4">

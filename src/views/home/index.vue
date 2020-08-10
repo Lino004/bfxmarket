@@ -3,9 +3,9 @@
     <div>
       <Drawer/>
       <TopBar/>
-      <v-content v-resize="onResize" :style="`min-height: ${minHeight}px`">
+      <v-main v-resize="onResize" :style="`min-height: ${minHeight}px`">
         <router-view/>
-      </v-content>
+      </v-main>
       <Footer/>
     </div>
     <SnackComp/>

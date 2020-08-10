@@ -29,7 +29,7 @@
       <v-toolbar-title>Tableau de bord</v-toolbar-title>
     </v-app-bar>
 
-    <v-content class="bg-blue-grad">
+    <v-main class="bg-blue-grad">
       <v-container
         class="fill-height bg-black-5"
         fluid
@@ -37,7 +37,7 @@
       >
         <router-view/>
       </v-container>
-    </v-content>
+    </v-main>
     <SnackComp/>
   </v-app>
 </template>

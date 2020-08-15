@@ -36,13 +36,16 @@
 </template>
 
 <script>
-import menu from '@/services/menuBackOffice';
+import getMenu from '@/services/menuBackOffice';
 
 export default {
   data() {
     return {
-      links: menu,
+      links: [],
     };
+  },
+  mounted() {
+    this.links = getMenu();
   },
 };
 </script>

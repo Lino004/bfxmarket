@@ -16,6 +16,7 @@
         item-text="titre"
         hide-details
         :disabled="loadingChap"
+        multiple
       ></v-select>
     </v-card-text>
 
@@ -62,14 +63,16 @@ export default {
     async envoiSouscription() {
       this.loading = true;
       try {
-        if (this.chapitreSelect) {
+        if (this.chapitreSelect.length) {
           const requetes = [];
           this.usersSelect.forEach((user) => {
-            requetes.push(souscriptAdmin({
-              chapitre: this.chapitreSelect,
-              user: user.identifiant,
-              admin: this.userAdmin.identifiant,
-            }));
+            this.chapitreSelect.forEach((idChap) => {
+              requetes.push(souscriptAdmin({
+                chapitre: idChap,
+                user: user.identifiant,
+                admin: this.userAdmin.identifiant,
+              }));
+            });
           });
           await Promise.all(requetes);
           this.$parent.$parent.$parent.showSnackMsg({

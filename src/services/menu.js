@@ -11,12 +11,12 @@ export default [
     icon: 'mdi-book',
     disabled: false,
   },
-  {
+  /* {
     text: 'Lexique du trader',
     to: { name: 'bfx-guide' },
     icon: 'mdi-book',
     disabled: false,
-  },
+  }, */
   /* {
     text: 'A propos',
     to: { name: 'bfx-faisons' },

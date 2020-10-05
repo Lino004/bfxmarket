@@ -210,6 +210,7 @@ import Souscription from '@/components/backOffice/users/Souscription.vue';
 import DetailUser from '@/components/backOffice/users/DetailUser.vue';
 import ArchiveUser from '@/components/backOffice/users/ArchiveUser.vue';
 import AddToGroup from '@/components/backOffice/users/AddToGroup.vue';
+import MailConfirm from '@/components/backOffice/users/MailConfirm.vue';
 
 export default {
   components: {
@@ -218,6 +219,7 @@ export default {
     DetailUser,
     ArchiveUser,
     AddToGroup,
+    MailConfirm,
   },
   data() {
     return {
@@ -235,7 +237,7 @@ export default {
       chapitres: [],
       listePays: LISTE_PAYS,
       userSelect: {},
-      perPageValue: 10,
+      perPageValue: 100,
       page: 1,
       total: 1,
       search: {
@@ -282,6 +284,11 @@ export default {
           component: 'AddToGroup',
           libelle: 'Ajouter à un groupe',
           show: config.accesActions('add_to_group'),
+        },
+        {
+          component: 'MailConfirm',
+          libelle: 'Renvoi de mail de confirmation',
+          show: config.accesActions('mail_confirmation'),
         },
       ];
     },

@@ -18,6 +18,7 @@
           type="text"
           v-model="email"
           :rules="regleEmail"
+          @keyup.enter="login"
         />
 
         <v-text-field
@@ -27,6 +28,7 @@
           append-icon="lock"
           type="password"
           v-model="password"
+          @keyup.enter="login"
         />
       </v-form>
       <a @click="motDePasseOublie">

@@ -13,11 +13,14 @@
           class="p-absolute btn-souscription"
           v-if="canSouscrip">
           <v-btn color="red accent-2" @click="showModal">
-            <p class="mb-0 white--text" v-if="data.id === 4">
+            <!-- <p class="mb-0 white--text" v-if="data.id === 4">
               100 $ <span class="caption text-lowercase">et</span> 75%
               <span class="caption text-lowercase">de reduction</span>
             </p>
             <p class="mb-0 white--text" v-else>
+              {{data.price}} $ <span class="caption text-lowercase">le tout</span>
+            </p> -->
+            <p class="mb-0 white--text">
               {{data.price}} $ <span class="caption text-lowercase">le tout</span>
             </p>
           </v-btn>
@@ -57,7 +60,7 @@
               v-else
               :color="colorBtn"
               @click.prevent="$emit('action')"
-              :disabled="!(data.active && data.to_continue)">
+              :disabled="canSouscrip">
               {{dataBtn}}
             </v-btn>
           </v-layout>
@@ -110,7 +113,7 @@ export default {
       return 'grey';
     },
     canSouscrip() {
-      return this.userStatus === 'Online' && !(this.data.active && this.data.to_continue) && this.data.price;
+      return this.userStatus === 'Online' && this.data.price;
     },
   },
   methods: {

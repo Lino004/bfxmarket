@@ -113,7 +113,8 @@ export default {
       return 'grey';
     },
     canSouscrip() {
-      return this.userStatus === 'Online' && this.data.price;
+      return this.userStatus === 'Online' && this.data.price !== 0
+             && this.data.active && !this.data.to_continue;
     },
   },
   methods: {
@@ -122,6 +123,7 @@ export default {
     },
     showModal() {
       if (this.canSouscrip) this.modal = true;
+      else this.$emit('action');
     },
   },
 };

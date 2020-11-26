@@ -68,34 +68,35 @@ export default {
         modulesRes.forEach((el) => {
           reqs.push(listeChapitreByModule(el.id));
         });
-        /* eslint no-param-reassign: ["error", { "props": false }] */
-        modulesRes.forEach((el) => {
-          el.active = el.is_lock;
-          el.img = `${BASE_HOST}${el.image}`;
-          el.content = el.description;
-          el.title = el.titre;
-        });
+        this.modules = modulesRes.map(el => ({
+          ...el,
+          active: el.is_lock,
+          img: `${BASE_HOST}${el.image}`,
+          content: el.description,
+          title: el.titre,
+        }));
         const resps = await Promise.all(reqs);
         for (let index = 0; index < resps.length; index += 1) {
-          modulesRes[index].chaps = resps[index].data;
+          this.modules[index].chaps = resps[index].data;
         }
-        modulesRes.forEach((m) => {
+        /* eslint no-param-reassign: ["error", { "props": false }] */
+        this.modules.forEach((m) => {
           const tab = [];
           m.chaps.forEach((chap) => {
             tab.push(this.listeSouscript.includes(chap.id));
           });
           m.is_finish = tab.every(el => el === true);
         });
-        modulesRes.sort((a, b) => a.id - b.id);
-        for (let index = 0; index < modulesRes.length; index += 1) {
-          if (index === 0) modulesRes[index].to_continue = true;
+        this.modules.sort((a, b) => a.id - b.id);
+        for (let index = 0; index < this.modules.length; index += 1) {
+          if (index === 0) this.modules[index].to_continue = true;
           if (index) {
             const presIndex = index - 1;
-            modulesRes[index].to_continue = modulesRes[presIndex].is_finish;
+            this.modules[index].to_continue = this.modules[presIndex].is_finish;
           }
-          if (index === 2) modulesRes[index].to_continue = modulesRes[index].is_finish;
+          if (index === 2) this.modules[index].to_continue = this.modules[index].is_finish;
         }
-        this.modules = modulesRes;
+        // this.modules = modulesRes;
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

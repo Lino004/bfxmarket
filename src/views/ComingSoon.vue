@@ -13,7 +13,7 @@
             cols="12"
             sm="8"
           >
-            <div class="text-center">
+            <div class="text-center mb-7">
               <strong
                 v-for="(lettre, i) in title"
                 :key="i"
@@ -25,9 +25,31 @@
                 {{lettre}}
               </strong>
             </div>
-            <div>
+            <!-- <div>
               <flip-countdown
                 deadline="2020-06-01 8:00:00"/>
+            </div> -->
+            <div class="text-center">
+              <v-btn depressed class="mr-4" color="primary"
+                href="https://t.me/Contactuswfxschool">
+                Contactez nous sur Telegram
+                <v-icon
+                  right
+                  dark
+                >
+                  mdi-telegram
+                </v-icon>
+              </v-btn>
+              <v-btn depressed color="success"
+                href="http://Wa.me/22996005153">
+                Contactez nous sur Whatsapp
+                <v-icon
+                  right
+                  dark
+                >
+                  mdi-whatsapp
+                </v-icon>
+              </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -38,12 +60,12 @@
 
 <script>
 import moment from 'moment';
-import FlipCountdown from 'vue2-flip-countdown';
+// import FlipCountdown from 'vue2-flip-countdown';
 
 moment.locale('fr');
 
 export default {
-  components: { FlipCountdown },
+  // components: { FlipCountdown },
   data: () => ({
     title: 'SITE-EN-MAINTENANCE',
   }),

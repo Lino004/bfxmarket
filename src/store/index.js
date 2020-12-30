@@ -118,6 +118,10 @@ export default new Vuex.Store({
       await logout(context.getters.user.identifiant);
       context.dispatch('setUser', null);
     },
+    async logoutAdmin(context) {
+      await logout(context.getters.userAdmin.identifiant);
+      context.commit('SET_USER_ADMIN', null);
+    },
     async actionParrainage(context) {
       if (!context.getters.idParrainage) return false;
       await addDownline(context.getters.idParrainage);

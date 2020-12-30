@@ -27,6 +27,10 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Tableau de bord</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click="deconnexion()">
+        <v-icon color="white">mdi-logout</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main class="bg-blue-grad">
@@ -45,6 +49,7 @@
 <script>
 import Drawer from '@/components/backOffice/Drawer.vue';
 import SnackComp from '@/components/site/general/SnackComp.vue';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -54,6 +59,14 @@ export default {
   data: () => ({
     drawer: null,
   }),
-  mounted() {},
+  methods: {
+    ...mapActions([
+      'logoutAdmin',
+    ]),
+    async deconnexion() {
+      await this.logoutAdmin();
+      this.$router.replace('/');
+    },
+  },
 };
 </script>

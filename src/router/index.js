@@ -16,7 +16,7 @@ import ResetPassword from '@/views/home/ResetPassword.vue';
 import InitResetPassword from '@/views/home/InitResetPassword.vue';
 import formation from '@/components/site/formation/formation.vue';
 import modules from '@/components/site/formation/module.vue';
-import chapitre from '@/components/site/formation/chapitre.vue';
+import chapitre from '@/components/site/formation/chapitre.vue'; */
 import BackOffice from '@/views/backOffice/index.vue';
 import ConfigPageAccueil from '@/views/backOffice/ConfigPageAccueil.vue';
 import QueFaisonsNousBackOffice from '@/views/backOffice/QueFaisonsNous.vue';
@@ -40,28 +40,30 @@ import ListeArtilces from '@/views/backOffice/article/liste.vue';
 import AjoutArtilces from '@/views/backOffice/article/ajout.vue';
 import CommentUser from '@/views/backOffice/Comment.vue';
 import PrivateConnexion from '@/views/PrivateConnexion.vue';
-import { confirmeUser, get } from '@/api/auth/index';
-import { accesRoute } from '@/configuration/user'; */
+// import { confirmeUser, get } from '@/api/auth/index';
+import { accesRoute } from '@/configuration/user';
 import ComingSoon from '@/views/ComingSoon.vue';
 import store from '../store/index';
 
 Vue.use(VueRouter);
 
+const DEFAULT_ROUTE = '/comming-song';
+
 const routes = [
   {
     path: '*',
-    redirect: '/comming-song',
+    redirect: DEFAULT_ROUTE,
   },
-  /* {
+  {
     path: '/',
-    redirect: '/home',
-  }, */
+    redirect: DEFAULT_ROUTE,
+  },
   {
     path: '/comming-song',
     name: 'comming-song',
     component: ComingSoon,
   },
-  /* {
+  {
     path: '/private-connexion',
     name: 'private-connexion',
     component: PrivateConnexion,
@@ -378,7 +380,7 @@ const routes = [
       }
     },
   },
-  {
+  /* {
     path: '/home',
     name: '',
     component: Bfx,
@@ -551,7 +553,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!response) {
       next({
-        path: '/',
+        path: DEFAULT_ROUTE,
       });
     } else {
       next();
